@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ESLintProjectComponent">
+    <option name="eslintRcFile" value="" />
+    <option name="eslintExecutable" value="C:\Program Files\nodejs\eslint.cmd" />
+    <option name="nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <option name="pluginEnabled" value="true" />
+    <option name="autoFix" value="true" />
+  </component>
+</project>

@@ -23,6 +23,12 @@
   color: #61dafb;
 }
 
+.login-form{
+  margin : auto;
+  /*background-color: red;*/
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

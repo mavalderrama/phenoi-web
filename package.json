@@ -3,9 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@trendmicro/react-sidenav": "^0.4.5",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "office-ui-fabric-react": "^7.27.0",
     "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "react-window-size": "^1.2.2",
+    "uuid4": "^1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +37,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0"
   }
 }
