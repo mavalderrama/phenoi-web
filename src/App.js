@@ -3,10 +3,9 @@ import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
-import SideNav, { NavItem } from "@trendmicro/react-sidenav";
+import SideNav, { NavItem, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import windowSize from "react-window-size";
-import { instanceOf } from "prop-types";
 
 import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
 
@@ -39,13 +38,15 @@ class App extends Component {
       email: "",
       password: "",
       navbar_disabled: true,
-      login_disabled: false
+      navbar_expanded: true,
+      login_disabled: true
     };
 
     this.tools = {};
   }
 
   async componentDidMount() {
+    console.log(this.state);
     const uri = `${Constants.API_BASE_URI}/`;
     const axiosConfig = {
       headers: {
@@ -61,12 +62,23 @@ class App extends Component {
     };
     console.log();
     let response = await axios.post(uri, { void: 0 }, axiosConfig);
-    this.setState({
-      logged: response.data.logged,
-      login_disabled: true,
-      navbar_disabled: false
-    });
+    const login = response.data.logged;
+    if (login) {
+      this.setState({
+        logged: login,
+        login_disabled: true,
+        navbar_disabled: false
+      });
+    } else {
+      this.setState({
+        logged: login,
+        login_disabled: false,
+        navbar_disabled: true
+      });
+    }
+
     console.log("response", response.data);
+    console.log(this.state);
   }
 
   validateForm() {
@@ -92,10 +104,6 @@ class App extends Component {
 
   loginAction = async () => {
     const uri = `${Constants.API_BASE_URI}/login`;
-    // const { cookies } = this.props;
-    // var uuid4 = require("uuid4");
-    // var session = uuid4();
-    // cookies.set("session", session);
     const axiosConfig = {
       headers: {
         "content-Type": "application/json",
@@ -120,76 +128,117 @@ class App extends Component {
     }
   };
 
+  logoutAction = async () => {
+    const uri = `${Constants.API_BASE_URI}/logout`;
+    const axiosConfig = {
+      headers: {
+        "content-Type": "application/json",
+        Accept: "*/*"
+      },
+      withCredentials: true
+    };
+    let response = await axios.post(uri, { void: 0 }, axiosConfig);
+    console.log("response", response);
+    const logged = response.data.logged;
+    if (!logged) {
+      this.setState({
+        login: false,
+        navbar_disabled: true,
+        login_disabled: false
+      });
+    }
+    console.log(this.state);
+  };
+
+  expandNavBar = event => {
+    if (this.state.navbar_expanded) {
+      this.setState({ navbar_expanded: false });
+    } else {
+      this.setState({ navbar_expanded: true });
+    }
+  };
+
   render() {
     const { navbar_disabled, login_disabled } = this.state;
     return (
-      <Router>
-        <Route
-          render={({ location, history }) => (
-            <React.Fragment>
-              <SideNav
-                onSelect={selected => {
-                  const to = "/" + selected;
-                  if (location.pathname !== to) {
-                    history.push(to);
-                  }
-                }}
-                hidden={navbar_disabled}
-              >
-                <SideNav.Toggle />
-                <SideNav.Nav defaultSelected="login">
-                  <NavItem eventKey="login" disabled={navbar_disabled}>
-                    <IconTest fontSize="large" />
-                  </NavItem>
-                  <NavItem eventKey="devices" disabled={navbar_disabled}>
-                    <IconTest />
-                  </NavItem>
-                </SideNav.Nav>
-              </SideNav>
-              <form
-                onSubmit={this.handleSubmit}
-                className="login-form"
-                hidden={login_disabled}
-                autoComplete={"on"}
-              >
-                <Stack
-                  horizontal
-                  tokens={{ childrenGap: 50 }}
-                  styles={{ root: { width: 650 } }}
-                >
-                  <TextField
-                    label="Email"
-                    id={"email_id"}
-                    onChange={this.handleChange}
-                    styles={{ fieldGroup: { width: 200 } }}
-                    required={true}
-                    autoComplete="on"
-                  />
-                </Stack>
+      <React.Fragment>
+        <SideNav
+          onSelect={selected => {
+            // Add your code here
+          }}
+          expanded={this.state.navbar_expanded}
+          onToggle={this.expandNavBar}
+          style={{
+            width: 0,
+            backgroundColor: "blue"
+          }}
+          hidden={this.state.navbar_disabled}
+        >
+          <SideNav.Toggle />
+          <SideNav.Nav defaultSelected="projects">
+            <NavItem eventKey="projects">
+              <NavText>
+                <IconTest /> Projects
+              </NavText>
+            </NavItem>
+            <NavItem eventKey="charts">
+              <NavText>
+                <IconTest />
+                Charts
+              </NavText>
+              <NavItem eventKey="charts/linechart">
+                <NavText>Line Chart</NavText>
+              </NavItem>
+              <NavItem eventKey="charts/barchart">
+                <NavText>Bar Chart</NavText>
+              </NavItem>
+            </NavItem>
+            <NavItem eventKey="logout" onClick={this.logoutAction}>
+              <NavText>Logout</NavText>
+            </NavItem>
+          </SideNav.Nav>
+        </SideNav>
+        <form
+          onSubmit={this.handleSubmit}
+          className="login-form"
+          hidden={login_disabled}
+          autoComplete={"on"}
+        >
+          <Stack
+            horizontal
+            tokens={{ childrenGap: 50 }}
+            styles={{ root: { width: 650 } }}
+          >
+            <TextField
+              label="Email"
+              id={"email_id"}
+              onChange={this.handleChange}
+              styles={{ fieldGroup: { width: 200 } }}
+              required={true}
+              autoComplete="on"
+            />
+          </Stack>
 
-                <TextField
-                  id={"password_id"}
-                  label="Password"
-                  onChange={this.handleChange}
-                  styles={{ fieldGroup: { width: 200 } }}
-                  required={true}
-                  type={"password"}
-                  // value={this.state.password}
-                />
-                <PrimaryButton
-                  id={"loginButton"}
-                  text="Login"
-                  onClick={this.loginAction}
-                  allowDisabledFocus
-                  disabled={!this.validateForm()}
-                />
-              </form>
-            </React.Fragment>
-          )}
-        />
-      </Router>
+          <TextField
+            id={"password_id"}
+            label="Password"
+            onChange={this.handleChange}
+            styles={{ fieldGroup: { width: 200 } }}
+            required={true}
+            type={"password"}
+            // value={this.state.password}
+          />
+          <PrimaryButton
+            id={"loginButton"}
+            text="Login"
+            onClick={this.loginAction}
+            allowDisabledFocus
+            disabled={!this.validateForm()}
+          />
+        </form>
+      </React.Fragment>
     );
   }
 }
 
-export default withCookies(App);
+export default App;
