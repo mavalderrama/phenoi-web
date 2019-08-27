@@ -2,20 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/MValderrama.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Forms/Login/index.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Layout/Empty.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Login/index.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Redux/actions/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Redux/constants/action-types.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Redux/reducers/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/MapPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/WelcomePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/constants/URI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,10 +70,15 @@
     <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Program Files\nodejs\node_modules\prettier" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="es6.move.members.recent.items">
+      <recent name="D:\CIAT\repos\ciat.cgiar.org.phenoi.web\src\Pages\WelcomePage.js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\CIAT\repos\ciat.cgiar.org.phenoi.web\src\components\App" />
+      <recent name="D:\CIAT\repos\ciat.cgiar.org.phenoi.web\src\components" />
       <recent name="D:\repos\CIAT\Platform\ciat.cgiar.org.phenoi.web\src\Redux" />
       <recent name="D:\repos\CIAT\Platform\ciat.cgiar.org.phenoi.web\src\constants" />
     </key>
@@ -121,6 +126,10 @@
       <workItem from="1566564472553" duration="46133000" />
       <workItem from="1566823890089" duration="15438000" />
       <workItem from="1566911207254" duration="14075000" />
+      <workItem from="1566931609651" duration="244000" />
+      <workItem from="1566931926668" duration="232000" />
+      <workItem from="1566932184537" duration="498000" />
+      <workItem from="1566932704799" duration="3576000" />
     </task>
     <servers />
   </component>
