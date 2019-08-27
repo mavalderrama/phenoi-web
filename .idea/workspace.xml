@@ -2,8 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/MValderrama.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Forms/Login/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Layout/Empty.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Login/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Redux/actions/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Redux/constants/action-types.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Redux/reducers/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/constants/URI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +70,13 @@
     <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Program Files\nodejs\node_modules\prettier" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.eslint.settings.ESLintSettingsPage" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\repos\CIAT\Platform\ciat.cgiar.org.phenoi.web\src\Redux" />
+      <recent name="D:\repos\CIAT\Platform\ciat.cgiar.org.phenoi.web\src\constants" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -100,7 +118,9 @@
       <workItem from="1566482039283" duration="1078000" />
       <workItem from="1566486239155" duration="2808000" />
       <workItem from="1566489341422" duration="13488000" />
-      <workItem from="1566564472553" duration="45801000" />
+      <workItem from="1566564472553" duration="46133000" />
+      <workItem from="1566823890089" duration="15438000" />
+      <workItem from="1566911207254" duration="14075000" />
     </task>
     <servers />
   </component>

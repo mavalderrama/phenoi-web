@@ -15,6 +15,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "react-window-size": "^1.2.2",
+    "redux": "^4.0.4",
     "uuid4": "^1.1.4"
   },
   "scripts": {
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "css-loader": "^3.2.0",
+    "react-redux": "^7.1.1",
     "style-loader": "^1.0.0"
   }
 }

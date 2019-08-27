@@ -1,19 +1,28 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
+import { connect } from "react-redux";
+
 import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
 import SideNav, { NavItem, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
-import windowSize from "react-window-size";
-
-import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
 
 import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
-import Constants from "./Constants";
+import {
+  PrimaryButton,
+  Stack,
+  TextField,
+  initializeIcons
+} from "office-ui-fabric-react";
+import API_BASE_URI from "./Redux/constants/URI";
 import axios from "axios";
-import { withCookies, Cookies } from "react-cookie";
 
 initializeIcons();
 
@@ -27,12 +36,8 @@ const iconClass = mergeStyles({
 const IconTest = () => <Icon iconName="HomeSolid" className={iconClass} />;
 
 class App extends Component {
-  // static propTypes = {
-  //   cookies: instanceOf(Cookies).isRequired
-  // };
   constructor(props) {
     super(props);
-    const { cookies } = props;
     this.state = {
       logged: false,
       email: "",
@@ -47,7 +52,7 @@ class App extends Component {
 
   async componentDidMount() {
     console.log(this.state);
-    const uri = `${Constants.API_BASE_URI}/`;
+    const uri = `${API_BASE_URI.API_BASE_URI}/`;
     const axiosConfig = {
       headers: {
         "content-Type": "application/json",
@@ -56,13 +61,9 @@ class App extends Component {
       withCredentials: true
     };
 
-    const postData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    console.log();
     let response = await axios.post(uri, { void: 0 }, axiosConfig);
     const login = response.data.logged;
+    console.log(login);
     if (login) {
       this.setState({
         logged: login,
@@ -103,7 +104,7 @@ class App extends Component {
   };
 
   loginAction = async () => {
-    const uri = `${Constants.API_BASE_URI}/login`;
+    const uri = `${API_BASE_URI.API_BASE_URI}/login`;
     const axiosConfig = {
       headers: {
         "content-Type": "application/json",
@@ -129,7 +130,7 @@ class App extends Component {
   };
 
   logoutAction = async () => {
-    const uri = `${Constants.API_BASE_URI}/logout`;
+    const uri = `${API_BASE_URI.API_BASE_URI}/logout`;
     const axiosConfig = {
       headers: {
         "content-Type": "application/json",
@@ -158,21 +159,49 @@ class App extends Component {
     }
   };
 
+  async renderProjects(props) {
+    const uri = `${API_BASE_URI.API_BASE_URI}/projects`;
+    const axiosConfig = {
+      headers: {
+        "content-Type": "application/json",
+        Accept: "*/*"
+      },
+      withCredentials: true
+    };
+    let response = await axios.post(uri, { void: 0 }, axiosConfig);
+    console.log("!!!!!!!!!!", response.data);
+    const project_names = response.data.projects;
+    // let elements = [];
+    // for (let i = 0; i < project_names.length; i++) {
+    //   elements.push(
+    //     <NavItem eventKey="projects/i">
+    //       <NavText>project_names[i]</NavText>
+    //     </NavItem>
+    //   );
+    // }
+    // return { elements };
+    {
+      project_names.map((value, index) => {
+        return <NavItem>value</NavItem>;
+      });
+    }
+  }
+
   render() {
-    const { navbar_disabled, login_disabled } = this.state;
+    const { navbar_expanded, login_disabled, navbar_disabled } = this.state;
     return (
       <React.Fragment>
         <SideNav
           onSelect={selected => {
             // Add your code here
           }}
-          expanded={this.state.navbar_expanded}
+          expanded={navbar_expanded}
           onToggle={this.expandNavBar}
           style={{
             width: 0,
-            backgroundColor: "blue"
+            backgroundColor: "#34495E"
           }}
-          hidden={this.state.navbar_disabled}
+          hidden={navbar_disabled}
         >
           <SideNav.Toggle />
           <SideNav.Nav defaultSelected="projects">
