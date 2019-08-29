@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
     "@trendmicro/react-sidenav": "^0.4.5",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",

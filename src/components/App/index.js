@@ -1,38 +1,50 @@
-import {initializeIcons} from "office-ui-fabric-react";
-import React, {Component, Fragment} from "react";
-import {Redirect, Route} from "react-router-dom";
+import React, { Component, Fragment } from "react";
+import { Redirect, Route } from "react-router-dom";
 import WelcomePage from "../../Pages/WelcomePage";
 import LoginPage from "../../Pages/LoginPage";
-import MapPage from "../../Pages/MapPage";
-import {bindActionCreators} from "redux";
-import * as auth_actions from "../../Redux/actions/auth_actions";
-import {connect} from "react-redux";
+import MainPage from "../../Pages/MainPage";
+import { connect } from "react-redux";
+import * as auth_actions from "./../../Redux/actions/auth_actions";
+import { bindActionCreators } from "redux";
 
 class App extends Component {
-    componentDidMount() {
-        
-    }
-    render() {
-        var SecureRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={props => (
-                this.props.is_authenticated
-                    ? <Component {...props} /> :  <Redirect to="/login"/>
-            )}/>
-        );
-        return <Fragment>
-            <Route path="/login" component={LoginPage} />
-            <SecureRoute exact path="/" component={WelcomePage} />
-            <SecureRoute path="/map" component={MapPage} />
-        </Fragment>
-
-    }
+  componentDidMount() {
+    const { actions } = this.props;
+    actions.is_sessionActive();
+  }
+  render() {
+    var SecureRoute = ({ component: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={props =>
+          this.props.is_authenticated ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      />
+    );
+    return (
+      <Fragment>
+        <Route path="/login" component={LoginPage} />
+        <SecureRoute exact path="/" component={WelcomePage} />
+        <SecureRoute path="/main" component={MainPage} />
+      </Fragment>
+    );
+  }
 }
 
-const mapStateToProps = (store, ownProps)=>{
-    return{
-        is_authenticated: store.auth_reducer.is_authenticated
-    }
+const mapStateToProps = (store, ownProps) => {
+  return {
+    is_authenticated: store.auth_reducer.is_authenticated
+  };
 };
-export default connect(mapStateToProps)(App)
 
-
+const mapDispatchToProps = dispatch => {
+  return { actions: bindActionCreators(auth_actions, dispatch) };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import EmptyLayout from "./../../Layout/Empty"
 import LoginForm from "./../../Forms/LoginForm/index";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { withRouter, Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {Link, withRouter} from "react-router-dom";
 import Paper from "material-ui/Paper";
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import {Col, Grid, Row} from 'react-flexbox-grid';
 import * as actions from "./../../Redux/Actions/Auth";
+
 class LoginPage extends Component {
 
     styles = {
