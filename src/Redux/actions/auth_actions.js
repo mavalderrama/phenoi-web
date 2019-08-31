@@ -29,3 +29,10 @@ export function is_sessionActive() {
     payload: axios.post(`${constants.API_URI}/`, {}, axiosConfig)
   };
 }
+
+export function logout() {
+  return {
+    type: "LOGOUT",
+    payload: axios.post(`${constants.API_URI}/logout`, {}, axiosConfig)
+  };
+}

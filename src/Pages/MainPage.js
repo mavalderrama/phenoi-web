@@ -20,14 +20,15 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import Collapse from "@material-ui/core/Collapse";
 import WorkIcon from "@material-ui/icons/Work";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import { deepOrange } from "@material-ui/core/colors";
 import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import MediaCard from "./../Forms/ProjectCards";
 
 const drawerWidth = 240;
 
@@ -97,6 +98,10 @@ const styles = theme => ({
     margin: 10,
     color: "#fff",
     backgroundColor: deepOrange[500]
+  },
+  gridList: {
+    width: 500,
+    height: 450
   }
 });
 
@@ -130,26 +135,17 @@ class MainPage extends Component {
   };
 
   handleLogout = () => {
-    const { actions } = this.props;
+    const { auth_actions } = this.props;
     console.log("props", this.props);
-    actions.logout();
+    auth_actions.logout();
   };
 
   render() {
     console.log("drawer", this.props.is_authenticated);
-    const {
-      classes,
-      theme,
-      open,
-      projects,
-      expand_projects,
-      is_authenticated,
-      history,
-      is_session_active
-    } = this.props;
-    // if (!is_authenticated && !is_session_active) {
-    //   history.push("/login");
-    // }
+
+    const { classes, theme, open, projects, expand_projects } = this.props;
+    const projects_map = projects;
+    console.log("test", projects_map);
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -216,18 +212,18 @@ class MainPage extends Component {
               <ListItemText primary={"Projects"} />
               {expand_projects ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={expand_projects && open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {projects.map(text => (
-                  <ListItem button key={text} className={classes.nested}>
-                    <ListItemIcon>
-                      <PhotoLibraryIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
+            {/*<Collapse in={expand_projects && open} timeout="auto" unmountOnExit>*/}
+            {/*  <List component="div" disablePadding>*/}
+            {/*    {projects.map(text => (*/}
+            {/*      <ListItem button key={text} className={classes.nested}>*/}
+            {/*        <ListItemIcon>*/}
+            {/*          <PhotoLibraryIcon />*/}
+            {/*        </ListItemIcon>*/}
+            {/*        <ListItemText primary={text} />*/}
+            {/*      </ListItem>*/}
+            {/*    ))}*/}
+            {/*  </List>*/}
+            {/*</Collapse>*/}
             <ListItem button onClick={this.handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />
@@ -237,38 +233,20 @@ class MainPage extends Component {
           </List>
           <Divider />
         </Drawer>
+
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
+
+          <GridList cellHeight={280} cols={5} spacing={20}>
+            {projects_map.map(project => (
+              <GridListTile key={project.project_name} cols={1}>
+                <MediaCard
+                  title={project.project_name}
+                  details={project.details}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
         </main>
       </div>
     );

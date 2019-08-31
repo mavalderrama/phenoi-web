@@ -41,10 +41,3 @@ export function closeProjects() {
     type: "CLOSE_PROJECTS"
   };
 }
-
-export function logout() {
-  return {
-    type: "LOGOUT",
-    payload: axios.post(`${constants.API_URI}/logout`, {}, axiosConfig)
-  };
-}

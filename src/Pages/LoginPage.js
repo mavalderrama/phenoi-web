@@ -25,7 +25,7 @@ class LoginPage extends Component {
 const mapStateToProps = (store, ownProps) => {
   return {
     is_authenticated: store.auth_reducer.is_authenticated,
-    users: store.users_reducer.users
+    is_loading: store.auth_reducer.is_loading
   };
 };
 const mapDispatchToProps = dispatch => {

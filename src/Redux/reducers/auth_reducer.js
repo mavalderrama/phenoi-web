@@ -4,9 +4,13 @@ var initial_state = {
   is_session_active: false
 };
 export default function(state = initial_state, action) {
-  // console.log(action);
+  console.log(action);
   const { type, payload } = action;
-  if (type === "LOGIN_PENDING" || type === "IS_ACTIVE_PENDING") {
+  if (
+    type === "LOGIN_PENDING" ||
+    type === "IS_ACTIVE_PENDING" ||
+    type === "LOGOUT_PENDING"
+  ) {
     return {
       ...state,
       is_loading: true
@@ -42,6 +46,14 @@ export default function(state = initial_state, action) {
         is_authenticated: false
       };
     }
+  }
+  if (type === "LOGOUT_FULFILLED") {
+    return {
+      ...state,
+      is_loading: false,
+      is_authenticated: false,
+      is_session_active: false
+    };
   }
 
   return state;

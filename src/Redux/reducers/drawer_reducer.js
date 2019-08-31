@@ -20,14 +20,14 @@ export default function(state = initial_state, action) {
       open: false
     };
   }
-  if (type === "GET_PROJECTS_PENDING" || type === "LOGOUT_PENDING") {
+  if (type === "GET_PROJECTS_PENDING") {
     return {
       ...state,
       is_loading: true
     };
   } else if (type === "GET_PROJECTS_FULFILLED") {
     const { data } = payload;
-    // console.log("payload", data);
+    // console.log("payload", Object.keys(data.projects));
     return {
       ...state,
       is_loading: false,
@@ -45,14 +45,6 @@ export default function(state = initial_state, action) {
       expand_projects: false
     };
   }
-  console.log("WTF", type);
-  if (type === "LOGOUT_FULFILLED") {
-    return {
-      ...state,
-      is_loading: false,
-      is_authenticated: false,
-      is_session_active: false
-    };
-  }
+
   return state;
 }
