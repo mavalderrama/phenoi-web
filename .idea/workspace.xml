@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Forms/AddProjectForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Forms/ProjectCards.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Forms/Table2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Projects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Login/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/ProjectCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/ProjectCards.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/auth_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/auth_reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -136,7 +128,9 @@
       <workItem from="1567036015944" duration="771000" />
       <workItem from="1567082325161" duration="24618000" />
       <workItem from="1567173281132" duration="27293000" />
-      <workItem from="1567265596740" duration="8315000" />
+      <workItem from="1567265596740" duration="8390000" />
+      <workItem from="1567434127492" duration="13405000" />
+      <workItem from="1567516387765" duration="10822000" />
     </task>
     <servers />
   </component>

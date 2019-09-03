@@ -1,12 +1,13 @@
 var initial_state = {
   open: true,
   is_loading: false,
-  expand_projects: false,
-  projects: []
+  open_project: false,
+  projects: [],
+  mosaics: []
 };
 
 export default function(state = initial_state, action) {
-  // console.log("Drawer Actions", action);
+  console.log("Drawer Actions", action);
   const { type, payload } = action;
   if (type === "OPEN") {
     return {
@@ -20,12 +21,13 @@ export default function(state = initial_state, action) {
       open: false
     };
   }
-  if (type === "GET_PROJECTS_PENDING") {
+  if (type === "GET_PROJECTS_PENDING" || type === "GET_MOSAICS_PENDING") {
     return {
       ...state,
       is_loading: true
     };
-  } else if (type === "GET_PROJECTS_FULFILLED") {
+  }
+  if (type === "GET_PROJECTS_FULFILLED") {
     const { data } = payload;
     // console.log("payload", Object.keys(data.projects));
     return {
@@ -34,15 +36,14 @@ export default function(state = initial_state, action) {
       projects: data.projects
     };
   }
-  if (type === "EXPAND_PROJECTS") {
+  if (type === "GET_MOSAICS_FULFILLED") {
+    const { data } = payload;
+    console.log(data);
     return {
       ...state,
-      expand_projects: true
-    };
-  } else if (type === "CLOSE_PROJECTS") {
-    return {
-      ...state,
-      expand_projects: false
+      is_loading: false,
+      mosaics: data.mosaics,
+      open_project: true
     };
   }
 

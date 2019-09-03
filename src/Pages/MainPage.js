@@ -125,12 +125,13 @@ class MainPage extends Component {
     actions.setClose();
   };
 
-  handleProjectsExpand = () => {
+  handleClickOnProject = () => {
+    console.log(this.props);
     const { actions, expand_projects } = this.props;
     if (!expand_projects) {
-      actions.expandProjects();
+      // actions.expandProjects();
     } else {
-      actions.closeProjects();
+      // actions.closeProjects();
     }
   };
 
@@ -140,12 +141,46 @@ class MainPage extends Component {
     auth_actions.logout();
   };
 
-  render() {
-    console.log("drawer", this.props.is_authenticated);
+  renderProjects() {
+    console.log("Rproj", this.props.projects);
+    return this.props.projects.map(project => (
+      <GridListTile key={project.project_name} cols={1}>
+        <MediaCard
+          title={project.project_name}
+          details={project.details}
+          type={"PROJECT"}
+          onClick={project => this.handleClickOnProject}
+          delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        />
+      </GridListTile>
+    ));
+  }
 
-    const { classes, theme, open, projects, expand_projects } = this.props;
-    const projects_map = projects;
-    console.log("test", projects_map);
+  renderMosaics() {
+    console.log("Rmos", this.props.mosaics);
+    return this.props.mosaics.map(project => (
+      <GridListTile key={project.mosaic_name} cols={1}>
+        <MediaCard
+          title={project.mosaic_name}
+          details={project.stage}
+          type={"MOSAIC"}
+          onClick={project => this.handleClickOnProject}
+          delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        />
+      </GridListTile>
+    ));
+  }
+
+  render() {
+    console.log("drawer", this.props);
+
+    const { classes, theme, open, open_project } = this.props;
+    let cards;
+    if (open_project) {
+      cards = this.renderMosaics();
+    } else {
+      cards = this.renderProjects();
+    }
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -205,25 +240,13 @@ class MainPage extends Component {
             <Avatar className={classes.orangeAvatar}>N</Avatar>
           </Grid>
           <List>
-            <ListItem button onClick={this.handleProjectsExpand}>
+            <ListItem button onClick={() => console.log("expanding")}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
               <ListItemText primary={"Projects"} />
-              {expand_projects ? <ExpandLess /> : <ExpandMore />}
+              {/*{expand_projects ? <ExpandLess /> : <ExpandMore />}*/}
             </ListItem>
-            {/*<Collapse in={expand_projects && open} timeout="auto" unmountOnExit>*/}
-            {/*  <List component="div" disablePadding>*/}
-            {/*    {projects.map(text => (*/}
-            {/*      <ListItem button key={text} className={classes.nested}>*/}
-            {/*        <ListItemIcon>*/}
-            {/*          <PhotoLibraryIcon />*/}
-            {/*        </ListItemIcon>*/}
-            {/*        <ListItemText primary={text} />*/}
-            {/*      </ListItem>*/}
-            {/*    ))}*/}
-            {/*  </List>*/}
-            {/*</Collapse>*/}
             <ListItem button onClick={this.handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />
@@ -238,14 +261,7 @@ class MainPage extends Component {
           <div className={classes.toolbar} />
 
           <GridList cellHeight={280} cols={5} spacing={20}>
-            {projects_map.map(project => (
-              <GridListTile key={project.project_name} cols={1}>
-                <MediaCard
-                  title={project.project_name}
-                  details={project.details}
-                />
-              </GridListTile>
-            ))}
+            {cards}
           </GridList>
         </main>
       </div>
@@ -257,6 +273,8 @@ const mapStateToProps = (store, ownProps) => {
   return {
     open: store.drawer_reducer.open,
     projects: store.drawer_reducer.projects,
+    open_project: store.drawer_reducer.open_project,
+    mosaics: store.drawer_reducer.mosaics,
     expand_projects: store.drawer_reducer.expand_projects,
     is_loading: store.drawer_reducer.is_loading,
     is_authenticated: store.auth_reducer.is_authenticated

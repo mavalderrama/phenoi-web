@@ -30,9 +30,14 @@ export function getProjects() {
   };
 }
 
-export function expandProjects() {
+export function getMosaics(projectName) {
   return {
-    type: "EXPAND_PROJECTS"
+    type: "GET_MOSAICS",
+    payload: axios.post(
+      `${constants.API_URI}/mosaics`,
+      { project_name: projectName },
+      axiosConfig
+    )
   };
 }
 

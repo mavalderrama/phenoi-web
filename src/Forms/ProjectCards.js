@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,8 +8,11 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { reduxForm } from "redux-form";
+import { bindActionCreators } from "redux";
+import * as drawer_actions from "../Redux/actions/drawer_actions";
+import { connect } from "react-redux";
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     maxWidth: 345
   },
@@ -19,16 +22,10 @@ const styles = theme => ({
 });
 
 class MediaCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleClickOnCard = event => {
-    console.log("click on card", event);
-  };
-
-  handleClickOnDelete = () => {
-    console.log("click on delete on card");
+  handleClickOnCard = () => {
+    console.log(this.props);
+    const { title, actions } = this.props;
+    actions.getMosaics(title);
   };
 
   render() {
@@ -40,8 +37,13 @@ class MediaCard extends Component {
     const detailsC = details || "No-details";
     return (
       <Card className={classes.card}>
-        <CardActionArea onClick={this.handleClickOnCard}>
-          <CardMedia className={classes.media} image={imageC} title={titleC} />
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={imageC}
+            title={titleC}
+            onClick={this.handleClickOnCard}
+          />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {titleC}
@@ -52,11 +54,7 @@ class MediaCard extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={this.handleClickOnDelete}
-          >
+          <Button size="small" color="primary" onClick={this.props.delete()}>
             Delete
           </Button>
         </CardActions>
@@ -65,4 +63,18 @@ class MediaCard extends Component {
   }
 }
 
-export default withStyles(styles)(MediaCard);
+const mapStateToProps = (store, ownProps) => {
+  return {
+    projects: store.drawer_reducer.projects,
+    expand_projects: store.drawer_reducer.expand_projects
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(drawer_actions, dispatch)
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(MediaCard));
