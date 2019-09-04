@@ -29,6 +29,13 @@ import * as auth_actions from "../Redux/actions/auth_actions";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import MediaCard from "./../Forms/ProjectCards";
+import Button from "@material-ui/core/Button";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import AddIcon from "@material-ui/icons/Add";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import AddProjectForm from "./../Forms/AddProjectForm";
 
 const drawerWidth = 240;
 
@@ -102,7 +109,9 @@ const styles = theme => ({
   gridList: {
     width: 500,
     height: 450
-  }
+  },
+  plusButton: { margin: theme.spacing(1, 0), float: "right" },
+  plusIcon: { marginLeft: theme.spacing(0) }
 });
 
 class MainPage extends Component {
@@ -141,10 +150,17 @@ class MainPage extends Component {
     auth_actions.logout();
   };
 
+  submitProjectForm = values => {
+    const { actions } = this.props;
+    const project_name = values.project_name;
+    const details = values.details;
+    actions.createProject(project_name, details);
+  };
+
   renderProjects() {
     console.log("Rproj", this.props.projects);
-    return this.props.projects.map(project => (
-      <GridListTile key={project.project_name} cols={1}>
+    return this.props.projects.map((project, index) => (
+      <GridListTile key={index} cols={1}>
         <MediaCard
           title={project.project_name}
           details={project.details}
@@ -158,8 +174,8 @@ class MainPage extends Component {
 
   renderMosaics() {
     console.log("Rmos", this.props.mosaics);
-    return this.props.mosaics.map(project => (
-      <GridListTile key={project.mosaic_name} cols={1}>
+    return this.props.mosaics.map((project, index) => (
+      <GridListTile key={index} cols={1}>
         <MediaCard
           title={project.mosaic_name}
           details={project.stage}
@@ -171,10 +187,23 @@ class MainPage extends Component {
     ));
   }
 
+  handleAddProjectButton = () => {
+    const { open_add_project_form, actions } = this.props;
+    if (!open_add_project_form) {
+      actions.openFormAddProject();
+    }
+  };
+
   render() {
     console.log("drawer", this.props);
 
-    const { classes, theme, open, open_project } = this.props;
+    const {
+      classes,
+      theme,
+      open,
+      open_project,
+      open_add_project_form
+    } = this.props;
     let cards;
     if (open_project) {
       cards = this.renderMosaics();
@@ -259,10 +288,37 @@ class MainPage extends Component {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-
-          <GridList cellHeight={280} cols={5} spacing={20}>
-            {cards}
-          </GridList>
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="flex-end"
+            direction="row"
+          >
+            <Button
+              variant="contained"
+              color="default"
+              className={classes.plusButton}
+              onClick={this.handleAddProjectButton}
+            >
+              <AddIcon className={classes.plusIcon} />
+              Create Project
+            </Button>
+          </Grid>
+          <Dialog
+            open={open_add_project_form}
+            onClose={this.handleAddProjectButton}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
+            <DialogContent>
+              <AddProjectForm onSubmit={this.submitProjectForm} />
+            </DialogContent>
+          </Dialog>
+          <div>
+            <GridList cellHeight={280} cols={5} spacing={20}>
+              {cards}
+            </GridList>
+          </div>
         </main>
       </div>
     );
@@ -277,7 +333,8 @@ const mapStateToProps = (store, ownProps) => {
     mosaics: store.drawer_reducer.mosaics,
     expand_projects: store.drawer_reducer.expand_projects,
     is_loading: store.drawer_reducer.is_loading,
-    is_authenticated: store.auth_reducer.is_authenticated
+    is_authenticated: store.auth_reducer.is_authenticated,
+    open_add_project_form: store.drawer_reducer.open_add_project_form
   };
 };
 const mapDispatchToProps = dispatch => {

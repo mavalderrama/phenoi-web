@@ -3,7 +3,8 @@ var initial_state = {
   is_loading: false,
   open_project: false,
   projects: [],
-  mosaics: []
+  mosaics: [],
+  open_add_project_form: false
 };
 
 export default function(state = initial_state, action) {
@@ -21,7 +22,11 @@ export default function(state = initial_state, action) {
       open: false
     };
   }
-  if (type === "GET_PROJECTS_PENDING" || type === "GET_MOSAICS_PENDING") {
+  if (
+    type === "GET_PROJECTS_PENDING" ||
+    type === "GET_MOSAICS_PENDING" ||
+    type === "CREATE_PROJECT_PENDING"
+  ) {
     return {
       ...state,
       is_loading: true
@@ -44,6 +49,23 @@ export default function(state = initial_state, action) {
       is_loading: false,
       mosaics: data.mosaics,
       open_project: true
+    };
+  }
+
+  if (type === "CREATE_PROJECT_FULFILLED") {
+    const { data } = payload;
+    console.log(data);
+    return {
+      ...state,
+      is_loading: false,
+      open_add_project_form: false
+    };
+  }
+
+  if (type === "OPEN_ADD_PROJECT_FORM") {
+    return {
+      ...state,
+      open_add_project_form: true
     };
   }
 

@@ -46,3 +46,20 @@ export function closeProjects() {
     type: "CLOSE_PROJECTS"
   };
 }
+
+export function createProject(project_name, details) {
+  return {
+    type: "CREATE_PROJECT",
+    payload: axios.post(
+      `${constants.API_URI}/add_project`,
+      { details: details, project_name: project_name },
+      axiosConfig
+    )
+  };
+}
+
+export function openFormAddProject() {
+  return {
+    type: "OPEN_ADD_PROJECT_FORM"
+  };
+}
