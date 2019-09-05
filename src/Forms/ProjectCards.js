@@ -7,14 +7,13 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { reduxForm } from "redux-form";
 import { bindActionCreators } from "redux";
 import * as drawer_actions from "../Redux/actions/drawer_actions";
 import { connect } from "react-redux";
 
 const styles = () => ({
   card: {
-    maxWidth: 345
+    maxWidth: 500
   },
   media: {
     height: 140

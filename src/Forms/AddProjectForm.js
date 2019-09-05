@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Field, reduxForm } from "redux-form";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const renderTextField = ({
   label,
@@ -21,10 +22,10 @@ const renderTextField = ({
 
 class AddProjectForm extends Component {
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, handleClose } = this.props;
     return (
       <div>
-        <form onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit}>
           <Field
             component={renderTextField}
             type="text"
@@ -44,16 +45,34 @@ class AddProjectForm extends Component {
             id="details"
             label="Details"
             name="details"
-            autoFocus
           />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{ float: "right", "padding-top": "10px" }}
-          >
-            Add
-          </Button>
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                <Grid key={0} item>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClose()}
+                    // style={{ "padding-right": "10px" }}
+                  >
+                    Close
+                  </Button>
+                </Grid>
+                <Grid key={1} item>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    // style={{ float: "right", "padding-top": "10px" }}
+                  >
+                    Create
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
       </div>
     );

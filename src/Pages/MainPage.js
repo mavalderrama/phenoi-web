@@ -111,7 +111,8 @@ const styles = theme => ({
     height: 450
   },
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
-  plusIcon: { marginLeft: theme.spacing(0) }
+  plusIcon: { marginLeft: theme.spacing(0) },
+  cloudIcon: { marginLeft: theme.spacing(1) }
 });
 
 class MainPage extends Component {
@@ -154,7 +155,13 @@ class MainPage extends Component {
     const { actions } = this.props;
     const project_name = values.project_name;
     const details = values.details;
-    actions.createProject(project_name, details);
+    actions.createProject(project_name, details).then(result => {
+      console.log(result);
+      console.log("mmmm");
+      if ("success" in result.value.data) {
+        actions.getProjects();
+      }
+    });
   };
 
   renderProjects() {
@@ -194,21 +201,85 @@ class MainPage extends Component {
     }
   };
 
+  handleCloseProjectDialog = () => {
+    const { open_add_project_form, actions } = this.props;
+    if (open_add_project_form) {
+      actions.closeFormAddProject();
+    }
+  };
+
+  renderAddProject() {
+    const { open_add_project_form } = this.props;
+    return (
+      <Dialog
+        open={open_add_project_form}
+        onClose={this.handleAddProjectButton}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
+        <DialogContent>
+          <AddProjectForm
+            onSubmit={this.submitProjectForm}
+            handleClose={() => this.handleCloseProjectDialog}
+          />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  addProjectButton() {
+    const { classes } = this.props;
+    return (
+      <Button
+        variant="contained"
+        color="default"
+        className={classes.plusButton}
+        onClick={this.handleAddProjectButton}
+      >
+        <AddIcon className={classes.plusIcon} />
+        Create Project
+      </Button>
+    );
+  }
+
+  addMosaicButton() {
+    const { classes } = this.props;
+    return (
+      <Button
+        variant="contained"
+        color="default"
+        className={classes.plusButton}
+        onClick={this.handleAddProjectButton}
+      >
+        Upload Mosaic
+        <CloudUploadIcon className={classes.cloudIcon} />
+      </Button>
+    );
+  }
+
+  renderAddMosaic() {
+    // const { ... } = this.props;
+    // return (
+    //
+    // );
+  }
+
   render() {
     console.log("drawer", this.props);
 
-    const {
-      classes,
-      theme,
-      open,
-      open_project,
-      open_add_project_form
-    } = this.props;
+    const { classes, theme, open, open_project } = this.props;
     let cards;
+    let add_dialog;
+    let add_dialog_button;
     if (open_project) {
       cards = this.renderMosaics();
+      add_dialog = this.renderAddMosaic();
+      add_dialog_button = this.addMosaicButton();
     } else {
       cards = this.renderProjects();
+      add_dialog = this.renderAddProject();
+      console.log("asd", add_dialog);
+      add_dialog_button = this.addProjectButton();
     }
     return (
       <div className={classes.root}>
@@ -294,26 +365,9 @@ class MainPage extends Component {
             justify="flex-end"
             direction="row"
           >
-            <Button
-              variant="contained"
-              color="default"
-              className={classes.plusButton}
-              onClick={this.handleAddProjectButton}
-            >
-              <AddIcon className={classes.plusIcon} />
-              Create Project
-            </Button>
+            {add_dialog_button}
           </Grid>
-          <Dialog
-            open={open_add_project_form}
-            onClose={this.handleAddProjectButton}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
-            <DialogContent>
-              <AddProjectForm onSubmit={this.submitProjectForm} />
-            </DialogContent>
-          </Dialog>
+          {add_dialog}
           <div>
             <GridList cellHeight={280} cols={5} spacing={20}>
               {cards}

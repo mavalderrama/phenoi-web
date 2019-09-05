@@ -4,7 +4,8 @@ var initial_state = {
   open_project: false,
   projects: [],
   mosaics: [],
-  open_add_project_form: false
+  open_add_project_form: false,
+  submit_add_project: false
 };
 
 export default function(state = initial_state, action) {
@@ -58,7 +59,8 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       is_loading: false,
-      open_add_project_form: false
+      open_add_project_form: false,
+      submit_add_project: true
     };
   }
 
@@ -66,6 +68,13 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       open_add_project_form: true
+    };
+  }
+
+  if (type === "CLOSE_ADD_PROJECT_FORM") {
+    return {
+      ...state,
+      open_add_project_form: false
     };
   }
 

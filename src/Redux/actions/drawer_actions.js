@@ -63,3 +63,9 @@ export function openFormAddProject() {
     type: "OPEN_ADD_PROJECT_FORM"
   };
 }
+
+export function closeFormAddProject() {
+  return {
+    type: "CLOSE_ADD_PROJECT_FORM"
+  };
+}
