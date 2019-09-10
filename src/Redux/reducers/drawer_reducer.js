@@ -3,8 +3,11 @@ var initial_state = {
   is_loading: false,
   open_project: false,
   projects: [],
+  project_opened: "",
   mosaics: [],
+  mosaic_opened: "",
   open_add_project_form: false,
+  open_add_mosaic_form: false,
   submit_add_project: false
 };
 
@@ -44,12 +47,13 @@ export default function(state = initial_state, action) {
   }
   if (type === "GET_MOSAICS_FULFILLED") {
     const { data } = payload;
-    console.log(data);
+    console.log("get mosaics ffld", action);
     return {
       ...state,
       is_loading: false,
       mosaics: data.mosaics,
-      open_project: true
+      open_project: true,
+      project_opened: data.project_name
     };
   }
 
@@ -75,6 +79,30 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       open_add_project_form: false
+    };
+  }
+
+  if (type === "OPEN_ADD_MOSAIC_FORM") {
+    return {
+      ...state,
+      open_add_mosaic_form: true
+    };
+  }
+
+  if (type === "CLOSE_ADD_MOSAIC_FORM") {
+    return {
+      ...state,
+      open_add_mosaic_form: false
+    };
+  }
+
+  if (type === "CREATE_MOSAIC_FULFILLED") {
+    const { data } = payload;
+    console.log("CREATE_MOSAIC_FULFILLED");
+    console.log(data);
+    return {
+      ...state,
+      open_add_mosaic_form: false
     };
   }
 

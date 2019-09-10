@@ -28,7 +28,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import MediaCard from "./../Forms/ProjectCards";
+import MediaCard from "../components/ProjectCards";
 import Button from "@material-ui/core/Button";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import AddIcon from "@material-ui/icons/Add";
@@ -36,6 +36,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import AddProjectForm from "./../Forms/AddProjectForm";
+import AddMosaicForm from "../Forms/AddMosaicForm";
 
 const drawerWidth = 240;
 
@@ -136,7 +137,7 @@ class MainPage extends Component {
   };
 
   handleClickOnProject = () => {
-    console.log(this.props);
+    console.log("open project", this.props);
     const { actions, expand_projects } = this.props;
     if (!expand_projects) {
       // actions.expandProjects();
@@ -156,16 +157,30 @@ class MainPage extends Component {
     const project_name = values.project_name;
     const details = values.details;
     actions.createProject(project_name, details).then(result => {
-      console.log(result);
-      console.log("mmmm");
       if ("success" in result.value.data) {
         actions.getProjects();
       }
     });
   };
 
+  submitMosaicForm = values => {
+    const { actions, project_opened } = this.props;
+    const { combo, stage, image } = values;
+    let { calibrated, date } = values;
+    if (calibrated == null) calibrated = false;
+    if (date == null) date = new Date().toLocaleDateString("en-US");
+    if (image != null) {
+      actions
+        .createMosaic(combo, stage, image, calibrated, project_opened, date)
+        .then(result => {
+          if ("success" in result.value.data) {
+            actions.getMosaics(project_opened);
+          }
+        });
+    }
+  };
+
   renderProjects() {
-    console.log("Rproj", this.props.projects);
     return this.props.projects.map((project, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
@@ -180,7 +195,6 @@ class MainPage extends Component {
   }
 
   renderMosaics() {
-    console.log("Rmos", this.props.mosaics);
     return this.props.mosaics.map((project, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
@@ -201,10 +215,24 @@ class MainPage extends Component {
     }
   };
 
+  handleAddMosaicButton = () => {
+    const { open_add_mosaic_form, actions } = this.props;
+    if (!open_add_mosaic_form) {
+      actions.openFormAddMosaic();
+    }
+  };
+
   handleCloseProjectDialog = () => {
     const { open_add_project_form, actions } = this.props;
     if (open_add_project_form) {
       actions.closeFormAddProject();
+    }
+  };
+
+  handleCloseMosaicDialog = () => {
+    const { open_add_mosaic_form, actions } = this.props;
+    if (open_add_mosaic_form) {
+      actions.closeFormAddMosaic();
     }
   };
 
@@ -249,7 +277,7 @@ class MainPage extends Component {
         variant="contained"
         color="default"
         className={classes.plusButton}
-        onClick={this.handleAddProjectButton}
+        onClick={this.handleAddMosaicButton}
       >
         Upload Mosaic
         <CloudUploadIcon className={classes.cloudIcon} />
@@ -258,10 +286,23 @@ class MainPage extends Component {
   }
 
   renderAddMosaic() {
-    // const { ... } = this.props;
-    // return (
-    //
-    // );
+    const { open_add_mosaic_form } = this.props;
+    return (
+      <Dialog
+        open={open_add_mosaic_form}
+        // onClose={this.handleAddMosaicButton}
+        aria-labelledby="form-dialog-title"
+        fullWidth={true}
+      >
+        <DialogTitle id="form-dialog-mosaic">Upload Mosaic</DialogTitle>
+        <DialogContent>
+          <AddMosaicForm
+            onSubmit={this.submitMosaicForm}
+            handleClose={() => this.handleCloseMosaicDialog}
+          />
+        </DialogContent>
+      </Dialog>
+    );
   }
 
   render() {
@@ -271,6 +312,7 @@ class MainPage extends Component {
     let cards;
     let add_dialog;
     let add_dialog_button;
+    console.log("wtf", this.props);
     if (open_project) {
       cards = this.renderMosaics();
       add_dialog = this.renderAddMosaic();
@@ -278,7 +320,6 @@ class MainPage extends Component {
     } else {
       cards = this.renderProjects();
       add_dialog = this.renderAddProject();
-      console.log("asd", add_dialog);
       add_dialog_button = this.addProjectButton();
     }
     return (
@@ -388,7 +429,9 @@ const mapStateToProps = (store, ownProps) => {
     expand_projects: store.drawer_reducer.expand_projects,
     is_loading: store.drawer_reducer.is_loading,
     is_authenticated: store.auth_reducer.is_authenticated,
-    open_add_project_form: store.drawer_reducer.open_add_project_form
+    open_add_project_form: store.drawer_reducer.open_add_project_form,
+    open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
+    project_opened: store.drawer_reducer.project_opened
   };
 };
 const mapDispatchToProps = dispatch => {

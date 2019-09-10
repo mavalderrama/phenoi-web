@@ -9,11 +9,6 @@ const axiosConfig = {
   withCredentials: true
 };
 
-const axiosConfigFile = {
-  headers: { "Content-Type": "multipart/form-data" },
-  withCredentials: true
-};
-
 export function setOpen() {
   return {
     type: "OPEN",
@@ -73,17 +68,17 @@ export function createMosaic(
 ) {
   const formData = new FormData();
   formData.append("project", project_opened);
-  formData.append("type", combo);
-  formData.append("stage", stage);
-  formData.append("date", date);
-  formData.append("calibrated", calibrated);
-  formData.append("mosaic", image[0]);
+  formData.append();
+  formData.append();
+  formData.append();
+  formData.append();
+  formData.append();
   return {
     type: "CREATE_MOSAIC",
     payload: axios.post(
       `${constants.API_URI}/upload_mosaic`,
       formData,
-      axiosConfigFile
+      axiosConfig
     )
   };
 }
