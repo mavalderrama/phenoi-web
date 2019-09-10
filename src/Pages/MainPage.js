@@ -203,6 +203,7 @@ class MainPage extends Component {
   }
 
   renderMosaics() {
+    console.log(this.props);
     return this.props.mosaics.map((project, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
@@ -313,6 +314,13 @@ class MainPage extends Component {
     );
   }
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing");
+    const { actions } = this.props;
+    actions.refreshToProjects();
+    actions.getProjects();
+  };
+
   render() {
     const { classes, theme, open, open_project } = this.props;
     let cards;
@@ -386,12 +394,11 @@ class MainPage extends Component {
             <Avatar className={classes.orangeAvatar}>N</Avatar>
           </Grid>
           <List>
-            <ListItem button onClick={() => console.log("expanding")}>
+            <ListItem button onClick={this.handleClickOnProjectButton}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
               <ListItemText primary={"Projects"} />
-              {/*{expand_projects ? <ExpandLess /> : <ExpandMore />}*/}
             </ListItem>
             <ListItem button onClick={this.handleLogout}>
               <ListItemIcon>

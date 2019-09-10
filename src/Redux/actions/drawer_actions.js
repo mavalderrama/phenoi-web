@@ -113,3 +113,9 @@ export function openFormAddMosaic() {
     type: "OPEN_ADD_MOSAIC_FORM"
   };
 }
+
+export function refreshToProjects() {
+  return {
+    type: "REFRESH_TO_PROJECTS"
+  };
+}

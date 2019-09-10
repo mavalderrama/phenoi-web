@@ -14,6 +14,21 @@ var initial_state = {
 export default function(state = initial_state, action) {
   console.log("Drawer Actions", action);
   const { type, payload } = action;
+  if (type === "REFRESH_TO_PROJECTS") {
+    return {
+      ...state,
+      open: true,
+      is_loading: false,
+      open_project: false,
+      projects: [],
+      project_opened: "",
+      mosaics: [],
+      mosaic_opened: "",
+      open_add_project_form: false,
+      open_add_mosaic_form: false,
+      submit_add_project: false
+    };
+  }
   if (type === "OPEN") {
     return {
       ...state,

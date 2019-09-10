@@ -22,11 +22,12 @@ const styles = () => ({
 
 class MediaCard extends Component {
   handleClickOnCard = () => {
-    console.log(this.props);
+    console.log("card props", this.props);
     const { title, actions, type } = this.props;
     if (type === "PROJECT") actions.getMosaics(title);
     else {
       console.log("Open MOSAIC");
+      actions.openMosaic(title);
     }
   };
 
