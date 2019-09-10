@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjectCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectCards.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +137,7 @@
       <workItem from="1567741598510" duration="6044000" />
       <workItem from="1567773553138" duration="21653000" />
       <workItem from="1567867557272" duration="39230000" />
-      <workItem from="1568119192015" duration="12691000" />
+      <workItem from="1568119192015" duration="14854000" />
     </task>
     <servers />
   </component>

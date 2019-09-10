@@ -172,7 +172,11 @@ class MainPage extends Component {
     const { combo, stage, image, name } = values;
     let { calibrated, date } = values;
     if (calibrated == null) calibrated = false;
-    if (date == null) date = new Date().toLocaleDateString("en-US");
+    if (date == null) {
+      date = new Date().toLocaleDateString("en-US");
+    } else {
+      date = new Date(date).toLocaleDateString("en-US");
+    }
     if (image != null) {
       actions
         .createMosaic(
