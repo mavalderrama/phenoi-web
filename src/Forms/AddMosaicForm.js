@@ -190,10 +190,22 @@ class AddMosaicForm extends Component {
       <div>
         <form onSubmit={handleSubmit}>
           <GridList cellHeight={"auto"} cols={1} spacing={0}>
+            <GridListTile cols={1} rows={0.8} key={0}>
+              <Field
+                component={renderTextField}
+                type="text"
+                margin="normal"
+                required
+                id="name"
+                label="Mosaic Name"
+                // autoFocus
+                name="name"
+              />
+            </GridListTile>
             <GridListTile cols={1} rows={0.8} key={1}>
               <Field component={renderComboField} name="combo" />
             </GridListTile>
-            <GridListTile cols={1} rows={0.8} key={0} style={{ maxHeight: 80 }}>
+            <GridListTile cols={1} rows={0.8} key={0}>
               <Field
                 component={renderTextField}
                 type="text"

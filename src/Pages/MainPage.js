@@ -165,13 +165,21 @@ class MainPage extends Component {
 
   submitMosaicForm = values => {
     const { actions, project_opened } = this.props;
-    const { combo, stage, image } = values;
+    const { combo, stage, image, name } = values;
     let { calibrated, date } = values;
     if (calibrated == null) calibrated = false;
     if (date == null) date = new Date().toLocaleDateString("en-US");
     if (image != null) {
       actions
-        .createMosaic(combo, stage, image, calibrated, project_opened, date)
+        .createMosaic(
+          combo,
+          stage,
+          image,
+          calibrated,
+          project_opened,
+          date,
+          name
+        )
         .then(result => {
           if ("success" in result.value.data) {
             actions.getMosaics(project_opened);
@@ -306,13 +314,10 @@ class MainPage extends Component {
   }
 
   render() {
-    console.log("drawer", this.props);
-
     const { classes, theme, open, open_project } = this.props;
     let cards;
     let add_dialog;
     let add_dialog_button;
-    console.log("wtf", this.props);
     if (open_project) {
       cards = this.renderMosaics();
       add_dialog = this.renderAddMosaic();

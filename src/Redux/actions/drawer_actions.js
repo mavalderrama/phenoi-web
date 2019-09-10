@@ -69,7 +69,8 @@ export function createMosaic(
   image,
   calibrated,
   project_opened,
-  date
+  date,
+  name
 ) {
   const formData = new FormData();
   formData.append("project", project_opened);
@@ -78,6 +79,7 @@ export function createMosaic(
   formData.append("date", date);
   formData.append("calibrated", calibrated);
   formData.append("mosaic", image[0]);
+  formData.append("name", name);
   return {
     type: "CREATE_MOSAIC",
     payload: axios.post(
