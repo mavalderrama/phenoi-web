@@ -112,12 +112,17 @@ export default function(state = initial_state, action) {
   }
 
   if (type === "CREATE_MOSAIC_FULFILLED") {
-    const { data } = payload;
-    console.log("CREATE_MOSAIC_FULFILLED");
-    console.log(data);
     return {
       ...state,
       open_add_mosaic_form: false
+    };
+  }
+
+  if (type === "OPEN_SELECTED_MOSAIC") {
+    const { data } = payload;
+    console.log(data);
+    return {
+      ...state
     };
   }
 

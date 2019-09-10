@@ -24,10 +24,31 @@ class MediaCard extends Component {
   handleClickOnCard = () => {
     console.log("card props", this.props);
     const { title, actions, type } = this.props;
-    if (type === "PROJECT") actions.getMosaics(title);
-    else {
+    if (type === "PROJECT") {
+      actions.getMosaics(title);
+    } else if (type === "MOSAIC") {
       console.log("Open MOSAIC");
       actions.openMosaic(title);
+    }
+  };
+
+  handleDelete = () => {
+    console.log("delete card", this.props);
+    const { id, title, actions, type, project } = this.props;
+    if (type === "PROJECT") {
+      console.log("DELETE PROJECT");
+      actions.deleteProject(id, title).then(result => {
+        if ("success" in result.value.data) {
+          actions.getProjects();
+        }
+      });
+    } else if (type === "MOSAIC") {
+      console.log("DELETE MOSAIC");
+      actions.deleteMosaic(id, project).then(result => {
+        if ("success" in result.value.data) {
+          actions.getMosaics(project);
+        }
+      });
     }
   };
 
@@ -57,7 +78,7 @@ class MediaCard extends Component {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={this.props.delete()}>
+          <Button size="small" color="primary" onClick={this.handleDelete}>
             Delete
           </Button>
         </CardActions>

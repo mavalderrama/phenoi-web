@@ -146,6 +146,10 @@ class MainPage extends Component {
     }
   };
 
+  handleDeleteProject(vals) {
+    console.log("delete Project", vals);
+  }
+
   handleLogout = () => {
     const { auth_actions } = this.props;
     console.log("props", this.props);
@@ -189,26 +193,31 @@ class MainPage extends Component {
   };
 
   renderProjects() {
+    console.log("this are projects", this.props.projects);
     return this.props.projects.map((project, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
           title={project.project_name}
           details={project.details}
+          id={project.id}
           type={"PROJECT"}
-          onClick={project => this.handleClickOnProject}
-          delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          onClick={() => this.handleClickOnProject}
+          del={() => this.handleDeleteProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         />
       </GridListTile>
     ));
   }
 
   renderMosaics() {
-    console.log(this.props);
+    console.log("render mosaics props", this.props);
+    const { project_opened } = this.props;
     return this.props.mosaics.map((project, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
           title={project.mosaic_name}
           details={project.stage}
+          project={project_opened}
+          id={project.id}
           type={"MOSAIC"}
           onClick={project => this.handleClickOnProject}
           delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

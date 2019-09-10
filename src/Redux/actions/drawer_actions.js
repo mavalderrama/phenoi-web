@@ -119,3 +119,31 @@ export function refreshToProjects() {
     type: "REFRESH_TO_PROJECTS"
   };
 }
+
+export function openMosaic(name, stage, calibrated) {
+  return {
+    type: "OPEN_SELECTED_MOSAIC"
+  };
+}
+
+export function deleteMosaic(id, project_name) {
+  return {
+    type: "DELETE_SELECTED_MOSAIC",
+    payload: axios.post(
+      `${constants.API_URI}/remove_mosaic`,
+      { id: id, project_name: project_name },
+      axiosConfig
+    )
+  };
+}
+
+export function deleteProject(id, project_name) {
+  return {
+    type: "DELETE_SELECTED_PROJECT",
+    payload: axios.post(
+      `${constants.API_URI}/remove_project`,
+      { id: id, project_name: project_name },
+      axiosConfig
+    )
+  };
+}
