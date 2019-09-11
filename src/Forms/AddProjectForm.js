@@ -54,7 +54,7 @@ class AddProjectForm extends Component {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={handleClose()}
+                    onClick={handleClose}
                     // style={{ "padding-right": "10px" }}
                   >
                     Close

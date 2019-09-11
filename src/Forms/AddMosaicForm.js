@@ -239,7 +239,7 @@ class AddMosaicForm extends Component {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClose()}
+                    onClick={handleClose}
                     // style={{ "padding-right": "10px" }}
                   >
                     Close

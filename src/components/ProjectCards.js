@@ -2,16 +2,12 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { bindActionCreators } from "redux";
 import * as drawer_actions from "../Redux/actions/drawer_actions";
 import { connect } from "react-redux";
-import Dialog from "@material-ui/core/Dialog";
-import Paper from "@material-ui/core/Paper";
 
 const styles = () => ({
   card: {
@@ -25,96 +21,36 @@ const styles = () => ({
 
 class MediaCard extends Component {
   handleClickOnCard = () => {
-    console.log("card props", this.props);
-    const { title, actions, type } = this.props;
-    if (type === "PROJECT") {
-      actions.getMosaics(title);
-    } else if (type === "MOSAIC") {
-      const { clickHandler, id } = this.props;
-      clickHandler(id);
-    }
+    console.log("click on card open", this.props);
+    const { clickOnOpenHandler, id, project } = this.props;
+    clickOnOpenHandler(project, id);
   };
-
-  handleDelete = () => {
-    console.log("delete card", this.props);
-    const { id, title, actions, type, project } = this.props;
-    if (type === "PROJECT") {
-      console.log("DELETE PROJECT");
-      actions.deleteProject(id, title).then(result => {
-        if ("success" in result.value.data) {
-          actions.getProjects();
-        }
-      });
-    } else if (type === "MOSAIC") {
-      console.log("DELETE MOSAIC");
-      actions.deleteMosaic(id, project).then(result => {
-        if ("success" in result.value.data) {
-          actions.getMosaics(project);
-        }
-      });
-    }
-  };
-
-  actionButtons(type, open_add_shapefile) {
-    if (type === "MOSAIC") {
-      return (
-        <div>
-          <Button size="medium" color="primary" onClick={this.handleDelete}>
-            Upload Shape
-          </Button>
-          <Button size="small" color="primary" onClick={this.handleDelete}>
-            Delete
-          </Button>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Button size="small" color="primary" onClick={this.handleDelete}>
-            Delete
-          </Button>
-          <Dialog open={open_add_shapefile}>
-            <Paper></Paper>
-          </Dialog>
-        </div>
-      );
-    }
-  }
 
   render() {
-    const {
-      title,
-      image,
-      details,
-      classes,
-      type,
-      open_add_shapefile
-    } = this.props;
-    const titleC = title || Date.now().toString();
+    const { project, image, details, classes } = this.props;
     const imageC =
       image ||
       "https://images.unsplash.com/photo-1565234958677-53836561b971?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
     const detailsC = details || "No-details";
-    const AButtons = this.actionButtons(type, open_add_shapefile);
     return (
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={imageC}
-            title={titleC}
+            title={project}
             onClick={this.handleClickOnCard}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {titleC}
+              {project}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {detailsC}
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>{AButtons}</CardActions>
+        {this.props.children}
       </Card>
     );
   }

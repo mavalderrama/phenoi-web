@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/DeleteCardButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/AddProjectForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/AddProjectForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layout/PageWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProjectCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectCards.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +67,7 @@
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Program Files\nodejs\node_modules\prettier" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="es6.move.members.recent.items">
@@ -119,7 +128,21 @@
       <workItem from="1566931926668" duration="232000" />
       <workItem from="1566932184537" duration="498000" />
       <workItem from="1566932704799" duration="4382000" />
-      <workItem from="1566946730991" duration="10151000" />
+      <workItem from="1566946730991" duration="9426000" />
+      <workItem from="1567011072942" duration="4177000" />
+      <workItem from="1567036015944" duration="771000" />
+      <workItem from="1567082325161" duration="24618000" />
+      <workItem from="1567173281132" duration="27293000" />
+      <workItem from="1567265596740" duration="8390000" />
+      <workItem from="1567434127492" duration="13405000" />
+      <workItem from="1567516387765" duration="11058000" />
+      <workItem from="1567602666451" duration="26555000" />
+      <workItem from="1567693896393" duration="22872000" />
+      <workItem from="1567741598510" duration="6044000" />
+      <workItem from="1567773553138" duration="21653000" />
+      <workItem from="1567867557272" duration="39230000" />
+      <workItem from="1568119192015" duration="29925000" />
+      <workItem from="1568206508020" duration="20353000" />
     </task>
     <servers />
   </component>

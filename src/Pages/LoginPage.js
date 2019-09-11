@@ -16,7 +16,7 @@ class LoginPage extends Component {
   render() {
     const { is_authenticated, history } = this.props;
     if (is_authenticated) {
-      history.push("/main");
+      history.push("/project");
     }
     return <LoginForm onSubmit={this.login} />;
   }

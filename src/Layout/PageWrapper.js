@@ -431,11 +431,7 @@ class PageWrapper extends Component {
             direction="row"
           ></Grid>
           {add_dialog}
-          <div>
-            <GridList cellHeight={280} cols={5} spacing={20}>
-              {this.props.children}
-            </GridList>
-          </div>
+          <div>{this.props.children}</div>
         </main>
       </div>
     );
