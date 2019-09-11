@@ -27,8 +27,8 @@ class MediaCard extends Component {
     if (type === "PROJECT") {
       actions.getMosaics(title);
     } else if (type === "MOSAIC") {
-      console.log("Open MOSAIC");
-      actions.openMosaic(title);
+      const {clickHandler, id} = this.props;
+      clickHandler(id);
     }
   };
 

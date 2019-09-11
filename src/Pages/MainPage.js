@@ -145,7 +145,9 @@ class MainPage extends Component {
       // actions.closeProjects();
     }
   };
-
+  handleClickOnMosaic= (mosaic_id)=>{
+      this.props.history.push(`/mosaic/${mosaic_id}`)
+  };
   handleDeleteProject(vals) {
     console.log("delete Project", vals);
   }
@@ -211,15 +213,15 @@ class MainPage extends Component {
   renderMosaics() {
     console.log("render mosaics props", this.props);
     const { project_opened } = this.props;
-    return this.props.mosaics.map((project, index) => (
+    return this.props.mosaics.map((mosaic, index) => (
       <GridListTile key={index} cols={1}>
         <MediaCard
-          title={project.mosaic_name}
-          details={project.stage}
+          title={mosaic.mosaic_name}
+          details={mosaic.stage}
           project={project_opened}
-          id={project.id}
+          id={mosaic.id}
           type={"MOSAIC"}
-          onClick={project => this.handleClickOnProject}
+          clickHandler={this.handleClickOnMosaic}
           delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         />
       </GridListTile>

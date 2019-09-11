@@ -6,7 +6,7 @@ const axiosConfig = {
     "content-Type": "application/json"
     // Accept: "*/*"
   },
-  withCredentials: true
+  //withCredentials: true
 };
 
 const axiosConfigFile = {
