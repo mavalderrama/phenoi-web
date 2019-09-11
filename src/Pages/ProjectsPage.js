@@ -22,7 +22,10 @@ const styles = theme => ({
 });
 
 class ProjectsPage extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const { drawer_actions } = this.props;
+    drawer_actions.getProjects();
+  }
 
   handleDeleteProject = (id, project) => {
     console.log("delete card", this.props);
@@ -70,10 +73,19 @@ class ProjectsPage extends Component {
     });
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { drawer_actions, history } = this.props;
+    // actions.refreshToProjects();
+    history.push("/project");
+    drawer_actions.getProjects();
+  };
+
   render() {
     const { projects, open_add_project_form, classes } = this.props;
+
     return (
-      <PageWrapper>
+      <PageWrapper clickOnProjectButtonHandle={this.handleClickOnProjectButton}>
         <Grid
           container
           alignItems="flex-start"

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Redirect, Route } from "react-router-dom";
-import WelcomePage from "../../Pages/WelcomePage";
 import LoginPage from "../../Pages/LoginPage";
 import MosaicPage from "../../Pages/MosaicPage";
 import ProjectsPage from "../../Pages/ProjectsPage";
@@ -29,7 +28,6 @@ class App extends Component {
     return (
       <Fragment>
         <Route path="/login" component={LoginPage} />
-        <SecureRoute exact path="/" component={WelcomePage} />
         <SecureRoute path="/mosaics" component={MosaicPage} />
         <SecureRoute path="/project" component={ProjectsPage} />
       </Fragment>

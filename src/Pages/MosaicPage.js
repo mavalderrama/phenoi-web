@@ -96,6 +96,14 @@ class MosaicPage extends Component {
     });
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { drawer_actions, history } = this.props;
+    // actions.refreshToProjects();
+    history.push("/project");
+    drawer_actions.getProjects();
+  };
+
   render() {
     const {
       mosaics,
@@ -105,7 +113,7 @@ class MosaicPage extends Component {
     } = this.props;
     console.log("this is mosaic", this.props);
     return (
-      <PageWrapper>
+      <PageWrapper clickOnProjectButtonHandle={this.handleClickOnProjectButton}>
         <Grid
           container
           alignItems="flex-start"
