@@ -151,8 +151,7 @@ class MosaicPage extends Component {
           </GridList>
           <Dialog
             open={open_add_mosaic_form}
-            aria-labelledby="form-dialog-title"
-            fullWidth={true}
+            // aria-labelledby="form-dialog-title"
           >
             <DialogTitle id="form-dialog-mosaic">Upload Mosaic</DialogTitle>
             <DialogContent>

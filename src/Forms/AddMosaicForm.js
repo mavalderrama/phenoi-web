@@ -13,14 +13,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import AddIcon from "@material-ui/icons/Add";
-
-const required = value => (value == null ? "Required" : undefined);
 
 const DateField = props => {
   const {
@@ -153,32 +152,24 @@ export const FileTextField = ({
 };
 
 const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
   },
-  FFS: {
-    position: "absolute",
-    lineHeight: "1.5",
-    top: "38",
-    transition: "none",
-    zIndex: "1",
-    transform: "none",
-    transformOrigin: "none",
-    pointerEvents: "none",
-    userSelect: "none",
-    fontSize: "16",
-    color: "rgba(0, 0, 0, 0.8)"
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
-  exampleImageInput: {
-    cursor: "pointer",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    width: "100%",
-    opacity: 0
+  button: {
+    margin: theme.spacing(1)
   }
 });
 
@@ -186,80 +177,106 @@ class AddMosaicForm extends Component {
   render() {
     const { handleSubmit, handleClose, classes } = this.props;
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <GridList cellHeight={"auto"} cols={1} spacing={0}>
-            <GridListTile cols={1} rows={0.8} key={0}>
-              <Field
-                component={renderTextField}
-                type="text"
-                margin="normal"
-                required
-                id="name"
-                label="Mosaic Name"
-                // autoFocus
-                name="name"
-              />
-            </GridListTile>
-            <GridListTile cols={1} rows={0.8} key={1}>
-              <Field component={renderComboField} name="combo" />
-            </GridListTile>
-            <GridListTile cols={1} rows={0.8} key={6}>
-              <Field
-                component={renderTextField}
-                type="text"
-                margin="normal"
-                required
-                id="stage"
-                label="Crop Stage"
-                // autoFocus
-                name="stage"
-              />
-            </GridListTile>
-
-            <GridListTile cols={1} key={2}>
-              <Field name="date" component={DateField} required />
-            </GridListTile>
-            <GridListTile cols={1} key={3}>
-              <Field
-                name="calibrated"
-                component={renderCheckbox}
-                label="Pre-Calibrated?"
-                required
-              />
-            </GridListTile>
-            <GridListTile cols={1} key={4}>
-              <Field name="image" component={FileTextField} />
-            </GridListTile>
-          </GridList>
-          <Grid container>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                <Grid key={0} item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClose}
-                    // style={{ "padding-right": "10px" }}
-                  >
-                    Close
-                  </Button>
-                </Grid>
-                <Grid key={5} item>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    // style={{ float: "right", "padding-top": "10px" }}
-                  >
-                    Upload
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
+      <form
+        onSubmit={handleSubmit}
+        className={classes.container}
+        style={{
+          maxWidth: 400,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <GridList cellHeight={"auto"} cols={1} spacing={2}>
+          <GridListTile cols={1} key={0}>
+            <Field
+              component={renderTextField}
+              type="text"
+              required
+              id="name"
+              label="Mosaic Name"
+              name="name"
+              margin="normal"
+              variant="outlined"
+              className={classes.textField}
+            />
+          </GridListTile>
+          <GridListTile cols={1} key={6}>
+            <Field
+              component={renderTextField}
+              type="text"
+              required
+              id="stage"
+              label="Crop Stage"
+              name="stage"
+              margin="normal"
+              variant="outlined"
+              className={classes.textField}
+            />
+          </GridListTile>
+          <GridListTile cols={1} key={1}>
+            <Field component={renderComboField} name="combo" />
+          </GridListTile>
+          <GridListTile cols={1} key={2}>
+            <Field name="date" component={DateField} required />
+          </GridListTile>
+          <GridListTile cols={1} key={3}>
+            <Field
+              name="calibrated"
+              component={renderCheckbox}
+              label="Pre-Calibrated?"
+              required
+            />
+          </GridListTile>
+          <GridListTile cols={1} key={4}>
+            <Field name="image" component={FileTextField} />
+          </GridListTile>
+        </GridList>
+        {/*<Grid container>*/}
+        {/*  <Grid item xs={12}>*/}
+        {/*    <Grid container justify="center" spacing={2}>*/}
+        {/*      <Grid key={0} item>*/}
+        {/*        <Button*/}
+        {/*          variant="contained"*/}
+        {/*          color="primary"*/}
+        {/*          onClick={handleClose}*/}
+        {/*          // style={{ "padding-right": "10px" }}*/}
+        {/*        >*/}
+        {/*          Close*/}
+        {/*        </Button>*/}
+        {/*      </Grid>*/}
+        {/*      <Grid key={5} item>*/}
+        {/*        <Button*/}
+        {/*          type="submit"*/}
+        {/*          variant="contained"*/}
+        {/*          color="primary"*/}
+        {/*          // style={{ float: "right", "padding-top": "10px" }}*/}
+        {/*        >*/}
+        {/*          Upload*/}
+        {/*        </Button>*/}
+        {/*      </Grid>*/}
+        {/*    </Grid>*/}
+        {/*  </Grid>*/}
+        {/*</Grid>*/}
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClose}
+            className={classes.button}
+          >
+            Close
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            Upload
+          </Button>
+        </div>
+      </form>
     );
   }
 }
