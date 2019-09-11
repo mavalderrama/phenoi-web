@@ -9,7 +9,6 @@ import DeleteCardButton from "../components/DeleteCardButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import AddProjectForm from "../Forms/AddProjectForm";
 import { connect } from "react-redux";
 import { withStyles, withTheme } from "@material-ui/core";
 import { bindActionCreators } from "redux";

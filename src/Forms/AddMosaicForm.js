@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Field, reduxForm } from "redux-form";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import FormControl from "@material-ui/core/FormControl";
@@ -13,7 +12,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider
