@@ -6,12 +6,12 @@ const axiosConfig = {
     "content-Type": "application/json"
     // Accept: "*/*"
   },
-  //withCredentials: true
+  withCredentials: false
 };
 
 const axiosConfigFile = {
   headers: { "Content-Type": "multipart/form-data" },
-  withCredentials: true
+  withCredentials: false
 };
 
 export function setOpen() {
@@ -145,5 +145,11 @@ export function deleteProject(id, project_name) {
       { id: id, project_name: project_name },
       axiosConfig
     )
+  };
+}
+
+export function openFormAddShape() {
+  return {
+    type: "OPEN_FORM_ADD_SHAPEFILE"
   };
 }

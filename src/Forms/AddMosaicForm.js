@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Field, reduxForm } from "redux-form";
 import Button from "@material-ui/core/Button";
@@ -19,7 +19,6 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 
 const required = value => (value == null ? "Required" : undefined);
 
@@ -253,7 +252,7 @@ class AddMosaicForm extends Component {
                     color="primary"
                     // style={{ float: "right", "padding-top": "10px" }}
                   >
-                    Create
+                    Upload
                   </Button>
                 </Grid>
               </Grid>

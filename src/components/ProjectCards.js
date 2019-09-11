@@ -10,10 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import { bindActionCreators } from "redux";
 import * as drawer_actions from "../Redux/actions/drawer_actions";
 import { connect } from "react-redux";
+import Dialog from "@material-ui/core/Dialog";
+import Paper from "@material-ui/core/Paper";
 
 const styles = () => ({
   card: {
-    maxWidth: 500
+    maxWidth: 500,
+    maxHeight: 1200
   },
   media: {
     height: 140
@@ -52,13 +55,47 @@ class MediaCard extends Component {
     }
   };
 
+  actionButtons(type, open_add_shapefile) {
+    if (type === "MOSAIC") {
+      return (
+        <div>
+          <Button size="medium" color="primary" onClick={this.handleDelete}>
+            Upload Shape
+          </Button>
+          <Button size="small" color="primary" onClick={this.handleDelete}>
+            Delete
+          </Button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Button size="small" color="primary" onClick={this.handleDelete}>
+            Delete
+          </Button>
+          <Dialog open={open_add_shapefile}>
+            <Paper></Paper>
+          </Dialog>
+        </div>
+      );
+    }
+  }
+
   render() {
-    const { title, image, details, classes } = this.props;
+    const {
+      title,
+      image,
+      details,
+      classes,
+      type,
+      open_add_shapefile
+    } = this.props;
     const titleC = title || Date.now().toString();
     const imageC =
       image ||
       "https://images.unsplash.com/photo-1565234958677-53836561b971?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
     const detailsC = details || "No-details";
+    const AButtons = this.actionButtons(type, open_add_shapefile);
     return (
       <Card className={classes.card}>
         <CardActionArea>
@@ -77,11 +114,7 @@ class MediaCard extends Component {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary" onClick={this.handleDelete}>
-            Delete
-          </Button>
-        </CardActions>
+        <CardActions>{AButtons}</CardActions>
       </Card>
     );
   }
@@ -90,7 +123,8 @@ class MediaCard extends Component {
 const mapStateToProps = (store, ownProps) => {
   return {
     projects: store.drawer_reducer.projects,
-    expand_projects: store.drawer_reducer.expand_projects
+    expand_projects: store.drawer_reducer.expand_projects,
+    open_add_shapefile: store.drawer_reducer.open_add_shapefile
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -37,6 +37,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import AddProjectForm from "./../Forms/AddProjectForm";
 import AddMosaicForm from "../Forms/AddMosaicForm";
+import Loading from "./../components/Loading";
 
 const drawerWidth = 240;
 
@@ -117,10 +118,6 @@ const styles = theme => ({
 });
 
 class MainPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { actions } = this.props;
     actions.getProjects();
@@ -337,7 +334,7 @@ class MainPage extends Component {
   };
 
   render() {
-    const { classes, theme, open, open_project } = this.props;
+    const { classes, theme, open, open_project, is_loading } = this.props;
     let cards;
     let add_dialog;
     let add_dialog_button;
@@ -437,9 +434,10 @@ class MainPage extends Component {
           </Grid>
           {add_dialog}
           <div>
-            <GridList cellHeight={280} cols={5} spacing={20}>
+            <GridList cellHeight={300} cols={5} spacing={20}>
               {cards}
             </GridList>
+            <Loading open={is_loading} />
           </div>
         </main>
       </div>

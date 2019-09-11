@@ -8,7 +8,8 @@ var initial_state = {
   mosaic_opened: "",
   open_add_project_form: false,
   open_add_mosaic_form: false,
-  submit_add_project: false
+  submit_add_project: false,
+  open_add_shapefile: false
 };
 
 export default function(state = initial_state, action) {
@@ -123,6 +124,20 @@ export default function(state = initial_state, action) {
     console.log(data);
     return {
       ...state
+    };
+  }
+
+  if (type === "OPEN_FORM_ADD_SHAPEFILE") {
+    return {
+      ...state,
+      open_add_shapefile: true
+    };
+  }
+
+  if (type === "CLOSE_FORM_ADD_SHAPEFILE") {
+    return {
+      ...state,
+      open_add_shapefile: false
     };
   }
 
