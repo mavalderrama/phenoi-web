@@ -142,8 +142,8 @@ class MainPage extends Component {
       // actions.closeProjects();
     }
   };
-  handleClickOnMosaic= (mosaic_id)=>{
-      this.props.history.push(`/mosaic/${mosaic_id}`)
+  handleClickOnMosaic = mosaic_id => {
+    this.props.history.push(`/mosaic/${mosaic_id}`);
   };
   handleDeleteProject(vals) {
     console.log("delete Project", vals);

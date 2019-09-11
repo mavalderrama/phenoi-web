@@ -146,8 +146,8 @@ class PageWrapper extends Component {
       // actions.closeProjects();
     }
   };
-  handleClickOnMosaic= (mosaic_id)=>{
-    this.props.history.push(`/mosaic/${mosaic_id}`)
+  handleClickOnMosaic = mosaic_id => {
+    this.props.history.push(`/mosaic/${mosaic_id}`);
   };
   handleDeleteProject(vals) {
     console.log("delete Project", vals);
@@ -178,36 +178,36 @@ class PageWrapper extends Component {
     if (date == null) date = new Date().toLocaleDateString("en-US");
     if (image != null) {
       actions
-          .createMosaic(
-              combo,
-              stage,
-              image,
-              calibrated,
-              project_opened,
-              date,
-              name
-          )
-          .then(result => {
-            if ("success" in result.value.data) {
-              actions.getMosaics(project_opened);
-            }
-          });
+        .createMosaic(
+          combo,
+          stage,
+          image,
+          calibrated,
+          project_opened,
+          date,
+          name
+        )
+        .then(result => {
+          if ("success" in result.value.data) {
+            actions.getMosaics(project_opened);
+          }
+        });
     }
   };
 
   renderProjects() {
     console.log("this are projects", this.props.projects);
     return this.props.projects.map((project, index) => (
-        <GridListTile key={index} cols={1}>
-          <MediaCard
-              title={project.project_name}
-              details={project.details}
-              id={project.id}
-              type={"PROJECT"}
-              onClick={() => this.handleClickOnProject}
-              del={() => this.handleDeleteProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          />
-        </GridListTile>
+      <GridListTile key={index} cols={1}>
+        <MediaCard
+          title={project.project_name}
+          details={project.details}
+          id={project.id}
+          type={"PROJECT"}
+          onClick={() => this.handleClickOnProject}
+          del={() => this.handleDeleteProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        />
+      </GridListTile>
     ));
   }
 
@@ -215,17 +215,17 @@ class PageWrapper extends Component {
     console.log("render mosaics props", this.props);
     const { project_opened } = this.props;
     return this.props.mosaics.map((mosaic, index) => (
-        <GridListTile key={index} cols={1}>
-          <MediaCard
-              title={mosaic.mosaic_name}
-              details={mosaic.stage}
-              project={project_opened}
-              id={mosaic.id}
-              type={"MOSAIC"}
-              clickHandler={this.handleClickOnMosaic}
-              delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          />
-        </GridListTile>
+      <GridListTile key={index} cols={1}>
+        <MediaCard
+          title={mosaic.mosaic_name}
+          details={mosaic.stage}
+          project={project_opened}
+          id={mosaic.id}
+          type={"MOSAIC"}
+          clickHandler={this.handleClickOnMosaic}
+          delete={() => this.handleClickOnProject} //!!!!!!!!!!!!!!!!!!!!!CHANGEMEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        />
+      </GridListTile>
     ));
   }
 
@@ -260,69 +260,69 @@ class PageWrapper extends Component {
   renderAddProject() {
     const { open_add_project_form } = this.props;
     return (
-        <Dialog
-            open={open_add_project_form}
-            onClose={this.handleAddProjectButton}
-            aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
-          <DialogContent>
-            <AddProjectForm
-                onSubmit={this.submitProjectForm}
-                handleClose={() => this.handleCloseProjectDialog}
-            />
-          </DialogContent>
-        </Dialog>
+      <Dialog
+        open={open_add_project_form}
+        onClose={this.handleAddProjectButton}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
+        <DialogContent>
+          <AddProjectForm
+            onSubmit={this.submitProjectForm}
+            handleClose={() => this.handleCloseProjectDialog}
+          />
+        </DialogContent>
+      </Dialog>
     );
   }
 
   addProjectButton() {
     const { classes } = this.props;
     return (
-        <Button
-            variant="contained"
-            color="default"
-            className={classes.plusButton}
-            onClick={this.handleAddProjectButton}
-        >
-          <AddIcon className={classes.plusIcon} />
-          Create Project
-        </Button>
+      <Button
+        variant="contained"
+        color="default"
+        className={classes.plusButton}
+        onClick={this.handleAddProjectButton}
+      >
+        <AddIcon className={classes.plusIcon} />
+        Create Project
+      </Button>
     );
   }
 
   addMosaicButton() {
     const { classes } = this.props;
     return (
-        <Button
-            variant="contained"
-            color="default"
-            className={classes.plusButton}
-            onClick={this.handleAddMosaicButton}
-        >
-          Upload Mosaic
-          <CloudUploadIcon className={classes.cloudIcon} />
-        </Button>
+      <Button
+        variant="contained"
+        color="default"
+        className={classes.plusButton}
+        onClick={this.handleAddMosaicButton}
+      >
+        Upload Mosaic
+        <CloudUploadIcon className={classes.cloudIcon} />
+      </Button>
     );
   }
 
   renderAddMosaic() {
     const { open_add_mosaic_form } = this.props;
     return (
-        <Dialog
-            open={open_add_mosaic_form}
-            // onClose={this.handleAddMosaicButton}
-            aria-labelledby="form-dialog-title"
-            fullWidth={true}
-        >
-          <DialogTitle id="form-dialog-mosaic">Upload Mosaic</DialogTitle>
-          <DialogContent>
-            <AddMosaicForm
-                onSubmit={this.submitMosaicForm}
-                handleClose={() => this.handleCloseMosaicDialog}
-            />
-          </DialogContent>
-        </Dialog>
+      <Dialog
+        open={open_add_mosaic_form}
+        // onClose={this.handleAddMosaicButton}
+        aria-labelledby="form-dialog-title"
+        fullWidth={true}
+      >
+        <DialogTitle id="form-dialog-mosaic">Upload Mosaic</DialogTitle>
+        <DialogContent>
+          <AddMosaicForm
+            onSubmit={this.submitMosaicForm}
+            handleClose={() => this.handleCloseMosaicDialog}
+          />
+        </DialogContent>
+      </Dialog>
     );
   }
 
@@ -348,98 +348,96 @@ class PageWrapper extends Component {
       add_dialog_button = this.addProjectButton();
     }
     return (
-        <div className={classes.root}>
-          <CssBaseline />
-          <AppBar
-              position="fixed"
-              className={clsx(classes.appBar, {
-                [classes.appBarShift]: open
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open
               })}
-          >
-            <Toolbar>
-              <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={this.handleDrawerOpen}
-                  edge="start"
-                  className={clsx(classes.menuButton, {
-                    [classes.hide]: open
-                  })}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" noWrap>
-                Pheno-i Image Analysis Tool
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-              variant="permanent"
-              className={clsx(classes.drawer, {
-                [classes.drawerOpen]: open,
-                [classes.drawerClose]: !open
-              })}
-              classes={{
-                paper: clsx({
-                  [classes.drawerOpen]: open,
-                  [classes.drawerClose]: !open
-                })
-              }}
-              open={open}
-          >
-            <div className={classes.toolbar}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === "rtl" ? (
-                    <ChevronRightIcon />
-                ) : (
-                    <ChevronLeftIcon />
-                )}
-              </IconButton>
-            </div>
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
             >
-              <Avatar className={classes.orangeAvatar}>N</Avatar>
-            </Grid>
-            <List>
-              <ListItem button onClick={this.handleClickOnProjectButton}>
-                <ListItemIcon>
-                  <WorkIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Projects"} />
-              </ListItem>
-              <ListItem button onClick={this.handleLogout}>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Logout"} />
-              </ListItem>
-            </List>
-            <Divider />
-          </Drawer>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              Pheno-i Image Analysis Tool
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open
+            })
+          }}
+          open={open}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+          >
+            <Avatar className={classes.orangeAvatar}>N</Avatar>
+          </Grid>
+          <List>
+            <ListItem button onClick={this.handleClickOnProjectButton}>
+              <ListItemIcon>
+                <WorkIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Projects"} />
+            </ListItem>
+            <ListItem button onClick={this.handleLogout}>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
 
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Grid
-                container
-                alignItems="flex-start"
-                justify="flex-end"
-                direction="row"
-            >
-
-            </Grid>
-            {add_dialog}
-            <div>
-              <GridList cellHeight={280} cols={5} spacing={20}>
-                {this.props.children}
-              </GridList>
-            </div>
-          </main>
-        </div>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="flex-end"
+            direction="row"
+          ></Grid>
+          {add_dialog}
+          <div>
+            <GridList cellHeight={280} cols={5} spacing={20}>
+              {this.props.children}
+            </GridList>
+          </div>
+        </main>
+      </div>
     );
   }
 }
@@ -465,6 +463,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withStyles(styles)(withTheme(PageWrapper)));

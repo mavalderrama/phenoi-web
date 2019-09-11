@@ -30,7 +30,7 @@ class MediaCard extends Component {
     if (type === "PROJECT") {
       actions.getMosaics(title);
     } else if (type === "MOSAIC") {
-      const {clickHandler, id} = this.props;
+      const { clickHandler, id } = this.props;
       clickHandler(id);
     }
   };
