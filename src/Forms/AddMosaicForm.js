@@ -205,7 +205,7 @@ class AddMosaicForm extends Component {
             <GridListTile cols={1} rows={0.8} key={1}>
               <Field component={renderComboField} name="combo" />
             </GridListTile>
-            <GridListTile cols={1} rows={0.8} key={0}>
+            <GridListTile cols={1} rows={0.8} key={6}>
               <Field
                 component={renderTextField}
                 type="text"
@@ -246,7 +246,7 @@ class AddMosaicForm extends Component {
                     Close
                   </Button>
                 </Grid>
-                <Grid key={1} item>
+                <Grid key={5} item>
                   <Button
                     type="submit"
                     variant="contained"
