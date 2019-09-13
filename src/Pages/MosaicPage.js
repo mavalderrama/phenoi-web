@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import ProjectCards from "../components/ProjectCards";
-import DeleteCardButton from "../components/DeleteCardButton";
+import DeleteUploadCardButton from "../components/DeleteUploadCardButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { withStyles, withTheme } from "@material-ui/core";
 import { bindActionCreators } from "redux";
 import * as drawer_actions from "../Redux/actions/drawer_actions";
+import * as mosaic_actions from "../Redux/actions/mosaic_actions";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import AddMosaicForm from "../Forms/AddMosaicForm";
 
@@ -44,6 +45,13 @@ class MosaicPage extends Component {
     const { open_add_mosaic_form, drawer_actions } = this.props;
     if (!open_add_mosaic_form) {
       drawer_actions.openFormAddMosaic();
+    }
+  };
+
+  handleUploadShape = () => {
+    const { open_upload_shape_form, mosaic_actions } = this.props;
+    if (!open_upload_shape_form) {
+      mosaic_actions.openUploadShapeForm();
     }
   };
 
@@ -107,6 +115,7 @@ class MosaicPage extends Component {
     const {
       mosaics,
       open_add_mosaic_form,
+      open_upload_shape_form,
       classes,
       project_opened
     } = this.props;
@@ -139,10 +148,11 @@ class MosaicPage extends Component {
                   id={mosaic.id}
                   clickOnOpenHandler={this.handleOpenCard}
                 >
-                  <DeleteCardButton
+                  <DeleteUploadCardButton
                     id={mosaic.id}
                     project={project_opened}
                     clickOnDeleteHandler={this.handleDeleteMosaic}
+                    clickOnUploadHandler={this.handleUploadShape}
                   />
                 </ProjectCards>
               </GridListTile>
@@ -160,6 +170,15 @@ class MosaicPage extends Component {
               />
             </DialogContent>
           </Dialog>
+          <Dialog open={open_upload_shape_form}>
+            <DialogTitle id="form-dialog-shape">Upload ShapeFile</DialogTitle>
+            <DialogContent>
+              <AddMosaicForm
+                onSubmit={this.handleSubmitMosaicForm}
+                handleClose={this.handleCloseMosaicDialog}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
       </PageWrapper>
     );
@@ -170,12 +189,14 @@ const mapStateToProps = (store, ownProps) => {
   return {
     open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
     mosaics: store.drawer_reducer.mosaics,
-    project_opened: store.drawer_reducer.project_opened
+    project_opened: store.drawer_reducer.project_opened,
+    open_upload_shape_form: store.mosaic_reducer.open_upload_shape_form
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    drawer_actions: bindActionCreators(drawer_actions, dispatch)
+    drawer_actions: bindActionCreators(drawer_actions, dispatch),
+    mosaic_actions: bindActionCreators(mosaic_actions, dispatch)
   };
 };
 

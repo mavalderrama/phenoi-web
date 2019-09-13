@@ -13,8 +13,8 @@ export default class Loading extends Component {
           <CircularProgress
             style={{
               display: "block",
-              "margin-left": "auto",
-              "margin-right": "auto"
+              marginLeft: "auto",
+              marginRight: "auto"
             }}
           />
           <TextField
@@ -23,8 +23,8 @@ export default class Loading extends Component {
             defaultValue="Loading..."
             style={{
               // display: "block",
-              "margin-left": "auto",
-              "margin-right": "auto"
+              marginLeft: "auto",
+              marginRight: "auto"
             }}
           />
         </Paper>

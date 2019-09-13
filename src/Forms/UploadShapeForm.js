@@ -230,32 +230,6 @@ class AddMosaicForm extends Component {
             <Field name="image" component={FileTextField} />
           </GridListTile>
         </GridList>
-        {/*<Grid container>*/}
-        {/*  <Grid item xs={12}>*/}
-        {/*    <Grid container justify="center" spacing={2}>*/}
-        {/*      <Grid key={0} item>*/}
-        {/*        <Button*/}
-        {/*          variant="contained"*/}
-        {/*          color="primary"*/}
-        {/*          onClick={handleClose}*/}
-        {/*          // style={{ "padding-right": "10px" }}*/}
-        {/*        >*/}
-        {/*          Close*/}
-        {/*        </Button>*/}
-        {/*      </Grid>*/}
-        {/*      <Grid key={5} item>*/}
-        {/*        <Button*/}
-        {/*          type="submit"*/}
-        {/*          variant="contained"*/}
-        {/*          color="primary"*/}
-        {/*          // style={{ float: "right", "padding-top": "10px" }}*/}
-        {/*        >*/}
-        {/*          Upload*/}
-        {/*        </Button>*/}
-        {/*      </Grid>*/}
-        {/*    </Grid>*/}
-        {/*  </Grid>*/}
-        {/*</Grid>*/}
         <div>
           <Button
             variant="contained"

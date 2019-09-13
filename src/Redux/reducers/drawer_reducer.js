@@ -1,4 +1,4 @@
-var initial_state = {
+let initial_state = {
   open: true,
   is_loading: false,
   open_project: false,

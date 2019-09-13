@@ -23,6 +23,7 @@ import { deepOrange } from "@material-ui/core/colors";
 import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Loading from "../components/Loading";
 import * as auth_actions from "../Redux/actions/auth_actions";
 
 const drawerWidth = 240;
@@ -121,7 +122,13 @@ class PageWrapper extends Component {
   };
 
   render() {
-    const { classes, theme, open, clickOnProjectButtonHandle } = this.props;
+    const {
+      classes,
+      theme,
+      open,
+      clickOnProjectButtonHandle,
+      is_loading
+    } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -200,6 +207,7 @@ class PageWrapper extends Component {
           <div className={classes.toolbar} />
           <div>{this.props.children}</div>
         </main>
+        <Loading open={is_loading} />
       </div>
     );
   }
