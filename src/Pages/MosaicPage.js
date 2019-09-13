@@ -16,6 +16,8 @@ import * as drawer_actions from "../Redux/actions/drawer_actions";
 import * as mosaic_actions from "../Redux/actions/mosaic_actions";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import AddMosaicForm from "../Forms/AddMosaicForm";
+import UploadShapeForm from "../Forms/UploadShapeForm";
+import Loading from "../components/Loading";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -48,10 +50,10 @@ class MosaicPage extends Component {
     }
   };
 
-  handleUploadShape = () => {
+  handleUploadShape = id => {
     const { open_upload_shape_form, mosaic_actions } = this.props;
     if (!open_upload_shape_form) {
-      mosaic_actions.openUploadShapeForm();
+      mosaic_actions.openUploadShapeForm(id);
     }
   };
 
@@ -111,13 +113,36 @@ class MosaicPage extends Component {
     drawer_actions.getProjects();
   };
 
+  handleUploadShapeForm = values => {
+    const { mosaic_actions, mosaic_opened } = this.props;
+    console.log("form values shape", values);
+    const { field, plot, panel } = values;
+    if (field != null || plot != null || panel != null) {
+      mosaic_actions
+        .uploadShapeFiles(field, plot, panel, mosaic_opened)
+        .then(result => {
+          if ("success" in result.value.data) {
+            mosaic_actions.closeUploadShapeForm();
+          }
+        });
+    }
+  };
+
+  handleCloseUploadShapeDialog = () => {
+    const { open_upload_shape_form, mosaic_actions } = this.props;
+    if (open_upload_shape_form) {
+      mosaic_actions.closeUploadShapeForm();
+    }
+  };
+
   render() {
     const {
       mosaics,
       open_add_mosaic_form,
       open_upload_shape_form,
       classes,
-      project_opened
+      project_opened,
+      is_loading
     } = this.props;
     console.log("this is mosaic", this.props);
     return (
@@ -158,20 +183,17 @@ class MosaicPage extends Component {
               </GridListTile>
             ))}
           </GridList>
-          <Dialog
-            open={open_add_mosaic_form}
-            // aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-mosaic">Upload Mosaic</DialogTitle>
-            <DialogContent>
-              <AddMosaicForm
-                onSubmit={this.handleSubmitMosaicForm}
-                handleClose={this.handleCloseMosaicDialog}
-              />
-            </DialogContent>
-          </Dialog>
           <Dialog open={open_upload_shape_form}>
-            <DialogTitle id="form-dialog-shape">Upload ShapeFile</DialogTitle>
+            <DialogTitle id="form-dialog-mosaic">Upload ShapeFile</DialogTitle>
+            <DialogContent>
+              <UploadShapeForm
+                onSubmit={this.handleUploadShapeForm}
+                handleClose={this.handleCloseUploadShapeDialog}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog open={open_add_mosaic_form}>
+            <DialogTitle id="form-dialog-shape">Upload Mosaic</DialogTitle>
             <DialogContent>
               <AddMosaicForm
                 onSubmit={this.handleSubmitMosaicForm}
@@ -179,6 +201,7 @@ class MosaicPage extends Component {
               />
             </DialogContent>
           </Dialog>
+          <Loading open={is_loading} />
         </div>
       </PageWrapper>
     );
@@ -190,7 +213,9 @@ const mapStateToProps = (store, ownProps) => {
     open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
     mosaics: store.drawer_reducer.mosaics,
     project_opened: store.drawer_reducer.project_opened,
-    open_upload_shape_form: store.mosaic_reducer.open_upload_shape_form
+    open_upload_shape_form: store.mosaic_reducer.open_upload_shape_form,
+    is_loading: store.mosaic_reducer.is_loading,
+    mosaic_opened: store.mosaic_reducer.mosaic_opened
   };
 };
 const mapDispatchToProps = dispatch => {

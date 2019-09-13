@@ -179,10 +179,9 @@ class AddMosaicForm extends Component {
         onSubmit={handleSubmit}
         className={classes.container}
         style={{
-          maxWidth: 320,
-          display: "block",
-          "margin-left": "auto",
-          "margin-right": "auto"
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
         }}
       >
         <GridList cellHeight={"auto"} cols={1} spacing={2}>
@@ -256,7 +255,13 @@ class AddMosaicForm extends Component {
         {/*    </Grid>*/}
         {/*  </Grid>*/}
         {/*</Grid>*/}
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
           <Button
             variant="contained"
             color="primary"

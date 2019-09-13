@@ -122,13 +122,7 @@ class PageWrapper extends Component {
   };
 
   render() {
-    const {
-      classes,
-      theme,
-      open,
-      clickOnProjectButtonHandle,
-      is_loading
-    } = this.props;
+    const { classes, theme, open, clickOnProjectButtonHandle } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -207,7 +201,6 @@ class PageWrapper extends Component {
           <div className={classes.toolbar} />
           <div>{this.props.children}</div>
         </main>
-        <Loading open={is_loading} />
       </div>
     );
   }
@@ -220,7 +213,6 @@ const mapStateToProps = (store, ownProps) => {
     open_project: store.drawer_reducer.open_project,
     mosaics: store.drawer_reducer.mosaics,
     expand_projects: store.drawer_reducer.expand_projects,
-    is_loading: store.drawer_reducer.is_loading,
     is_authenticated: store.auth_reducer.is_authenticated,
     open_add_project_form: store.drawer_reducer.open_add_project_form,
     open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,

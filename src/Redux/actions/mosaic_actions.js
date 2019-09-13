@@ -14,14 +14,31 @@ const axiosConfigFile = {
   withCredentials: false
 };
 
-export function openUploadShapeForm() {
+export function openUploadShapeForm(mosaic_id) {
   return {
-    type: "OPEN_UPLOAD_SHAPE_FORM"
+    type: "OPEN_UPLOAD_SHAPE_FORM",
+    payload: { mosaic_opened: mosaic_id }
   };
 }
 
 export function closeUploadShapeForm() {
   return {
     type: "CLOSE_UPLOAD_SHAPE_FORM"
+  };
+}
+
+export function uploadShapeFiles(field, plot, panel, mosaic_id) {
+  const formData = new FormData();
+  if (field != null) formData.append("field", field[0]);
+  if (plot != null) formData.append("plot", plot[0]);
+  if (panel != null) formData.append("panel", panel[0]);
+  formData.append("mosaic_id", mosaic_id);
+  return {
+    type: "UPLOAD_SHAPE_FILE",
+    payload: axios.post(
+      `${constants.API_URI}/upload_shape`,
+      formData,
+      axiosConfigFile
+    )
   };
 }

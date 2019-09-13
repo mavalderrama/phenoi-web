@@ -3,16 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/AddMosaicForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Forms/AddShapeForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/AddShapeForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Layout/Empty.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/Empty.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/AddShapeForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/UploadShapeForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/UploadShapeForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Layout/PageWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions_scsslint_tmp15852036574485292657.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions_scsslint_tmp15852036574485292657.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Table2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Table2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

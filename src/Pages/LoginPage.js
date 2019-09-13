@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as auth_actions from "./../Redux/actions/auth_actions";
 import LoginForm from "../Forms/LoginForm";
+import Loading from "../components/Loading";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -14,11 +15,16 @@ class LoginPage extends Component {
     actions.login(values.email, values.password);
   };
   render() {
-    const { is_authenticated, history } = this.props;
+    const { is_authenticated, history, is_loading } = this.props;
     if (is_authenticated) {
       history.push("/project");
     }
-    return <LoginForm onSubmit={this.login} />;
+    return (
+      <div>
+        <LoginForm onSubmit={this.login} />
+        <Loading open={is_loading} />
+      </div>
+    );
   }
 }
 

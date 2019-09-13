@@ -15,6 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import Loading from "../components/Loading";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -82,7 +83,7 @@ class ProjectsPage extends Component {
   };
 
   render() {
-    const { projects, open_add_project_form, classes } = this.props;
+    const { projects, open_add_project_form, classes, is_loading } = this.props;
 
     return (
       <PageWrapper clickOnProjectButtonHandle={this.handleClickOnProjectButton}>
@@ -133,6 +134,7 @@ class ProjectsPage extends Component {
               />
             </DialogContent>
           </Dialog>
+          <Loading open={is_loading} />
         </div>
       </PageWrapper>
     );
@@ -142,7 +144,8 @@ class ProjectsPage extends Component {
 const mapStateToProps = (store, ownProps) => {
   return {
     projects: store.drawer_reducer.projects,
-    open_add_project_form: store.drawer_reducer.open_add_project_form
+    open_add_project_form: store.drawer_reducer.open_add_project_form,
+    is_loading: store.drawer_reducer.is_loading
   };
 };
 const mapDispatchToProps = dispatch => {
