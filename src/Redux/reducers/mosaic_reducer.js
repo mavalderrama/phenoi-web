@@ -37,5 +37,14 @@ export default function(state = initial_state, action) {
     };
   }
 
+  if (type === "UPLOAD_SHAPE_FILE_FULFILLED") {
+    return {
+      ...state,
+      is_loading: false
+    };
+  }
+
+
+
   return state;
 }

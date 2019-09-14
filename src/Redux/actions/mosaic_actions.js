@@ -21,6 +21,16 @@ export function openUploadShapeForm(mosaic_id) {
   };
 }
 
+export function getMosaic(mosaic_id) {
+  return {
+    type: "GET_MOSAIC",
+    payload: axios.get(
+        `${constants.API_URI}/get_mosaic/${mosaic_id}`,
+        axiosConfigFile
+      )
+  };
+}
+
 export function closeUploadShapeForm() {
   return {
     type: "CLOSE_UPLOAD_SHAPE_FORM"

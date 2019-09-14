@@ -17,7 +17,7 @@ class LoginPage extends Component {
   render() {
     const { is_authenticated, history, is_loading } = this.props;
     if (is_authenticated) {
-      history.push("/project");
+      history.push("/");
     }
     return (
       <div>

@@ -33,14 +33,7 @@ class MosaicPage extends Component {
   }
 
   handleOpenCard = (project, id) => {
-    const { drawer_actions, history } = this.props;
-    console.log("open card mosaic", this.props);
-    console.log(project);
-    drawer_actions.getMosaics(project).then(result => {
-      if ("success" in result.value.data) {
-        history.push("/mosaics");
-      }
-    });
+    this.props.history.push(`/editor/${id}`)
   };
 
   handleAddMosaicButton = () => {
@@ -109,7 +102,7 @@ class MosaicPage extends Component {
     console.log("refreshing", this.props);
     const { drawer_actions, history } = this.props;
     // actions.refreshToProjects();
-    history.push("/project");
+    history.push("/");
     drawer_actions.getProjects();
   };
 
