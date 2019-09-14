@@ -74,19 +74,11 @@ class ProjectsPage extends Component {
     });
   };
 
-  handleClickOnProjectButton = () => {
-    console.log("refreshing", this.props);
-    const { drawer_actions, history } = this.props;
-    // actions.refreshToProjects();
-    history.push("/project");
-    drawer_actions.getProjects();
-  };
-
   render() {
     const { projects, open_add_project_form, classes, is_loading } = this.props;
 
     return (
-      <PageWrapper clickOnProjectButtonHandle={this.handleClickOnProjectButton}>
+      <PageWrapper>
         <Grid
           container
           alignItems="flex-start"

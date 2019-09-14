@@ -121,8 +121,14 @@ class PageWrapper extends Component {
     auth_actions.logout();
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { history } = this.props;
+    history.push("/");
+  };
+
   render() {
-    const { classes, theme, open, clickOnProjectButtonHandle } = this.props;
+    const { classes, theme, open, handleClickOnProjectButton } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -182,7 +188,7 @@ class PageWrapper extends Component {
             <Avatar className={classes.orangeAvatar}>N</Avatar>
           </Grid>
           <List>
-            <ListItem button onClick={clickOnProjectButtonHandle}>
+            <ListItem button onClick={handleClickOnProjectButton}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>

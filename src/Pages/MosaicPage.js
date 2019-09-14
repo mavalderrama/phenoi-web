@@ -33,7 +33,8 @@ class MosaicPage extends Component {
   }
 
   handleOpenCard = (project, id) => {
-    this.props.history.push(`/editor/${id}`)
+    const { history } = this.props;
+    history.push(`/editor/${id}`);
   };
 
   handleAddMosaicButton = () => {
@@ -98,14 +99,6 @@ class MosaicPage extends Component {
     });
   };
 
-  handleClickOnProjectButton = () => {
-    console.log("refreshing", this.props);
-    const { drawer_actions, history } = this.props;
-    // actions.refreshToProjects();
-    history.push("/");
-    drawer_actions.getProjects();
-  };
-
   handleUploadShapeForm = values => {
     const { mosaic_actions, mosaic_opened } = this.props;
     console.log("form values shape", values);
@@ -139,7 +132,7 @@ class MosaicPage extends Component {
     } = this.props;
     console.log("this is mosaic", this.props);
     return (
-      <PageWrapper clickOnProjectButtonHandle={this.handleClickOnProjectButton}>
+      <PageWrapper>
         <Grid
           container
           alignItems="flex-start"

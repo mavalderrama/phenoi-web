@@ -52,3 +52,13 @@ export function uploadShapeFiles(field, plot, panel, mosaic_id) {
     )
   };
 }
+
+export function getMosaic(mosaic_id) {
+  return {
+    type: "GET_MOSAIC",
+    payload: axios.get(
+      `${constants.API_URI}/get_mosaic/${mosaic_id}`,
+      axiosConfigFile
+    )
+  };
+}
