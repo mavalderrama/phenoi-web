@@ -26,10 +26,10 @@ export function calibrate(mosaic_id) {
   };
 }
 
-export function saveRasterLayers(raster) {
+export function loading(state) {
   return {
-    type: "SAVE_RASTER",
-    payload: raster
+    type: "LOADING",
+    payload: state
   };
 }
 

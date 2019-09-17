@@ -1,7 +1,7 @@
 let initial_state = {
   mosaic_id: null,
   is_loading: false,
-  raster: null
+  raster: []
 };
 
 export default function(state = initial_state, action) {
@@ -27,6 +27,21 @@ export default function(state = initial_state, action) {
       is_loading: false,
       raster: payload.data.raster
     };
+  }
+
+  if (type === "LOADING") {
+    console.log(payload, "loading");
+    if (payload) {
+      return {
+        ...state,
+        is_loading: true
+      };
+    } else {
+      return {
+        ...state,
+        is_loading: false
+      };
+    }
   }
   return state;
 }

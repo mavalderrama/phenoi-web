@@ -22,6 +22,7 @@ import Divider from "@material-ui/core/Divider";
 import CategoryIcon from "@material-ui/icons/Category";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import LayersIcon from "@material-ui/icons/Layers";
+import ImageIcon from "@material-ui/icons/Image";
 import EcoIcon from "@material-ui/icons/Eco";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
@@ -29,6 +30,9 @@ import Loading from "../components/Loading";
 const styles = theme => ({
   list: {
     width: 250
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
   }
 });
 
@@ -57,10 +61,8 @@ class EditorPage extends Component {
     this.canvas.on("mouse:out", this.onMouseOut);
     this.canvas.on("mouse:move", this.onMouseMove);
     this.tools["Polygon"] = new PolyToolSelection(this.canvas);
-    this.setState({ is_loadingl: true });
-    this.load_raster().then(result => {
-      this.setState({ is_loadingl: false });
-    });
+
+    this.load_raster();
   }
 
   update = e => {
@@ -107,18 +109,22 @@ class EditorPage extends Component {
     const { editor_actions } = this.props;
     const { params } = this.props.match;
     editor_actions.getMosaic(params.id).then(async response => {
+      editor_actions.loading(true);
       const {
         value: { data }
       } = response;
       if ("raster" in data) {
         let layers = data.raster;
-        let images = await Promise.all(
-          layers.map(layer => this.load_layer(layer))
-        );
-        images.forEach(img => {
-          this.canvas.add(img);
-        });
+        let image = await this.load_layer(layers[layers.length - 1]);
+        this.canvas.add(image);
+        // let images = await Promise.all(
+        //   layers.map(layer => this.load_layer(layer))
+        // );
+        // images.forEach(img => {
+        //   this.canvas.add(img);
+        // });
         this.canvas.renderAll();
+        editor_actions.loading(false);
       }
     });
   };
@@ -172,8 +178,56 @@ class EditorPage extends Component {
     });
   };
 
+  getLayersButtons = () => {
+    const { raster, classes } = this.props;
+    const len = raster.length - 1;
+    let ms = [];
+    for (let i = 0; i < len; i++) {
+      ms.push(i);
+    }
+
+    return (
+      <div>
+        <ListItem
+          button
+          key={6}
+          className={classes.nested}
+          onClick={this.handleLayerButton(len)}
+        >
+          <ListItemIcon>
+            <ImageIcon />
+          </ListItemIcon>
+          <ListItemText primary={"RGB Composite"} />
+        </ListItem>
+        {ms.map((image, index) => (
+          <ListItem
+            button
+            key={index}
+            className={classes.nested}
+            onClick={this.handleLayerButton(index)}
+          >
+            <ListItemIcon>
+              <ImageIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Layer: " + (index + 1)} index={index} />
+          </ListItem>
+        ))}
+      </div>
+    );
+  };
+
+  handleLayerButton = index => async e => {
+    const { raster } = this.props;
+    // this.canvas.clear();
+    this.canvas.remove(raster[index]);
+    let image = await this.load_layer(raster[index]);
+    this.canvas.add(image);
+    this.canvas.setActiveObject(image);
+    this.canvas.renderAll();
+  };
+
   render() {
-    const { open_tools, advanced_tools, is_loadingl } = this.state;
+    const { open_tools, advanced_tools } = this.state;
     const { classes, is_loading } = this.props;
     return (
       <PageWrapper {...this.props}>
@@ -267,8 +321,8 @@ class EditorPage extends Component {
           <div
             className={classes.list}
             role="presentation"
-            onClick={this.openAdvancedTools}
-            onKeyDown={this.openAdvancedTools}
+            // onClick={this.openAdvancedTools}
+            // onKeyDown={this.openAdvancedTools}
           >
             <List>
               <ListItem key={"Advanced Tools"}>
@@ -292,8 +346,6 @@ class EditorPage extends Component {
                 <ListItemText primary={"Extract Features"} />
               </ListItem>
               <Divider />
-
-              {/*<Divider />*/}
               <ListItem key={"Raster Controls"}>
                 <ListItemText primary={"Raster Controls"} />
               </ListItem>
@@ -303,6 +355,7 @@ class EditorPage extends Component {
                 </ListItemIcon>
                 <ListItemText primary={"Layers"} />
               </ListItem>
+              {this.getLayersButtons()}
               <ListItem button key={"VI's"}>
                 <ListItemIcon>
                   <EcoIcon />
@@ -312,7 +365,7 @@ class EditorPage extends Component {
             </List>
           </div>
         </Drawer>
-        <Loading open={is_loadingl || is_loading} />
+        <Loading open={is_loading} />
       </PageWrapper>
     );
   }
@@ -320,7 +373,8 @@ class EditorPage extends Component {
 
 const mapStateToProps = (store, ownProps) => {
   return {
-    is_loading: store.editor_reducer.is_loading
+    is_loading: store.editor_reducer.is_loading,
+    raster: store.editor_reducer.raster
   };
 };
 const mapDispatchToProps = dispatch => {
