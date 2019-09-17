@@ -23,7 +23,6 @@ import { deepOrange } from "@material-ui/core/colors";
 import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import Loading from "../components/Loading";
 import * as auth_actions from "../Redux/actions/auth_actions";
 
 const drawerWidth = 240;
@@ -101,7 +100,10 @@ const styles = theme => ({
   },
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
   plusIcon: { marginLeft: theme.spacing(0) },
-  cloudIcon: { marginLeft: theme.spacing(1) }
+  cloudIcon: { marginLeft: theme.spacing(1) },
+  list: {
+    width: 250
+  }
 });
 
 class PageWrapper extends Component {
@@ -128,7 +130,7 @@ class PageWrapper extends Component {
   };
 
   render() {
-    const { classes, theme, open, handleClickOnProjectButton } = this.props;
+    const { classes, theme, open } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -188,7 +190,7 @@ class PageWrapper extends Component {
             <Avatar className={classes.orangeAvatar}>N</Avatar>
           </Grid>
           <List>
-            <ListItem button onClick={handleClickOnProjectButton}>
+            <ListItem button onClick={this.handleClickOnProjectButton}>
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
@@ -205,7 +207,7 @@ class PageWrapper extends Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <div>{this.props.children}</div>
+          {this.props.children}
         </main>
       </div>
     );

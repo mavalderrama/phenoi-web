@@ -30,7 +30,7 @@ class App extends Component {
       <Fragment>
         <Route path="/login" component={LoginPage} />
         <SecureRoute path="/mosaics" component={MosaicPage} />
-        <SecureRoute exact path="/"  component={ProjectsPage} />
+        <SecureRoute exact path="/" component={ProjectsPage} />
         <SecureRoute path="/editor/:id" component={EditorPage} />
       </Fragment>
     );

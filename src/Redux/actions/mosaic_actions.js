@@ -21,16 +21,6 @@ export function openUploadShapeForm(mosaic_id) {
   };
 }
 
-export function getMosaic(mosaic_id) {
-  return {
-    type: "GET_MOSAIC",
-    payload: axios.get(
-        `${constants.API_URI}/get_mosaic/${mosaic_id}`,
-        axiosConfigFile
-      )
-  };
-}
-
 export function closeUploadShapeForm() {
   return {
     type: "CLOSE_UPLOAD_SHAPE_FORM"
@@ -48,16 +38,6 @@ export function uploadShapeFiles(field, plot, panel, mosaic_id) {
     payload: axios.post(
       `${constants.API_URI}/upload_shape`,
       formData,
-      axiosConfigFile
-    )
-  };
-}
-
-export function getMosaic(mosaic_id) {
-  return {
-    type: "GET_MOSAIC",
-    payload: axios.get(
-      `${constants.API_URI}/get_mosaic/${mosaic_id}`,
       axiosConfigFile
     )
   };

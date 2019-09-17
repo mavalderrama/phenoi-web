@@ -25,13 +25,6 @@ const styles = theme => ({
 });
 
 class MosaicPage extends Component {
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    // axios.get("get_resource").then(res=>{
-    //     var img = res.data
-    // })
-  }
-
   handleOpenCard = (project, id) => {
     const { history } = this.props;
     history.push(`/editor/${id}`);
@@ -132,7 +125,7 @@ class MosaicPage extends Component {
     } = this.props;
     console.log("this is mosaic", this.props);
     return (
-      <PageWrapper>
+      <PageWrapper {...this.props}>
         <Grid
           container
           alignItems="flex-start"

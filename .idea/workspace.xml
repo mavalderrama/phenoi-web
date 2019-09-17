@@ -2,14 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Pages/EditorPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Redux/actions/editor_actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Redux/reducers/editor_reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Layout/PageWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/EditorPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/EditorPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/constants/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
     </list>
@@ -67,7 +71,7 @@
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Program Files\nodejs\node_modules\prettier" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="es6.move.members.recent.items">
@@ -143,6 +147,8 @@
       <workItem from="1567867557272" duration="39230000" />
       <workItem from="1568119192015" duration="29925000" />
       <workItem from="1568206508020" duration="28959000" />
+      <workItem from="1568637077429" duration="22007000" />
+      <workItem from="1568675204133" duration="6845000" />
     </task>
     <servers />
   </component>
@@ -164,5 +170,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/ciatlib" />
+    </ignored-roots>
   </component>
 </project>
