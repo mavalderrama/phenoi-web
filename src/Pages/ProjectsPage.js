@@ -16,10 +16,18 @@ import Button from "@material-ui/core/Button";
 import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Loading from "../components/Loading";
+import splash from "../images/splash.JPG";
+import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
-  plusIcon: { marginLeft: theme.spacing(0) }
+  plusIcon: { marginLeft: theme.spacing(0) },
+  image: {
+    backgroundImage: `url(${splash})`, //"url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }
 });
 
 class ProjectsPage extends Component {

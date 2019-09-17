@@ -24,9 +24,22 @@ export function login(username, password) {
 }
 
 export function is_sessionActive() {
+  let auth = {};
+  let id =
+    localStorage.getItem("id") != null
+      ? localStorage.getItem("id")
+      : sessionStorage.getItem("id");
+  let user =
+    localStorage.getItem("user") != null
+      ? localStorage.getItem("user")
+      : sessionStorage.getItem("user");
+  if (id && user) {
+    auth = { id: id, user: user };
+  } else auth = false;
+  console.log("auth", auth);
   return {
     type: "IS_ACTIVE",
-    payload: axios.post(`${constants.API_URI}/`, {}, axiosConfig)
+    payload: auth
   };
 }
 

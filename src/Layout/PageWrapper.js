@@ -24,12 +24,18 @@ import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
+import splash from "../images/splash2.jpg";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    height: "100vh",
+    backgroundImage: `url(${splash})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -84,7 +90,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(2)
   },
   nested: {
     paddingLeft: theme.spacing(4)
@@ -103,6 +109,12 @@ const styles = theme => ({
   cloudIcon: { marginLeft: theme.spacing(1) },
   list: {
     width: 250
+  },
+  image: {
+    backgroundImage: `url(${splash})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
   }
 });
 
@@ -153,12 +165,12 @@ class PageWrapper extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Pheno-i Image Analysis Tool
+              CIAT Pheno i Image Analysis Tool
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="permanent"
+          variant="persistent"
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open

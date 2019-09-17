@@ -209,7 +209,7 @@ class EditorPage extends Component {
             <ListItemIcon>
               <ImageIcon />
             </ListItemIcon>
-            <ListItemText primary={"Layer: " + (index + 1)} index={index} />
+            <ListItemText primary={"Band: " + (index + 1)} index={index} />
           </ListItem>
         ))}
       </div>
@@ -349,11 +349,11 @@ class EditorPage extends Component {
               <ListItem key={"Raster Controls"}>
                 <ListItemText primary={"Raster Controls"} />
               </ListItem>
-              <ListItem button key={"Layers"}>
+              <ListItem button key={"Bands"}>
                 <ListItemIcon>
                   <LayersIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Layers"} />
+                <ListItemText primary={"Bands"} />
               </ListItem>
               {this.getLayersButtons()}
               <ListItem button key={"VI's"}>

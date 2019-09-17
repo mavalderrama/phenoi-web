@@ -29,9 +29,15 @@ export function setClose() {
 }
 
 export function getProjects() {
+  let user_id = sessionStorage.getItem("id");
+  console.log("session", user_id);
   return {
     type: "GET_PROJECTS",
-    payload: axios.post(`${constants.API_URI}/projects`, {}, axiosConfig)
+    payload: axios.post(
+      `${constants.API_URI}/projects`,
+      { user_id: user_id },
+      axiosConfig
+    )
   };
 }
 

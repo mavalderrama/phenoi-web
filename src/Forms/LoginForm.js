@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import login from "../images/login.jpg";
 
 function Copyright() {
   return (
@@ -35,7 +36,7 @@ const styles = theme => ({
     height: "100vh"
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage: `url(${login})`, //"url(https://source.unsplash.com/random)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center"
@@ -74,6 +75,22 @@ const renderTextField = ({
     {...custom}
   />
 );
+
+const renderCheckbox = ({ input, label }) => {
+  return (
+    <div>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={input.value ? true : false}
+            onChange={input.onChange}
+          />
+        }
+        label={label}
+      />
+    </div>
+  );
+};
 
 class LoginForm extends Component {
   render() {
@@ -116,9 +133,11 @@ class LoginForm extends Component {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+              <Field
+                name={"remember"}
+                component={renderCheckbox}
                 label="Remember me"
+                color="primary"
               />
               <Button
                 type="submit"

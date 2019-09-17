@@ -8,15 +8,33 @@ import Loading from "../components/Loading";
 class LoginPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      remember: false,
+      user: "guest",
+      id: 0
+    };
   }
+
   login = values => {
-    // console.log(this.props);
     const { actions } = this.props;
+    this.setState({
+      remember: values.remember ? true : false
+    });
     actions.login(values.email, values.password);
   };
   render() {
-    const { is_authenticated, history, is_loading } = this.props;
+    const { is_authenticated, history, is_loading, user, id } = this.props;
+    console.log("state", this.state);
     if (is_authenticated) {
+      if (this.state.remember) {
+        localStorage.setItem("user", user);
+        localStorage.setItem("id", id);
+        sessionStorage.setItem("user", user);
+        sessionStorage.setItem("id", id);
+      } else {
+        sessionStorage.setItem("user", user);
+        sessionStorage.setItem("id", id);
+      }
       history.push("/");
     }
     return (
@@ -31,7 +49,9 @@ class LoginPage extends Component {
 const mapStateToProps = (store, ownProps) => {
   return {
     is_authenticated: store.auth_reducer.is_authenticated,
-    is_loading: store.auth_reducer.is_loading
+    is_loading: store.auth_reducer.is_loading,
+    user: store.auth_reducer.user,
+    id: store.auth_reducer.id
   };
 };
 const mapDispatchToProps = dispatch => {
