@@ -26,6 +26,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import EcoIcon from "@material-ui/icons/Eco";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
+import FileSaver from "file-saver";
 
 const styles = theme => ({
   list: {
@@ -42,13 +43,13 @@ class EditorPage extends Component {
     this.state = {
       open_tools: false,
       advanced_tools: false,
-      is_loadingl: false,
       panning: false,
       editMode: false
     };
     this.tools = {};
   }
   componentDidMount() {
+    console.log("did how many times????");
     this.canvas = new fabric.Canvas("c", {
       selection: false,
       preserveObjectStacking: true
@@ -115,8 +116,53 @@ class EditorPage extends Component {
       } = response;
       if ("raster" in data) {
         let layers = data.raster;
+        let panels = JSON.parse(data.panels_polygons);
+        let plots = JSON.parse(data.plots_polygons);
+        console.log("layers", layers);
+        console.log("panels", panels);
+        console.log("plots", plots);
         let image = await this.load_layer(layers[layers.length - 1]);
         this.canvas.add(image);
+        this.canvas.setActiveObject(image);
+        let scale = this.canvas.getActiveObjects()[0].scaleX;
+        panels.forEach((poly, idx) => {
+          //Scale de points
+          poly = poly.map(pt => {
+            return {
+              x: pt.x * scale,
+              y: pt.y * scale
+            };
+          });
+          var polygon = new fabric.Polygon(poly, {
+            strokeWidth: 1,
+            fill: "rgba(229, 9, 127,0.3)",
+            selectable: true,
+            hasBorders: true,
+            hasControls: true,
+            evented: true
+          });
+          this.canvas.add(polygon);
+          // this.canvas.setActiveObject(polygon);
+        });
+        plots.forEach((poly, idx) => {
+          //Scale de points
+          poly = poly.map(pt => {
+            return {
+              x: pt.x * scale,
+              y: pt.y * scale
+            };
+          });
+          var polygon = new fabric.Polygon(poly, {
+            strokeWidth: 1,
+            fill: "rgba(229, 9, 127,0.3)",
+            selectable: true,
+            hasBorders: true,
+            hasControls: true,
+            evented: true
+          });
+          this.canvas.add(polygon);
+          // this.canvas.setActiveObject(polygon);
+        });
         // let images = await Promise.all(
         //   layers.map(layer => this.load_layer(layer))
         // );
@@ -172,9 +218,22 @@ class EditorPage extends Component {
     console.log("calibrating");
     const { editor_actions, history } = this.props;
     const { params } = this.props.match;
-    console.log(this.props.match);
     editor_actions.calibrate(params.id).then(result => {
       history.push(`/editor/${result.value.data.id}`);
+    });
+  };
+
+  extractFeatureshandler = () => {
+    console.log("extracting ficturis");
+    const { editor_actions } = this.props;
+    const { params } = this.props.match;
+    console.log("id", params.id);
+    editor_actions.getFeatures(params.id).then(result => {
+      let file = result.value.data;
+      var file2 = new File([file], "report.csv", {
+        type: "text/csv;charset=utf-8"
+      });
+      FileSaver.saveAs(file2);
     });
   };
 
@@ -216,11 +275,47 @@ class EditorPage extends Component {
     );
   };
 
+  getLayersVIButtons = () => {
+    const { names, classes } = this.props;
+    console.log("names", names);
+    const len = names.length;
+    let ms = [];
+    for (let i = 0; i < len; i++) {
+      ms.push(i);
+    }
+
+    return (
+      <div>
+        {ms.map((image, index) => (
+          <ListItem
+            button
+            key={index}
+            className={classes.nested}
+            onClick={this.handleVIButton(index)}
+          >
+            <ListItemIcon>
+              <ImageIcon />
+            </ListItemIcon>
+            <ListItemText primary={names[index]} index={index} />
+          </ListItem>
+        ))}
+      </div>
+    );
+  };
+
   handleLayerButton = index => async e => {
     const { raster } = this.props;
-    // this.canvas.clear();
-    this.canvas.remove(raster[index]);
     let image = await this.load_layer(raster[index]);
+    this.canvas.clear();
+    this.canvas.add(image);
+    this.canvas.setActiveObject(image);
+    this.canvas.renderAll();
+  };
+
+  handleVIButton = index => async e => {
+    const { vis } = this.props;
+    let image = await this.load_layer(vis[index]);
+    this.canvas.clear();
     this.canvas.add(image);
     this.canvas.setActiveObject(image);
     this.canvas.renderAll();
@@ -232,87 +327,71 @@ class EditorPage extends Component {
     return (
       <PageWrapper {...this.props}>
         <canvas id="c" width="1" height="1" />
-        <Tooltip title="Edit options">
-          <Fab
-            color="primary"
-            style={{
-              margin: 0,
-              top: "auto",
-              right: 1180,
-              bottom: 50,
-              left: "auto",
-              position: "fixed"
-            }}
-            onClick={this.renderButton}
-          >
-            <EditIcon />
-          </Fab>
-        </Tooltip>
-        <Zoom
-          key={"primary"}
-          in={open_tools}
+        <div
           style={{
-            transitionDelay: `180ms`
+            margin: 0,
+            top: "auto",
+            right: "auto",
+            bottom: 50,
+            left: "auto",
+            position: "fixed"
           }}
-          unmountOnExit
         >
-          <div>
-            <Tooltip title="Add Polygon" placement="right-start">
-              <Fab
-                color="primary"
-                aria-label="add"
-                style={{
-                  margin: 0,
-                  top: "auto",
-                  right: 1187,
-                  bottom: 110,
-                  left: "auto",
-                  position: "fixed"
-                }}
-                size="small"
-                onClick={() => this.renderButton}
-              >
-                <PhotoSizeSelectSmallIcon />
-              </Fab>
-            </Tooltip>
-            <Tooltip title="Zoom +/-" placement="right-start">
-              <Fab
-                color="primary"
-                aria-label="add"
-                style={{
-                  margin: 0,
-                  top: "auto",
-                  right: 1187,
-                  bottom: 154,
-                  left: "auto",
-                  position: "fixed"
-                }}
-                size="small"
-                onClick={this.activateZoom}
-              >
-                <ZoomInIcon />
-              </Fab>
-            </Tooltip>
-            <Tooltip title="Advanced Tools" placement="right-start">
-              <Fab
-                color="primary"
-                aria-label="add"
-                style={{
-                  margin: 0,
-                  top: "auto",
-                  right: 1187,
-                  bottom: 198,
-                  left: "auto",
-                  position: "fixed"
-                }}
-                size="small"
-                onClick={this.openAdvancedTools}
-              >
-                <WidgetsIcon />
-              </Fab>
-            </Tooltip>
-          </div>
-        </Zoom>
+          <Tooltip title="Edit options">
+            <Fab color="primary" onClick={this.renderButton} style={{}}>
+              <EditIcon />
+            </Fab>
+          </Tooltip>
+          <Zoom
+            key={"primary"}
+            in={open_tools}
+            style={{
+              transitionDelay: `180ms`
+            }}
+            unmountOnExit
+          >
+            <div
+              style={{
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "flex-start"
+                // vertical-align: top
+              }}
+            >
+              <Tooltip title="Add Polygon" placement="right-start">
+                <Fab
+                  color="primary"
+                  aria-label="add"
+                  size="small"
+                  onClick={() => this.renderButton}
+                >
+                  <PhotoSizeSelectSmallIcon />
+                </Fab>
+              </Tooltip>
+              <Tooltip title="Zoom +/-" placement="right-start">
+                <Fab
+                  color="primary"
+                  aria-label="add"
+                  size="small"
+                  onClick={this.activateZoom}
+                >
+                  <ZoomInIcon />
+                </Fab>
+              </Tooltip>
+              <Tooltip title="Advanced Tools" placement="right-start">
+                <Fab
+                  color="primary"
+                  aria-label="add"
+                  size="small"
+                  onClick={this.openAdvancedTools}
+                >
+                  <WidgetsIcon />
+                </Fab>
+              </Tooltip>
+            </div>
+          </Zoom>
+        </div>
         <Drawer
           anchor="right"
           open={advanced_tools}
@@ -339,7 +418,11 @@ class EditorPage extends Component {
                 </ListItemIcon>
                 <ListItemText primary={"Calibrate Mosaic"} />
               </ListItem>
-              <ListItem button key={"Extract Features"}>
+              <ListItem
+                button
+                key={"Extract Features"}
+                onClick={this.extractFeatureshandler}
+              >
                 <ListItemIcon>
                   <ViewComfyIcon />
                 </ListItemIcon>
@@ -362,6 +445,7 @@ class EditorPage extends Component {
                 </ListItemIcon>
                 <ListItemText primary={"VI's"} />
               </ListItem>
+              {this.getLayersVIButtons()}
             </List>
           </div>
         </Drawer>
@@ -374,7 +458,9 @@ class EditorPage extends Component {
 const mapStateToProps = (store, ownProps) => {
   return {
     is_loading: store.editor_reducer.is_loading,
-    raster: store.editor_reducer.raster
+    raster: store.editor_reducer.raster,
+    vis: store.editor_reducer.vis,
+    names: store.editor_reducer.names
   };
 };
 const mapDispatchToProps = dispatch => {

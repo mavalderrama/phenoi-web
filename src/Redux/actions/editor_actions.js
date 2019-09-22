@@ -42,3 +42,14 @@ export function getMosaic(mosaic_id) {
     )
   };
 }
+
+export function getFeatures(mosaic_id) {
+  return {
+    type: "GET_FEATURES",
+    payload: axios.post(
+      `${constants.API_URI}/get_features`,
+      { mosaic_id: mosaic_id },
+      axiosConfig
+    )
+  };
+}

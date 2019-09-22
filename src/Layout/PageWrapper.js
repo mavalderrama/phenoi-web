@@ -119,6 +119,10 @@ const styles = theme => ({
 });
 
 class PageWrapper extends Component {
+  componentDidMount() {
+    console.log("did mount wrapper");
+  }
+
   handleDrawerOpen = () => {
     const { actions } = this.props;
     actions.setOpen();

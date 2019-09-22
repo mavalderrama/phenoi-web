@@ -1,5 +1,10 @@
-import React, { Component, Fragment } from "react";
-import { Redirect, Route } from "react-router-dom";
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
 import LoginPage from "../../Pages/LoginPage";
 import MosaicPage from "../../Pages/MosaicPage";
 import ProjectsPage from "../../Pages/ProjectsPage";
@@ -11,28 +16,36 @@ import { bindActionCreators } from "redux";
 class App extends Component {
   componentDidMount() {
     const { actions } = this.props;
+    console.log("did app");
     actions.is_sessionActive();
   }
   render() {
-    var SecureRoute = ({ component: Component, ...rest }) => (
+    let SecureRoute = ({ component: Component, ...rest }) => (
       <Route
         {...rest}
         render={props =>
           this.props.is_authenticated ? (
             <Component {...props} />
           ) : (
-            <Redirect to="/login" />
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location }
+              }}
+            />
           )
         }
       />
     );
     return (
-      <Fragment>
-        <Route path="/login" component={LoginPage} />
-        <SecureRoute path="/mosaics" component={MosaicPage} />
-        <SecureRoute exact path="/" component={ProjectsPage} />
-        <SecureRoute path="/editor/:id" component={EditorPage} />
-      </Fragment>
+      <Router>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <SecureRoute exact path="/" component={ProjectsPage} />
+          <SecureRoute path="/mosaics" component={MosaicPage} />
+          <SecureRoute path="/editor/:id" component={EditorPage} />
+        </Switch>
+      </Router>
     );
   }
 }

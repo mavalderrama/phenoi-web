@@ -2,18 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/images/login.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/splash.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/splash2.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Forms/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Layout/PageWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/EditorPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/EditorPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/auth_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/auth_reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/actions/editor_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/editor_actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/editor_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/editor_reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProjectCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectCards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,7 +154,12 @@
       <workItem from="1568206508020" duration="28959000" />
       <workItem from="1568637077429" duration="22007000" />
       <workItem from="1568675204133" duration="14378000" />
-      <workItem from="1568724404528" duration="22567000" />
+      <workItem from="1568724404528" duration="38370000" />
+      <workItem from="1568897298536" duration="4520000" />
+      <workItem from="1568926825989" duration="12000" />
+      <workItem from="1568927772495" duration="894000" />
+      <workItem from="1568983441621" duration="14973000" />
+      <workItem from="1569078860050" duration="645000" />
     </task>
     <servers />
   </component>

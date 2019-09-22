@@ -30,7 +30,6 @@ export function setClose() {
 
 export function getProjects() {
   let user_id = sessionStorage.getItem("id");
-  console.log("session", user_id);
   return {
     type: "GET_PROJECTS",
     payload: axios.post(
@@ -42,11 +41,12 @@ export function getProjects() {
 }
 
 export function getMosaics(projectName) {
+  let user_id = sessionStorage.getItem("id");
   return {
     type: "GET_MOSAICS",
     payload: axios.post(
       `${constants.API_URI}/mosaics`,
-      { project_name: projectName },
+      { project_name: projectName, user_id: user_id },
       axiosConfig
     )
   };
@@ -59,11 +59,12 @@ export function closeProjects() {
 }
 
 export function createProject(project_name, details) {
+  let user_id = sessionStorage.getItem("id");
   return {
     type: "CREATE_PROJECT",
     payload: axios.post(
       `${constants.API_URI}/add_project`,
-      { details: details, project_name: project_name },
+      { details: details, project_name: project_name, user_id: user_id },
       axiosConfig
     )
   };
@@ -86,6 +87,7 @@ export function createMosaic(
   formData.append("calibrated", calibrated);
   formData.append("mosaic", image[0]);
   formData.append("name", name);
+  formData.append("user_id", sessionStorage.getItem("id"));
   return {
     type: "CREATE_MOSAIC",
     payload: axios.post(
@@ -144,11 +146,12 @@ export function deleteMosaic(id, project_name) {
 }
 
 export function deleteProject(id, project_name) {
+  let user_id = sessionStorage.getItem("id");
   return {
     type: "DELETE_SELECTED_PROJECT",
     payload: axios.post(
       `${constants.API_URI}/remove_project`,
-      { id: id, project_name: project_name },
+      { id: id, project_name: project_name, user_id: user_id },
       axiosConfig
     )
   };

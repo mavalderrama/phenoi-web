@@ -20,10 +20,13 @@ const styles = () => ({
 });
 
 class MediaCard extends Component {
-  handleClickOnCard = () => {
+  handleClickOnCard = event => {
     console.log("click on card open", this.props);
+    console.log("event", event);
     const { clickOnOpenHandler, id, project } = this.props;
     clickOnOpenHandler(project, id);
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   render() {

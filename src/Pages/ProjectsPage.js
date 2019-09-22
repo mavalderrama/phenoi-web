@@ -17,7 +17,6 @@ import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Loading from "../components/Loading";
 import splash from "../images/splash.JPG";
-import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -32,6 +31,7 @@ const styles = theme => ({
 
 class ProjectsPage extends Component {
   componentDidMount() {
+    console.log("did mount projects");
     const { drawer_actions } = this.props;
     drawer_actions.getProjects();
   }

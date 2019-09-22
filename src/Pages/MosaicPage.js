@@ -25,6 +25,10 @@ const styles = theme => ({
 });
 
 class MosaicPage extends Component {
+  componentDidMount() {
+    console.log("did mount mosaics");
+  }
+
   handleOpenCard = (project, id) => {
     const { history } = this.props;
     history.push(`/editor/${id}`);

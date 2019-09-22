@@ -4,6 +4,9 @@ import { bindActionCreators } from "redux";
 import * as auth_actions from "./../Redux/actions/auth_actions";
 import LoginForm from "../Forms/LoginForm";
 import Loading from "../components/Loading";
+import { withStyles, withTheme } from "@material-ui/core";
+
+const styles = theme => ({});
 
 class LoginPage extends Component {
   constructor(props) {
@@ -13,6 +16,10 @@ class LoginPage extends Component {
       user: "guest",
       id: 0
     };
+  }
+
+  componentDidMount() {
+    console.log("did mount login");
   }
 
   login = values => {
@@ -35,6 +42,7 @@ class LoginPage extends Component {
         sessionStorage.setItem("user", user);
         sessionStorage.setItem("id", id);
       }
+      console.log("did push");
       history.push("/");
     }
     return (
@@ -60,4 +68,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage);
+)(withStyles(styles)(withTheme(LoginPage)));
