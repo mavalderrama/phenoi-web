@@ -18,6 +18,7 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import AddMosaicForm from "../Forms/AddMosaicForm";
 import UploadShapeForm from "../Forms/UploadShapeForm";
 import Loading from "../components/Loading";
+import FileSaver from "file-saver";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -147,6 +148,11 @@ class MosaicPage extends Component {
     console.log("send to api", this.state.timeseries);
     mosaic_actions.performTimeSeries(this.state.timeseries).then(response => {
       console.log("response ts", response);
+      let file = response.value.data;
+      var file2 = new File([file], "report.csv", {
+        type: "text/csv;charset=utf-8"
+      });
+      FileSaver.saveAs(file2);
     });
   };
 

@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/MosaicCards.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Layout/PageWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Layout/PageWrapper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjectCards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectCards.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +147,8 @@
       <workItem from="1568927772495" duration="894000" />
       <workItem from="1568983441621" duration="14973000" />
       <workItem from="1569078860050" duration="645000" />
-      <workItem from="1569244354318" duration="15293000" />
+      <workItem from="1569244354318" duration="15295000" />
+      <workItem from="1569328734871" duration="880000" />
     </task>
     <servers />
   </component>
