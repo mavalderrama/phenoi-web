@@ -84,9 +84,8 @@ class ProjectsPage extends Component {
 
   render() {
     const { projects, open_add_project_form, classes, is_loading } = this.props;
-
     return (
-      <PageWrapper>
+      <PageWrapper actual={"Projects"}>
         <Grid
           container
           alignItems="flex-start"

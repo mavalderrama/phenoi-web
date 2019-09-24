@@ -162,3 +162,17 @@ export function openFormAddShape() {
     type: "OPEN_FORM_ADD_SHAPEFILE"
   };
 }
+
+export function pushBread(location) {
+  return {
+    type: "PUSH_BREAD",
+    payload: location
+  };
+}
+
+export function popBread(location) {
+  return {
+    type: "POP_BREAD",
+    payload: location
+  };
+}

@@ -25,6 +25,8 @@ import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
 import splash from "../images/splash2.jpg";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
 const drawerWidth = 240;
 
@@ -120,7 +122,7 @@ const styles = theme => ({
 
 class PageWrapper extends Component {
   componentDidMount() {
-    console.log("did mount wrapper");
+    this.props.actions.pushBread(this.props.actual);
   }
 
   handleDrawerOpen = () => {
@@ -146,7 +148,8 @@ class PageWrapper extends Component {
   };
 
   render() {
-    const { classes, theme, open } = this.props;
+    const { classes, theme, open, bread } = this.props;
+    console.log("Actual bread", bread);
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -169,7 +172,11 @@ class PageWrapper extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              CIAT Pheno i Image Analysis Tool
+              {/*CIAT Pheno i Image Analysis Tool*/}
+              {/*<Breadcrumbs*/}
+              {/*  separator={<NavigateNextIcon fontSize="small" />}*/}
+              {/*  aria-label="breadcrumb"*/}
+              {/*></Breadcrumbs>*/}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -240,7 +247,8 @@ const mapStateToProps = (store, ownProps) => {
     is_authenticated: store.auth_reducer.is_authenticated,
     open_add_project_form: store.drawer_reducer.open_add_project_form,
     open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
-    project_opened: store.drawer_reducer.project_opened
+    project_opened: store.drawer_reducer.project_opened,
+    bread: store.drawer_reducer.bread
   };
 };
 const mapDispatchToProps = dispatch => {

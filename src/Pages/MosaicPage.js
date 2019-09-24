@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import ProjectCards from "../components/ProjectCards";
+import ProjectCards from "../components/MosaicCards";
 import DeleteUploadCardButton from "../components/DeleteUploadCardButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -21,10 +21,18 @@ import Loading from "../components/Loading";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
+  timeButton: { margin: theme.spacing(1, 1) },
   cloudIcon: { marginLeft: theme.spacing(1) }
 });
 
 class MosaicPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timeseries: []
+    };
+  }
+
   componentDidMount() {
     console.log("did mount mosaics");
   }
@@ -118,6 +126,30 @@ class MosaicPage extends Component {
     }
   };
 
+  handleCheckedCard = (project, id, checked) => {
+    console.log("handling checking", project, id, checked);
+    let ts = this.state.timeseries;
+    if (checked) {
+      ts.push(id);
+      this.setState({ timeseries: ts });
+    }
+    if (!checked) {
+      let index = ts.indexOf(id);
+      if (index > -1) {
+        ts.splice(index, 1);
+      }
+      this.setState({ timeseries: ts });
+    }
+  };
+
+  handleTimeSeries = () => {
+    const { mosaic_actions } = this.props;
+    console.log("send to api", this.state.timeseries);
+    mosaic_actions.performTimeSeries(this.state.timeseries).then(response => {
+      console.log("response ts", response);
+    });
+  };
+
   render() {
     const {
       mosaics,
@@ -127,15 +159,25 @@ class MosaicPage extends Component {
       project_opened,
       is_loading
     } = this.props;
-    console.log("this is mosaic", this.props);
+    const { timeseries } = this.state;
+    console.log("len", timeseries.length);
     return (
-      <PageWrapper {...this.props}>
+      <PageWrapper history={this.props.history} actual={"Mosaic"}>
         <Grid
           container
           alignItems="flex-start"
           justify="flex-end"
           direction="row"
         >
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.timeButton}
+            disabled={timeseries.length < 2}
+            onClick={this.handleTimeSeries}
+          >
+            Time Series Analysis
+          </Button>
           <Button
             variant="contained"
             color="default"
@@ -155,6 +197,7 @@ class MosaicPage extends Component {
                   details={mosaic.details}
                   id={mosaic.id}
                   clickOnOpenHandler={this.handleOpenCard}
+                  clickOnCheckHandle={this.handleCheckedCard}
                 >
                   <DeleteUploadCardButton
                     id={mosaic.id}
@@ -199,6 +242,7 @@ const mapStateToProps = (store, ownProps) => {
     open_upload_shape_form: store.mosaic_reducer.open_upload_shape_form,
     is_loading: store.mosaic_reducer.is_loading,
     mosaic_opened: store.mosaic_reducer.mosaic_opened
+    // bread: store.drawer_reducer.bread
   };
 };
 const mapDispatchToProps = dispatch => {

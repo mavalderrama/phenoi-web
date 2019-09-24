@@ -21,7 +21,7 @@ const styles = () => ({
   }
 });
 
-class MediaCard extends Component {
+class MediaMosaicCard extends Component {
   handleClickOnCard = event => {
     console.log("click on card open", this.props);
     console.log("event", event);
@@ -31,14 +31,38 @@ class MediaCard extends Component {
     event.stopPropagation();
   };
 
+  handleClickOnCheckbox = event => {
+    const { clickOnCheckHandle, id, project } = this.props;
+    console.log("click on checkbox");
+    console.log("project", project, "id", id);
+    console.log("target", event.target.checked);
+    clickOnCheckHandle(project, id, event.target.checked);
+    // event.preventDefault();
+    event.stopPropagation();
+  };
+
   render() {
-    const { project, image, details, classes } = this.props;
+    const { project, image, details, classes, id } = this.props;
     const imageC =
       image ||
       "https://images.unsplash.com/photo-1565234958677-53836561b971?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
     const detailsC = details || "No-details";
     return (
       <Card className={classes.card}>
+        <CardHeader
+          style={{
+            marginBottom: "-20px",
+            marginTop: "-15px",
+            marginRight: "-15px"
+          }}
+          action={
+            <Checkbox
+              id={"checkbox_" + id}
+              // checked={state.checkedA}
+              onChange={this.handleClickOnCheckbox}
+            />
+          }
+        />
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -76,4 +100,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(MediaCard));
+)(withStyles(styles)(MediaMosaicCard));

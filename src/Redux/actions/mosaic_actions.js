@@ -42,3 +42,14 @@ export function uploadShapeFiles(field, plot, panel, mosaic_id) {
     )
   };
 }
+
+export function performTimeSeries(vectorId) {
+  return {
+    type: "PERFORM_TIMESERIES",
+    payload: axios.post(
+      `${constants.API_URI}/timeseries`,
+      { mosaics: vectorId },
+      axiosConfig
+    )
+  };
+}
