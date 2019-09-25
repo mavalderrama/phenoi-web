@@ -27,6 +27,9 @@ import EcoIcon from "@material-ui/icons/Eco";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
 import FileSaver from "file-saver";
+import Map from "../components/Maps";
+import constants from "../Redux/constants";
+import L from "leaflet";
 
 const styles = theme => ({
   list: {
@@ -37,6 +40,11 @@ const styles = theme => ({
   }
 });
 
+const style = {
+  width: "100%",
+  height: "100vh"
+};
+
 class EditorPage extends Component {
   constructor(props) {
     super(props);
@@ -44,28 +52,63 @@ class EditorPage extends Component {
       open_tools: false,
       advanced_tools: false,
       panning: false,
-      editMode: false
+      editMode: false,
+      mosaics: []
     };
     this.tools = {};
   }
   componentDidMount() {
-    console.log("did how many times????");
-    this.canvas = new fabric.Canvas("c", {
-      selection: false,
-      preserveObjectStacking: true
+    const { editor_actions } = this.props;
+    const { params } = this.props.match;
+    let indices = {};
+    editor_actions.getMosaicData(params.id).then(response => {
+      console.log("vis", response);
+      const { vis, bbox } = response.value.data;
+      let bbox_inv = [[bbox[1], bbox[0]], [bbox[3], bbox[2]]];
+
+      var satellite = L.tileLayer(
+          "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+          {
+            attribution:
+              'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: "mapbox.satellite",
+            maxZoom: 25,
+            accessToken:
+              "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+          }
+        ),
+        streets = L.tileLayer(
+          "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+          {
+            attribution:
+              'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: "mapbox.streets",
+            maxZoom: 25,
+            accessToken:
+              "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+          }
+        );
+
+      this.map = L.map("map", {
+        center: [3.4982633, -76.3603093], //[3.4982633, -76.3603093],
+        zoom: 20,
+        layers: [satellite, streets]
+      });
+
+      var baseMaps = {
+        Streets: streets,
+        Satellite: satellite
+      };
+      vis.forEach(index_name => {
+        var image = L.imageOverlay(
+          `${constants.API_URI}/get_mosaic/${params.id}?vi=${index_name}`,
+          bbox_inv
+        ).addTo(this.map);
+        indices[index_name] = image;
+      });
+      L.control.layers(indices, baseMaps).addTo(this.map);
     });
-    this.canvas.setWidth(9000);
-    this.canvas.setHeight(9000);
-    this.canvas.on("mouse:wheel", this.onMouseWheel);
-    this.canvas.on("mouse:up", this.onMouseUp);
-    this.canvas.on("mouse:down", this.onMouseDown);
-    this.canvas.on("mouse:out", this.onMouseOut);
-    this.canvas.on("mouse:move", this.onMouseMove);
-    this.tools["Polygon"] = new PolyToolSelection(this.canvas);
-
-    this.load_raster();
   }
-
   update = e => {
     Object.keys(this.tools).forEach(control => {
       this.tools[control].onMouseAction(e);
@@ -322,11 +365,13 @@ class EditorPage extends Component {
   };
 
   render() {
-    const { open_tools, advanced_tools } = this.state;
-    const { classes, is_loading } = this.props;
+    const { open_tools, advanced_tools, mosaics } = this.state;
+    const { classes, is_loading, bbox } = this.props;
+    console.log("bbox props", mosaics);
     return (
       <PageWrapper {...this.props}>
-        <canvas id="c" width="1" height="1" />
+        {/*<canvas id="c" width="1" height="1" />*/}
+        <div id="map" style={style} />
         <div
           style={{
             margin: 0,
@@ -392,63 +437,63 @@ class EditorPage extends Component {
             </div>
           </Zoom>
         </div>
-        <Drawer
-          anchor="right"
-          open={advanced_tools}
-          onClose={this.openAdvancedTools}
-        >
-          <div
-            className={classes.list}
-            role="presentation"
-            // onClick={this.openAdvancedTools}
-            // onKeyDown={this.openAdvancedTools}
-          >
-            <List>
-              <ListItem key={"Advanced Tools"}>
-                <ListItemText primary={"Advanced Tools Menu"} />
-              </ListItem>
-              <Divider />
-              <ListItem
-                button
-                key={"Calibrate"}
-                onClick={this.calibrateHandler}
-              >
-                <ListItemIcon>
-                  <CategoryIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Calibrate Mosaic"} />
-              </ListItem>
-              <ListItem
-                button
-                key={"Extract Features"}
-                onClick={this.extractFeatureshandler}
-              >
-                <ListItemIcon>
-                  <ViewComfyIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Extract Features"} />
-              </ListItem>
-              <Divider />
-              <ListItem key={"Raster Controls"}>
-                <ListItemText primary={"Raster Controls"} />
-              </ListItem>
-              <ListItem button key={"Bands"}>
-                <ListItemIcon>
-                  <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Bands"} />
-              </ListItem>
-              {this.getLayersButtons()}
-              <ListItem button key={"VI's"}>
-                <ListItemIcon>
-                  <EcoIcon />
-                </ListItemIcon>
-                <ListItemText primary={"VI's"} />
-              </ListItem>
-              {this.getLayersVIButtons()}
-            </List>
-          </div>
-        </Drawer>
+        {/*<Drawer*/}
+        {/*  anchor="right"*/}
+        {/*  open={advanced_tools}*/}
+        {/*  onClose={this.openAdvancedTools}*/}
+        {/*>*/}
+        {/*  <div*/}
+        {/*    className={classes.list}*/}
+        {/*    role="presentation"*/}
+        {/*    // onClick={this.openAdvancedTools}*/}
+        {/*    // onKeyDown={this.openAdvancedTools}*/}
+        {/*  >*/}
+        {/*    <List>*/}
+        {/*      <ListItem key={"Advanced Tools"}>*/}
+        {/*        <ListItemText primary={"Advanced Tools Menu"} />*/}
+        {/*      </ListItem>*/}
+        {/*      <Divider />*/}
+        {/*      <ListItem*/}
+        {/*        button*/}
+        {/*        key={"Calibrate"}*/}
+        {/*        onClick={this.calibrateHandler}*/}
+        {/*      >*/}
+        {/*        <ListItemIcon>*/}
+        {/*          <CategoryIcon />*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary={"Calibrate Mosaic"} />*/}
+        {/*      </ListItem>*/}
+        {/*      <ListItem*/}
+        {/*        button*/}
+        {/*        key={"Extract Features"}*/}
+        {/*        onClick={this.extractFeatureshandler}*/}
+        {/*      >*/}
+        {/*        <ListItemIcon>*/}
+        {/*          <ViewComfyIcon />*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary={"Extract Features"} />*/}
+        {/*      </ListItem>*/}
+        {/*      <Divider />*/}
+        {/*      <ListItem key={"Raster Controls"}>*/}
+        {/*        <ListItemText primary={"Raster Controls"} />*/}
+        {/*      </ListItem>*/}
+        {/*      <ListItem button key={"Bands"}>*/}
+        {/*        <ListItemIcon>*/}
+        {/*          <LayersIcon />*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary={"Bands"} />*/}
+        {/*      </ListItem>*/}
+        {/*      {this.getLayersButtons()}*/}
+        {/*      <ListItem button key={"VI's"}>*/}
+        {/*        <ListItemIcon>*/}
+        {/*          <EcoIcon />*/}
+        {/*        </ListItemIcon>*/}
+        {/*        <ListItemText primary={"VI's"} />*/}
+        {/*      </ListItem>*/}
+        {/*      {this.getLayersVIButtons()}*/}
+        {/*    </List>*/}
+        {/*  </div>*/}
+        {/*</Drawer>*/}
         <Loading open={is_loading} />
       </PageWrapper>
     );
@@ -460,7 +505,8 @@ const mapStateToProps = (store, ownProps) => {
     is_loading: store.editor_reducer.is_loading,
     raster: store.editor_reducer.raster,
     vis: store.editor_reducer.vis,
-    names: store.editor_reducer.names
+    names: store.editor_reducer.names,
+    bbox: store.editor_reducer.bbox
   };
 };
 const mapDispatchToProps = dispatch => {

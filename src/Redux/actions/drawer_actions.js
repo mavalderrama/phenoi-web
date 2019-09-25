@@ -88,6 +88,7 @@ export function createMosaic(
   formData.append("mosaic", image[0]);
   formData.append("name", name);
   formData.append("user_id", sessionStorage.getItem("id"));
+  console.log("form", date);
   return {
     type: "CREATE_MOSAIC",
     payload: axios.post(

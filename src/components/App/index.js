@@ -20,6 +20,7 @@ class App extends Component {
     actions.is_sessionActive();
   }
   render() {
+    // zip.workerScriptsPath = "/lib/";
     let SecureRoute = ({ component: Component, ...rest }) => (
       <Route
         {...rest}
