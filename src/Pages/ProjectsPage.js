@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Loading from "../components/Loading";
-import splash from "../images/splash.JPG";
+import splash from "../images/splash.jpg";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -85,7 +85,11 @@ class ProjectsPage extends Component {
   render() {
     const { projects, open_add_project_form, classes, is_loading } = this.props;
     return (
-      <PageWrapper actual={"Projects"}>
+      <PageWrapper
+        actual={"Projects"}
+        history={this.props.history}
+        drawer_buttons={[]}
+      >
         <Grid
           container
           alignItems="flex-start"

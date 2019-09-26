@@ -24,7 +24,9 @@ import { Avatar } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
-import splash from "../images/splash2.jpg";
+import splash from "../images/s3.jpg";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Box from "@material-ui/core/Box";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
@@ -117,12 +119,25 @@ const styles = theme => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center"
+  },
+  sectionDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex"
+    }
+  },
+  grow: {
+    flexGrow: 1
   }
 });
 
 class PageWrapper extends Component {
   componentDidMount() {
-    this.props.actions.pushBread(this.props.actual);
+    // this.props.actions.pushBread(this.props.actual);
+    var test = [{ name: "test_name1" }, { name: "test_name2" }];
+    test.map(test_val => {
+      console.log("todo", test_val.name);
+    });
   }
 
   handleDrawerOpen = () => {
@@ -141,14 +156,9 @@ class PageWrapper extends Component {
     auth_actions.logout();
   };
 
-  handleClickOnProjectButton = () => {
-    console.log("refreshing", this.props);
-    const { history } = this.props;
-    history.push("/");
-  };
-
   render() {
-    const { classes, theme, open, bread } = this.props;
+    const menuId = "primary-search-account-menu";
+    const { classes, theme, open, bread, drawer_buttons } = this.props;
     console.log("Actual bread", bread);
     return (
       <div className={classes.root}>
@@ -172,7 +182,7 @@ class PageWrapper extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              {/*CIAT Pheno i Image Analysis Tool*/}
+              CIAT Pheno i Image Analysis Tool
               {/*<Breadcrumbs*/}
               {/*  separator={<NavigateNextIcon fontSize="small" />}*/}
               {/*  aria-label="breadcrumb"*/}
@@ -181,7 +191,7 @@ class PageWrapper extends Component {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="persistent"
+          variant="permanent"
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open
@@ -213,12 +223,21 @@ class PageWrapper extends Component {
             <Avatar className={classes.orangeAvatar}>N</Avatar>
           </Grid>
           <List>
-            <ListItem button onClick={this.handleClickOnProjectButton}>
-              <ListItemIcon>
-                <WorkIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Projects"} />
-            </ListItem>
+            {drawer_buttons.map((button_obj, index) => (
+              <ListItem button onClick={button_obj.handle} key={index}>
+                <ListItemIcon>{button_obj.icon}</ListItemIcon>
+                <ListItemText primary={button_obj.name} />
+              </ListItem>
+            ))}
+            <Divider />
+
+            {/*<ListItem button onClick={this.handleClickOnProjectButton}>*/}
+            {/*  <ListItemIcon>*/}
+            {/*    <WorkIcon />*/}
+            {/*  </ListItemIcon>*/}
+            {/*  <ListItemText primary={"Projects"} />*/}
+            {/*</ListItem>*/}
+
             <ListItem button onClick={this.handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />

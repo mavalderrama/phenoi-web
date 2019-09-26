@@ -1,5 +1,5 @@
 let initial_state = {
-  open: true,
+  open: false,
   is_loading: false,
   open_project: false,
   projects: [],

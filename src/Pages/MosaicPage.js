@@ -19,6 +19,7 @@ import AddMosaicForm from "../Forms/AddMosaicForm";
 import UploadShapeForm from "../Forms/UploadShapeForm";
 import Loading from "../components/Loading";
 import FileSaver from "file-saver";
+import WorkIcon from "@material-ui/icons/Work";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -156,6 +157,12 @@ class MosaicPage extends Component {
     });
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { history } = this.props;
+    history.push("/");
+  };
+
   render() {
     const {
       mosaics,
@@ -166,9 +173,20 @@ class MosaicPage extends Component {
       is_loading
     } = this.props;
     const { timeseries } = this.state;
-    console.log("len", timeseries.length);
+
+    let buttons = [
+      {
+        handle: this.handleClickOnProjectButton,
+        name: "Projects",
+        icon: <WorkIcon />
+      }
+    ];
     return (
-      <PageWrapper history={this.props.history} actual={"Mosaic"}>
+      <PageWrapper
+        history={this.props.history}
+        actual={"Mosaic"}
+        drawer_buttons={buttons}
+      >
         <Grid
           container
           alignItems="flex-start"

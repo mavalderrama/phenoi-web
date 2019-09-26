@@ -8,28 +8,19 @@ import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import WidgetsIcon from "@material-ui/icons/Widgets";
 import PhotoSizeSelectSmallIcon from "@material-ui/icons/PhotoSizeSelectSmall";
-import { fabric } from "fabric";
-import PolyToolSelection from "../components/PolygonToolSelection";
 import Zoom from "@material-ui/core/Zoom";
 import Tooltip from "@material-ui/core/Tooltip";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ViewComfyIcon from "@material-ui/icons/ViewComfy";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import CategoryIcon from "@material-ui/icons/Category";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
-import LayersIcon from "@material-ui/icons/Layers";
-import ImageIcon from "@material-ui/icons/Image";
-import EcoIcon from "@material-ui/icons/Eco";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
 import FileSaver from "file-saver";
-import Map from "../components/Maps";
 import constants from "../Redux/constants";
 import L from "leaflet";
+import * as goo from "leaflet.gridlayer.googlemutant";
+import WorkIcon from "@material-ui/icons/Work";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 const styles = theme => ({
   list: {
@@ -55,7 +46,6 @@ class EditorPage extends Component {
       editMode: false,
       mosaics: []
     };
-    this.tools = {};
   }
   componentDidMount() {
     const { editor_actions } = this.props;
@@ -67,36 +57,42 @@ class EditorPage extends Component {
       let bbox_inv = [[bbox[1], bbox[0]], [bbox[3], bbox[2]]];
 
       var satellite = L.tileLayer(
-          "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-          {
-            attribution:
-              'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: "mapbox.satellite",
-            maxZoom: 25,
-            accessToken:
-              "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
-          }
-        ),
-        streets = L.tileLayer(
-          "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-          {
-            attribution:
-              'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: "mapbox.streets",
-            maxZoom: 25,
-            accessToken:
-              "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
-          }
-        );
+        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: "mapbox.satellite",
+          maxZoom: 25,
+          accessToken:
+            "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+        }
+      );
+      var streets = L.tileLayer(
+        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: "mapbox.streets",
+          maxZoom: 25,
+          accessToken:
+            "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+        }
+      );
+      var google = L.gridLayer.googleMutant({
+        type: "hybrid" // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      });
 
       this.map = L.map("map", {
         center: [3.4982633, -76.3603093], //[3.4982633, -76.3603093],
         zoom: 20,
-        layers: [satellite, streets]
+        layers: [satellite]
       });
+
+      this.map.fitBounds(bbox_inv);
 
       var baseMaps = {
         Streets: streets,
+        Hybrid: google,
         Satellite: satellite
       };
       vis.forEach(index_name => {
@@ -106,127 +102,12 @@ class EditorPage extends Component {
         ).addTo(this.map);
         indices[index_name] = image;
       });
-      L.control.layers(indices, baseMaps).addTo(this.map);
+      var layer_control = L.control
+        .layers(indices, baseMaps)
+        .addTo(this.map)
+        .expand();
     });
   }
-  update = e => {
-    Object.keys(this.tools).forEach(control => {
-      this.tools[control].onMouseAction(e);
-    });
-  };
-  onMouseUp = e => {
-    this.update(e);
-    this.setState({ panning: false });
-  };
-  onMouseDown = e => {
-    this.update(e);
-    this.setState({ panning: true });
-  };
-  onMouseOut = e => {
-    this.update(e);
-    this.setState({ panning: false });
-  };
-  onMouseMove = e => {
-    this.update(e);
-    const { panning, editMode } = this.state;
-    if (!editMode && panning && e && e.e) {
-      var delta = new fabric.Point(e.e.movementX, e.e.movementY);
-      this.canvas.relativePan(delta);
-    }
-  };
-
-  onMouseWheel = opt => {
-    const { editMode } = this.state;
-    if (editMode) {
-      var delta = opt.e.deltaY;
-      var zoom = this.canvas.getZoom();
-      zoom = zoom - delta / 500;
-      if (zoom > 20) zoom = 20;
-      if (zoom < 0.01) zoom = 0.01;
-      this.canvas.setZoom(zoom);
-      opt.e.preventDefault();
-      opt.e.stopPropagation();
-    }
-  };
-
-  load_raster = async () => {
-    const { editor_actions } = this.props;
-    const { params } = this.props.match;
-    editor_actions.getMosaic(params.id).then(async response => {
-      editor_actions.loading(true);
-      const {
-        value: { data }
-      } = response;
-      if ("raster" in data) {
-        let layers = data.raster;
-        let panels = JSON.parse(data.panels_polygons);
-        let plots = JSON.parse(data.plots_polygons);
-        console.log("layers", layers);
-        console.log("panels", panels);
-        console.log("plots", plots);
-        let image = await this.load_layer(layers[layers.length - 1]);
-        this.canvas.add(image);
-        this.canvas.setActiveObject(image);
-        let scale = this.canvas.getActiveObjects()[0].scaleX;
-        panels.forEach((poly, idx) => {
-          //Scale de points
-          poly = poly.map(pt => {
-            return {
-              x: pt.x * scale,
-              y: pt.y * scale
-            };
-          });
-          var polygon = new fabric.Polygon(poly, {
-            strokeWidth: 1,
-            fill: "rgba(229, 9, 127,0.3)",
-            selectable: true,
-            hasBorders: true,
-            hasControls: true,
-            evented: true
-          });
-          this.canvas.add(polygon);
-          // this.canvas.setActiveObject(polygon);
-        });
-        plots.forEach((poly, idx) => {
-          //Scale de points
-          poly = poly.map(pt => {
-            return {
-              x: pt.x * scale,
-              y: pt.y * scale
-            };
-          });
-          var polygon = new fabric.Polygon(poly, {
-            strokeWidth: 1,
-            fill: "rgba(229, 9, 127,0.3)",
-            selectable: true,
-            hasBorders: true,
-            hasControls: true,
-            evented: true
-          });
-          this.canvas.add(polygon);
-          // this.canvas.setActiveObject(polygon);
-        });
-        // let images = await Promise.all(
-        //   layers.map(layer => this.load_layer(layer))
-        // );
-        // images.forEach(img => {
-        //   this.canvas.add(img);
-        // });
-        this.canvas.renderAll();
-        editor_actions.loading(false);
-      }
-    });
-  };
-
-  load_layer = base64Img => {
-    return new Promise((resolve, reject) => {
-      base64Img = `data:image/jpeg;base64,${base64Img}`;
-      fabric.Image.fromURL(base64Img, img => {
-        //img.scale(this.scale);
-        return resolve(img);
-      });
-    });
-  };
 
   renderButton = () => {
     const { open_tools } = this.state;
@@ -280,72 +161,6 @@ class EditorPage extends Component {
     });
   };
 
-  getLayersButtons = () => {
-    const { raster, classes } = this.props;
-    const len = raster.length - 1;
-    let ms = [];
-    for (let i = 0; i < len; i++) {
-      ms.push(i);
-    }
-
-    return (
-      <div>
-        <ListItem
-          button
-          key={6}
-          className={classes.nested}
-          onClick={this.handleLayerButton(len)}
-        >
-          <ListItemIcon>
-            <ImageIcon />
-          </ListItemIcon>
-          <ListItemText primary={"RGB Composite"} />
-        </ListItem>
-        {ms.map((image, index) => (
-          <ListItem
-            button
-            key={index}
-            className={classes.nested}
-            onClick={this.handleLayerButton(index)}
-          >
-            <ListItemIcon>
-              <ImageIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Band: " + (index + 1)} index={index} />
-          </ListItem>
-        ))}
-      </div>
-    );
-  };
-
-  getLayersVIButtons = () => {
-    const { names, classes } = this.props;
-    console.log("names", names);
-    const len = names.length;
-    let ms = [];
-    for (let i = 0; i < len; i++) {
-      ms.push(i);
-    }
-
-    return (
-      <div>
-        {ms.map((image, index) => (
-          <ListItem
-            button
-            key={index}
-            className={classes.nested}
-            onClick={this.handleVIButton(index)}
-          >
-            <ListItemIcon>
-              <ImageIcon />
-            </ListItemIcon>
-            <ListItemText primary={names[index]} index={index} />
-          </ListItem>
-        ))}
-      </div>
-    );
-  };
-
   handleLayerButton = index => async e => {
     const { raster } = this.props;
     let image = await this.load_layer(raster[index]);
@@ -364,136 +179,112 @@ class EditorPage extends Component {
     this.canvas.renderAll();
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { history } = this.props;
+    history.push("/");
+  };
+
+  handleGoBack = () => {
+    this.props.history.goBack();
+  };
+
   render() {
-    const { open_tools, advanced_tools, mosaics } = this.state;
-    const { classes, is_loading, bbox } = this.props;
+    const { open_tools, mosaics } = this.state;
+    const { is_loading } = this.props;
     console.log("bbox props", mosaics);
+    //
+    let buttons = [
+      {
+        handle: this.handleClickOnProjectButton,
+        name: "Projects",
+        icon: <WorkIcon />
+      },
+      {
+        handle: this.handleGoBack,
+        name: "Mosaics",
+        icon: <DashboardIcon />
+      },
+      {
+        handle: this.calibrateHandler,
+        name: "Rad. Calibration",
+        icon: <EqualizerIcon />
+      },
+      {
+        handle: this.extractFeatureshandler,
+        name: "Extract Features",
+        icon: <TimelineIcon />
+      }
+    ];
     return (
-      <PageWrapper {...this.props}>
-        {/*<canvas id="c" width="1" height="1" />*/}
-        <div id="map" style={style} />
-        <div
-          style={{
-            margin: 0,
-            top: "auto",
-            right: "auto",
-            bottom: 50,
-            left: "auto",
-            position: "fixed"
-          }}
-        >
-          <Tooltip title="Edit options">
-            <Fab color="primary" onClick={this.renderButton} style={{}}>
-              <EditIcon />
-            </Fab>
-          </Tooltip>
-          <Zoom
-            key={"primary"}
-            in={open_tools}
+      <PageWrapper {...this.props} drawer_buttons={buttons}>
+        <div id="map" style={style}>
+          <div
             style={{
-              transitionDelay: `180ms`
+              margin: 0,
+              top: "auto",
+              right: "auto",
+              bottom: 50,
+              left: "auto",
+              position: "fixed"
             }}
-            unmountOnExit
           >
-            <div
+            <Tooltip title="Edit options">
+              <Fab color="primary" onClick={this.renderButton} style={{}}>
+                <EditIcon />
+              </Fab>
+            </Tooltip>
+            <Zoom
+              key={"primary"}
+              in={open_tools}
               style={{
-                display: "flex",
-                "flex-direction": "column",
-                "justify-content": "center",
-                "align-items": "flex-start"
-                // vertical-align: top
+                transitionDelay: `180ms`
               }}
+              unmountOnExit
             >
-              <Tooltip title="Add Polygon" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={() => this.renderButton}
-                >
-                  <PhotoSizeSelectSmallIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Zoom +/-" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={this.activateZoom}
-                >
-                  <ZoomInIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Advanced Tools" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={this.openAdvancedTools}
-                >
-                  <WidgetsIcon />
-                </Fab>
-              </Tooltip>
-            </div>
-          </Zoom>
+              <div
+                style={{
+                  display: "flex",
+                  "flex-direction": "column",
+                  "justify-content": "center",
+                  "align-items": "flex-start"
+                  // vertical-align: top
+                }}
+              >
+                <Tooltip title="Add Polygon" placement="right-start">
+                  <Fab
+                    color="primary"
+                    aria-label="add"
+                    size="small"
+                    onClick={() => this.renderButton}
+                  >
+                    <PhotoSizeSelectSmallIcon />
+                  </Fab>
+                </Tooltip>
+                <Tooltip title="Zoom +/-" placement="right-start">
+                  <Fab
+                    color="primary"
+                    aria-label="add"
+                    size="small"
+                    onClick={this.activateZoom}
+                  >
+                    <ZoomInIcon />
+                  </Fab>
+                </Tooltip>
+                <Tooltip title="Advanced Tools" placement="right-start">
+                  <Fab
+                    color="primary"
+                    aria-label="add"
+                    size="small"
+                    onClick={this.openAdvancedTools}
+                  >
+                    <WidgetsIcon />
+                  </Fab>
+                </Tooltip>
+              </div>
+            </Zoom>
+          </div>
         </div>
-        {/*<Drawer*/}
-        {/*  anchor="right"*/}
-        {/*  open={advanced_tools}*/}
-        {/*  onClose={this.openAdvancedTools}*/}
-        {/*>*/}
-        {/*  <div*/}
-        {/*    className={classes.list}*/}
-        {/*    role="presentation"*/}
-        {/*    // onClick={this.openAdvancedTools}*/}
-        {/*    // onKeyDown={this.openAdvancedTools}*/}
-        {/*  >*/}
-        {/*    <List>*/}
-        {/*      <ListItem key={"Advanced Tools"}>*/}
-        {/*        <ListItemText primary={"Advanced Tools Menu"} />*/}
-        {/*      </ListItem>*/}
-        {/*      <Divider />*/}
-        {/*      <ListItem*/}
-        {/*        button*/}
-        {/*        key={"Calibrate"}*/}
-        {/*        onClick={this.calibrateHandler}*/}
-        {/*      >*/}
-        {/*        <ListItemIcon>*/}
-        {/*          <CategoryIcon />*/}
-        {/*        </ListItemIcon>*/}
-        {/*        <ListItemText primary={"Calibrate Mosaic"} />*/}
-        {/*      </ListItem>*/}
-        {/*      <ListItem*/}
-        {/*        button*/}
-        {/*        key={"Extract Features"}*/}
-        {/*        onClick={this.extractFeatureshandler}*/}
-        {/*      >*/}
-        {/*        <ListItemIcon>*/}
-        {/*          <ViewComfyIcon />*/}
-        {/*        </ListItemIcon>*/}
-        {/*        <ListItemText primary={"Extract Features"} />*/}
-        {/*      </ListItem>*/}
-        {/*      <Divider />*/}
-        {/*      <ListItem key={"Raster Controls"}>*/}
-        {/*        <ListItemText primary={"Raster Controls"} />*/}
-        {/*      </ListItem>*/}
-        {/*      <ListItem button key={"Bands"}>*/}
-        {/*        <ListItemIcon>*/}
-        {/*          <LayersIcon />*/}
-        {/*        </ListItemIcon>*/}
-        {/*        <ListItemText primary={"Bands"} />*/}
-        {/*      </ListItem>*/}
-        {/*      {this.getLayersButtons()}*/}
-        {/*      <ListItem button key={"VI's"}>*/}
-        {/*        <ListItemIcon>*/}
-        {/*          <EcoIcon />*/}
-        {/*        </ListItemIcon>*/}
-        {/*        <ListItemText primary={"VI's"} />*/}
-        {/*      </ListItem>*/}
-        {/*      {this.getLayersVIButtons()}*/}
-        {/*    </List>*/}
-        {/*  </div>*/}
-        {/*</Drawer>*/}
         <Loading open={is_loading} />
       </PageWrapper>
     );
