@@ -36,7 +36,11 @@ class MosaicPage extends Component {
   }
 
   componentDidMount() {
+    const { drawer_actions } = this.props;
     console.log("did mount mosaics");
+    const { params } = this.props.match;
+    console.log("mosaicssss", this.props.match);
+    drawer_actions.getMosaics(params.project);
   }
 
   handleOpenCard = (project, id) => {
@@ -173,6 +177,7 @@ class MosaicPage extends Component {
       is_loading
     } = this.props;
     const { timeseries } = this.state;
+    console.log("mosaics", mosaics);
 
     let buttons = [
       {

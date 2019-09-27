@@ -50,12 +50,12 @@ class ProjectsPage extends Component {
   handleOpenCard = project => {
     const { drawer_actions, history } = this.props;
     console.log("open card", this.props);
-    console.log(project);
-    drawer_actions.getMosaics(project).then(result => {
-      if ("success" in result.value.data) {
-        history.push("/mosaics");
-      }
-    });
+    console.log("params", project);
+    // drawer_actions.getMosaics(project).then(result => {
+    //   if ("success" in result.value.data) {
+    history.push(`/mosaics/${project}`);
+    //   }
+    // });
   };
 
   handleAddProjectButton = () => {

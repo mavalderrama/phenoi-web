@@ -43,7 +43,7 @@ class App extends Component {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <SecureRoute exact path="/" component={ProjectsPage} />
-          <SecureRoute path="/mosaics" component={MosaicPage} />
+          <SecureRoute path="/mosaics/:project" component={MosaicPage} />
           <SecureRoute path="/editor/:id" component={EditorPage} />
         </Switch>
       </Router>

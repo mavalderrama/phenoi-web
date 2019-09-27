@@ -143,7 +143,7 @@ class EditorPage extends Component {
     const { editor_actions, history } = this.props;
     const { params } = this.props.match;
     editor_actions.calibrate(params.id).then(result => {
-      history.push(`/editor/${result.value.data.id}`);
+      history.goBack();
     });
   };
 
@@ -186,13 +186,16 @@ class EditorPage extends Component {
   };
 
   handleGoBack = () => {
-    this.props.history.goBack();
+    const { history, project_opened } = this.props;
+    console.log("mosaics...", project_opened);
+    // history.push(`/mosaics/${project_opened}`);
+    history.goBack();
   };
 
   render() {
     const { open_tools, mosaics } = this.state;
-    const { is_loading } = this.props;
-    console.log("bbox props", mosaics);
+    const { is_loading, project_opened } = this.props;
+    console.log("mosaics", project_opened);
     //
     let buttons = [
       {
@@ -218,73 +221,7 @@ class EditorPage extends Component {
     ];
     return (
       <PageWrapper {...this.props} drawer_buttons={buttons}>
-        <div id="map" style={style}>
-          <div
-            style={{
-              margin: 0,
-              top: "auto",
-              right: "auto",
-              bottom: 50,
-              left: "auto",
-              position: "fixed"
-            }}
-          >
-            <Tooltip title="Edit options">
-              <Fab color="primary" onClick={this.renderButton} style={{}}>
-                <EditIcon />
-              </Fab>
-            </Tooltip>
-            <Zoom
-              key={"primary"}
-              in={open_tools}
-              style={{
-                transitionDelay: `180ms`
-              }}
-              unmountOnExit
-            >
-              <div
-                style={{
-                  display: "flex",
-                  "flex-direction": "column",
-                  "justify-content": "center",
-                  "align-items": "flex-start"
-                  // vertical-align: top
-                }}
-              >
-                <Tooltip title="Add Polygon" placement="right-start">
-                  <Fab
-                    color="primary"
-                    aria-label="add"
-                    size="small"
-                    onClick={() => this.renderButton}
-                  >
-                    <PhotoSizeSelectSmallIcon />
-                  </Fab>
-                </Tooltip>
-                <Tooltip title="Zoom +/-" placement="right-start">
-                  <Fab
-                    color="primary"
-                    aria-label="add"
-                    size="small"
-                    onClick={this.activateZoom}
-                  >
-                    <ZoomInIcon />
-                  </Fab>
-                </Tooltip>
-                <Tooltip title="Advanced Tools" placement="right-start">
-                  <Fab
-                    color="primary"
-                    aria-label="add"
-                    size="small"
-                    onClick={this.openAdvancedTools}
-                  >
-                    <WidgetsIcon />
-                  </Fab>
-                </Tooltip>
-              </div>
-            </Zoom>
-          </div>
-        </div>
+        <div id="map" style={style} />
         <Loading open={is_loading} />
       </PageWrapper>
     );
@@ -297,7 +234,8 @@ const mapStateToProps = (store, ownProps) => {
     raster: store.editor_reducer.raster,
     vis: store.editor_reducer.vis,
     names: store.editor_reducer.names,
-    bbox: store.editor_reducer.bbox
+    bbox: store.editor_reducer.bbox,
+    project_opened: store.drawer_reducer.project_opened
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -8,7 +8,11 @@ export default function(state = initial_state, action) {
   console.log("Drawer Actions", action);
   const { type, payload } = action;
 
-  if (type === "UPLOAD_SHAPE_FILE_PENDING" || type === "GET_FEATURES_PENDING") {
+  if (
+    type === "UPLOAD_SHAPE_FILE_PENDING" ||
+    type === "GET_FEATURES_PENDING" ||
+    type === "PERFORM_TIMESERIES_PENDING"
+  ) {
     return {
       ...state,
       is_loading: true
@@ -38,6 +42,13 @@ export default function(state = initial_state, action) {
   }
 
   if (type === "GET_FEATURES_FULFILLED") {
+    return {
+      ...state,
+      is_loading: false
+    };
+  }
+
+  if (type === "PERFORM_TIMESERIES_FULFILLED") {
     return {
       ...state,
       is_loading: false
