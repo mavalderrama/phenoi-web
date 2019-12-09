@@ -42,3 +42,49 @@ export function uploadShapeFiles(field, plot, panel, mosaic_id) {
     )
   };
 }
+
+export function performTimeSeries(vectorId) {
+  return {
+    type: "PERFORM_TIMESERIES",
+    payload: axios.post(
+      `${constants.API_URI}/timeseries`,
+      { mosaics: vectorId },
+      axiosConfig
+    )
+  };
+}
+
+export function createMosaic(
+  combo,
+  stage,
+  image,
+  calibrated,
+  project_opened,
+  date,
+  name
+) {
+  const formData = new FormData();
+  formData.append("project", project_opened);
+  formData.append("type", combo);
+  formData.append("stage", stage);
+  formData.append("date", date);
+  formData.append("calibrated", calibrated);
+  formData.append("mosaic", image[0]);
+  formData.append("name", name);
+  formData.append("user_id", sessionStorage.getItem("id"));
+  console.log("form", date);
+  return {
+    type: "CREATE_MOSAIC",
+    payload: axios.post(
+      `${constants.API_URI}/upload_mosaic`,
+      formData,
+      axiosConfigFile
+    )
+  };
+}
+
+export function closeFormAddMosaic() {
+  return {
+    type: "CLOSE_ADD_MOSAIC_FORM"
+  };
+}

@@ -4,29 +4,16 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as mosaic_actions from "../Redux/actions/mosaic_actions";
 import * as editor_actions from "../Redux/actions/editor_actions";
-import Fab from "@material-ui/core/Fab";
-import EditIcon from "@material-ui/icons/Edit";
-import WidgetsIcon from "@material-ui/icons/Widgets";
-import PhotoSizeSelectSmallIcon from "@material-ui/icons/PhotoSizeSelectSmall";
-import { fabric } from "fabric";
-import PolyToolSelection from "../components/PolygonToolSelection";
-import Zoom from "@material-ui/core/Zoom";
-import Tooltip from "@material-ui/core/Tooltip";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ViewComfyIcon from "@material-ui/icons/ViewComfy";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-import CategoryIcon from "@material-ui/icons/Category";
-import ZoomInIcon from "@material-ui/icons/ZoomIn";
-import LayersIcon from "@material-ui/icons/Layers";
-import ImageIcon from "@material-ui/icons/Image";
-import EcoIcon from "@material-ui/icons/Eco";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
 import FileSaver from "file-saver";
+import constants from "../Redux/constants";
+import L from "leaflet";
+// import * as goo from "leaflet.gridlayer.googlemutant";
+import WorkIcon from "@material-ui/icons/Work";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 const styles = theme => ({
   list: {
@@ -37,6 +24,11 @@ const styles = theme => ({
   }
 });
 
+const style = {
+  width: "100%",
+  height: "100vh"
+};
+
 class EditorPage extends Component {
   constructor(props) {
     super(props);
@@ -44,146 +36,71 @@ class EditorPage extends Component {
       open_tools: false,
       advanced_tools: false,
       panning: false,
-      editMode: false
+      editMode: false,
+      mosaics: []
     };
-    this.tools = {};
   }
   componentDidMount() {
-    console.log("did how many times????");
-    this.canvas = new fabric.Canvas("c", {
-      selection: false,
-      preserveObjectStacking: true
-    });
-    this.canvas.setWidth(9000);
-    this.canvas.setHeight(9000);
-    this.canvas.on("mouse:wheel", this.onMouseWheel);
-    this.canvas.on("mouse:up", this.onMouseUp);
-    this.canvas.on("mouse:down", this.onMouseDown);
-    this.canvas.on("mouse:out", this.onMouseOut);
-    this.canvas.on("mouse:move", this.onMouseMove);
-    this.tools["Polygon"] = new PolyToolSelection(this.canvas);
-
-    this.load_raster();
-  }
-
-  update = e => {
-    Object.keys(this.tools).forEach(control => {
-      this.tools[control].onMouseAction(e);
-    });
-  };
-  onMouseUp = e => {
-    this.update(e);
-    this.setState({ panning: false });
-  };
-  onMouseDown = e => {
-    this.update(e);
-    this.setState({ panning: true });
-  };
-  onMouseOut = e => {
-    this.update(e);
-    this.setState({ panning: false });
-  };
-  onMouseMove = e => {
-    this.update(e);
-    const { panning, editMode } = this.state;
-    if (!editMode && panning && e && e.e) {
-      var delta = new fabric.Point(e.e.movementX, e.e.movementY);
-      this.canvas.relativePan(delta);
-    }
-  };
-
-  onMouseWheel = opt => {
-    const { editMode } = this.state;
-    if (editMode) {
-      var delta = opt.e.deltaY;
-      var zoom = this.canvas.getZoom();
-      zoom = zoom - delta / 500;
-      if (zoom > 20) zoom = 20;
-      if (zoom < 0.01) zoom = 0.01;
-      this.canvas.setZoom(zoom);
-      opt.e.preventDefault();
-      opt.e.stopPropagation();
-    }
-  };
-
-  load_raster = async () => {
     const { editor_actions } = this.props;
     const { params } = this.props.match;
-    editor_actions.getMosaic(params.id).then(async response => {
-      editor_actions.loading(true);
-      const {
-        value: { data }
-      } = response;
-      if ("raster" in data) {
-        let layers = data.raster;
-        let panels = JSON.parse(data.panels_polygons);
-        let plots = JSON.parse(data.plots_polygons);
-        console.log("layers", layers);
-        console.log("panels", panels);
-        console.log("plots", plots);
-        let image = await this.load_layer(layers[layers.length - 1]);
-        this.canvas.add(image);
-        this.canvas.setActiveObject(image);
-        let scale = this.canvas.getActiveObjects()[0].scaleX;
-        panels.forEach((poly, idx) => {
-          //Scale de points
-          poly = poly.map(pt => {
-            return {
-              x: pt.x * scale,
-              y: pt.y * scale
-            };
-          });
-          var polygon = new fabric.Polygon(poly, {
-            strokeWidth: 1,
-            fill: "rgba(229, 9, 127,0.3)",
-            selectable: true,
-            hasBorders: true,
-            hasControls: true,
-            evented: true
-          });
-          this.canvas.add(polygon);
-          // this.canvas.setActiveObject(polygon);
-        });
-        plots.forEach((poly, idx) => {
-          //Scale de points
-          poly = poly.map(pt => {
-            return {
-              x: pt.x * scale,
-              y: pt.y * scale
-            };
-          });
-          var polygon = new fabric.Polygon(poly, {
-            strokeWidth: 1,
-            fill: "rgba(229, 9, 127,0.3)",
-            selectable: true,
-            hasBorders: true,
-            hasControls: true,
-            evented: true
-          });
-          this.canvas.add(polygon);
-          // this.canvas.setActiveObject(polygon);
-        });
-        // let images = await Promise.all(
-        //   layers.map(layer => this.load_layer(layer))
-        // );
-        // images.forEach(img => {
-        //   this.canvas.add(img);
-        // });
-        this.canvas.renderAll();
-        editor_actions.loading(false);
-      }
-    });
-  };
+    let indices = {};
+    editor_actions.getMosaicData(params.id).then(response => {
+      console.log("vis", response);
+      const { vis, bbox } = response.value.data;
+      let bbox_inv = [[bbox[1], bbox[0]], [bbox[3], bbox[2]]];
 
-  load_layer = base64Img => {
-    return new Promise((resolve, reject) => {
-      base64Img = `data:image/jpeg;base64,${base64Img}`;
-      fabric.Image.fromURL(base64Img, img => {
-        //img.scale(this.scale);
-        return resolve(img);
+      var satellite = L.tileLayer(
+        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: "mapbox.satellite",
+          maxZoom: 25,
+          accessToken:
+            "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+        }
+      );
+      var streets = L.tileLayer(
+        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: "mapbox.streets",
+          maxZoom: 25,
+          accessToken:
+            "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
+        }
+      );
+      // var google = L.gridLayer.googleMutant({
+      //   type: "hybrid" // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      // });
+
+      this.map = L.map("map", {
+        center: [3.4982633, -76.3603093], //[3.4982633, -76.3603093],
+        zoom: 20,
+        layers: [satellite]
       });
+
+      this.map.fitBounds(bbox_inv);
+
+      var baseMaps = {
+        Streets: streets,
+        // Hybrid: google,
+        Satellite: satellite
+      };
+      vis.forEach(index_name => {
+        var image = L.imageOverlay(
+          `${constants.API_URI}/get_mosaic/${params.id}?vi=${index_name}`,
+          bbox_inv
+        ).addTo(this.map);
+        indices[index_name] = image;
+      });
+      var layer_control = L.control
+        .layers(indices, baseMaps)
+        .addTo(this.map)
+        .expand();
     });
-  };
+  }
 
   renderButton = () => {
     const { open_tools } = this.state;
@@ -219,7 +136,7 @@ class EditorPage extends Component {
     const { editor_actions, history } = this.props;
     const { params } = this.props.match;
     editor_actions.calibrate(params.id).then(result => {
-      history.push(`/editor/${result.value.data.id}`);
+      history.goBack();
     });
   };
 
@@ -235,72 +152,6 @@ class EditorPage extends Component {
       });
       FileSaver.saveAs(file2);
     });
-  };
-
-  getLayersButtons = () => {
-    const { raster, classes } = this.props;
-    const len = raster.length - 1;
-    let ms = [];
-    for (let i = 0; i < len; i++) {
-      ms.push(i);
-    }
-
-    return (
-      <div>
-        <ListItem
-          button
-          key={6}
-          className={classes.nested}
-          onClick={this.handleLayerButton(len)}
-        >
-          <ListItemIcon>
-            <ImageIcon />
-          </ListItemIcon>
-          <ListItemText primary={"RGB Composite"} />
-        </ListItem>
-        {ms.map((image, index) => (
-          <ListItem
-            button
-            key={index}
-            className={classes.nested}
-            onClick={this.handleLayerButton(index)}
-          >
-            <ListItemIcon>
-              <ImageIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Band: " + (index + 1)} index={index} />
-          </ListItem>
-        ))}
-      </div>
-    );
-  };
-
-  getLayersVIButtons = () => {
-    const { names, classes } = this.props;
-    console.log("names", names);
-    const len = names.length;
-    let ms = [];
-    for (let i = 0; i < len; i++) {
-      ms.push(i);
-    }
-
-    return (
-      <div>
-        {ms.map((image, index) => (
-          <ListItem
-            button
-            key={index}
-            className={classes.nested}
-            onClick={this.handleVIButton(index)}
-          >
-            <ListItemIcon>
-              <ImageIcon />
-            </ListItemIcon>
-            <ListItemText primary={names[index]} index={index} />
-          </ListItem>
-        ))}
-      </div>
-    );
   };
 
   handleLayerButton = index => async e => {
@@ -321,134 +172,49 @@ class EditorPage extends Component {
     this.canvas.renderAll();
   };
 
+  handleClickOnProjectButton = () => {
+    console.log("refreshing", this.props);
+    const { history } = this.props;
+    history.push("/");
+  };
+
+  handleGoBack = () => {
+    const { history, project_opened } = this.props;
+    console.log("mosaics...", project_opened);
+    // history.push(`/mosaics/${project_opened}`);
+    history.goBack();
+  };
+
   render() {
-    const { open_tools, advanced_tools } = this.state;
-    const { classes, is_loading } = this.props;
+    const { open_tools, mosaics } = this.state;
+    const { is_loading, project_opened } = this.props;
+    console.log("mosaics", project_opened);
+    //
+    let buttons = [
+      {
+        handle: this.handleClickOnProjectButton,
+        name: "Projects",
+        icon: <WorkIcon />
+      },
+      {
+        handle: this.handleGoBack,
+        name: "Mosaics",
+        icon: <DashboardIcon />
+      },
+      {
+        handle: this.calibrateHandler,
+        name: "Rad. Calibration",
+        icon: <EqualizerIcon />
+      },
+      {
+        handle: this.extractFeatureshandler,
+        name: "Extract Features",
+        icon: <TimelineIcon />
+      }
+    ];
     return (
-      <PageWrapper {...this.props}>
-        <canvas id="c" width="1" height="1" />
-        <div
-          style={{
-            margin: 0,
-            top: "auto",
-            right: "auto",
-            bottom: 50,
-            left: "auto",
-            position: "fixed"
-          }}
-        >
-          <Tooltip title="Edit options">
-            <Fab color="primary" onClick={this.renderButton} style={{}}>
-              <EditIcon />
-            </Fab>
-          </Tooltip>
-          <Zoom
-            key={"primary"}
-            in={open_tools}
-            style={{
-              transitionDelay: `180ms`
-            }}
-            unmountOnExit
-          >
-            <div
-              style={{
-                display: "flex",
-                "flex-direction": "column",
-                "justify-content": "center",
-                "align-items": "flex-start"
-                // vertical-align: top
-              }}
-            >
-              <Tooltip title="Add Polygon" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={() => this.renderButton}
-                >
-                  <PhotoSizeSelectSmallIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Zoom +/-" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={this.activateZoom}
-                >
-                  <ZoomInIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Advanced Tools" placement="right-start">
-                <Fab
-                  color="primary"
-                  aria-label="add"
-                  size="small"
-                  onClick={this.openAdvancedTools}
-                >
-                  <WidgetsIcon />
-                </Fab>
-              </Tooltip>
-            </div>
-          </Zoom>
-        </div>
-        <Drawer
-          anchor="right"
-          open={advanced_tools}
-          onClose={this.openAdvancedTools}
-        >
-          <div
-            className={classes.list}
-            role="presentation"
-            // onClick={this.openAdvancedTools}
-            // onKeyDown={this.openAdvancedTools}
-          >
-            <List>
-              <ListItem key={"Advanced Tools"}>
-                <ListItemText primary={"Advanced Tools Menu"} />
-              </ListItem>
-              <Divider />
-              <ListItem
-                button
-                key={"Calibrate"}
-                onClick={this.calibrateHandler}
-              >
-                <ListItemIcon>
-                  <CategoryIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Calibrate Mosaic"} />
-              </ListItem>
-              <ListItem
-                button
-                key={"Extract Features"}
-                onClick={this.extractFeatureshandler}
-              >
-                <ListItemIcon>
-                  <ViewComfyIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Extract Features"} />
-              </ListItem>
-              <Divider />
-              <ListItem key={"Raster Controls"}>
-                <ListItemText primary={"Raster Controls"} />
-              </ListItem>
-              <ListItem button key={"Bands"}>
-                <ListItemIcon>
-                  <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Bands"} />
-              </ListItem>
-              {this.getLayersButtons()}
-              <ListItem button key={"VI's"}>
-                <ListItemIcon>
-                  <EcoIcon />
-                </ListItemIcon>
-                <ListItemText primary={"VI's"} />
-              </ListItem>
-              {this.getLayersVIButtons()}
-            </List>
-          </div>
-        </Drawer>
+      <PageWrapper {...this.props} drawer_buttons={buttons}>
+        <div id="map" style={style} />
         <Loading open={is_loading} />
       </PageWrapper>
     );
@@ -460,7 +226,9 @@ const mapStateToProps = (store, ownProps) => {
     is_loading: store.editor_reducer.is_loading,
     raster: store.editor_reducer.raster,
     vis: store.editor_reducer.vis,
-    names: store.editor_reducer.names
+    names: store.editor_reducer.names,
+    bbox: store.editor_reducer.bbox,
+    project_opened: store.drawer_reducer.project_opened
   };
 };
 const mapDispatchToProps = dispatch => {

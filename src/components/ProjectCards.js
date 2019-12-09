@@ -5,6 +5,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import CardHeader from "@material-ui/core/CardHeader";
+import Checkbox from "@material-ui/core/Checkbox";
 import { bindActionCreators } from "redux";
 import * as drawer_actions from "../Redux/actions/drawer_actions";
 import { connect } from "react-redux";

@@ -14,20 +14,26 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import login from "../images/login.jpg";
+import bigdata from "../images/bigdata.png";
+import ciat from "../images/logophenolv3.png";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        www.ciat.cgiar.org
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {". Built with "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI.
-      </Link>
-    </Typography>
+    <div>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Copyright © "}
+        <Link color="inherit" href="http://www.ciat.cgiar.org/">
+          {"International Center for Tropical Agriculture - "}
+        </Link>
+        {new Date().getFullYear()}
+      </Typography>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Built with "}
+        <Link color="inherit" href="https://material-ui.com/">
+          Material-UI.
+        </Link>
+      </Typography>
+    </div>
   );
 }
 
@@ -41,8 +47,14 @@ const styles = theme => ({
     backgroundSize: "cover",
     backgroundPosition: "center"
   },
+  logos: {
+    margin: theme.spacing(4, 0),
+    marginLeft: "20%",
+    display: "flex",
+    "vertical-align": "top" /* remove extra pixels under inline element */
+  },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(4, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -100,6 +112,18 @@ class LoginForm extends Component {
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box className={classes.logos}>
+            <img
+              src={ciat}
+              id={"ciat"}
+              style={{ width: "75%", height: "75%" }}
+            />
+            {/*<img*/}
+            {/*  src={bigdata}*/}
+            {/*  id={"bigdata"}*/}
+            {/*  style={{ width: "40%", height: "40%" }}*/}
+            {/*/>*/}
+          </Box>
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />

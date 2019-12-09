@@ -70,34 +70,6 @@ export function createProject(project_name, details) {
   };
 }
 
-export function createMosaic(
-  combo,
-  stage,
-  image,
-  calibrated,
-  project_opened,
-  date,
-  name
-) {
-  const formData = new FormData();
-  formData.append("project", project_opened);
-  formData.append("type", combo);
-  formData.append("stage", stage);
-  formData.append("date", date);
-  formData.append("calibrated", calibrated);
-  formData.append("mosaic", image[0]);
-  formData.append("name", name);
-  formData.append("user_id", sessionStorage.getItem("id"));
-  return {
-    type: "CREATE_MOSAIC",
-    payload: axios.post(
-      `${constants.API_URI}/upload_mosaic`,
-      formData,
-      axiosConfigFile
-    )
-  };
-}
-
 export function openFormAddProject() {
   return {
     type: "OPEN_ADD_PROJECT_FORM"
@@ -107,12 +79,6 @@ export function openFormAddProject() {
 export function closeFormAddProject() {
   return {
     type: "CLOSE_ADD_PROJECT_FORM"
-  };
-}
-
-export function closeFormAddMosaic() {
-  return {
-    type: "CLOSE_ADD_MOSAIC_FORM"
   };
 }
 
@@ -160,5 +126,19 @@ export function deleteProject(id, project_name) {
 export function openFormAddShape() {
   return {
     type: "OPEN_FORM_ADD_SHAPEFILE"
+  };
+}
+
+export function pushBread(location) {
+  return {
+    type: "PUSH_BREAD",
+    payload: location
+  };
+}
+
+export function popBread(location) {
+  return {
+    type: "POP_BREAD",
+    payload: location
   };
 }

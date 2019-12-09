@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Loading from "../components/Loading";
-import splash from "../images/splash.JPG";
+import splash from "../images/splash.jpg";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },
@@ -50,12 +50,12 @@ class ProjectsPage extends Component {
   handleOpenCard = project => {
     const { drawer_actions, history } = this.props;
     console.log("open card", this.props);
-    console.log(project);
-    drawer_actions.getMosaics(project).then(result => {
-      if ("success" in result.value.data) {
-        history.push("/mosaics");
-      }
-    });
+    console.log("params", project);
+    // drawer_actions.getMosaics(project).then(result => {
+    //   if ("success" in result.value.data) {
+    history.push(`/mosaics/${project}`);
+    //   }
+    // });
   };
 
   handleAddProjectButton = () => {
@@ -84,9 +84,12 @@ class ProjectsPage extends Component {
 
   render() {
     const { projects, open_add_project_form, classes, is_loading } = this.props;
-
     return (
-      <PageWrapper>
+      <PageWrapper
+        actual={"Projects"}
+        history={this.props.history}
+        drawer_buttons={[]}
+      >
         <Grid
           container
           alignItems="flex-start"

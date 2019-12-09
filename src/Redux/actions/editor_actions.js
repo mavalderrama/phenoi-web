@@ -4,14 +4,21 @@ import constants from "./../../Redux/constants";
 const axiosConfig = {
   headers: {
     "content-Type": "application/json"
-    // Accept: "*/*"
+    // Accept: "/*"
+  }
+};
+
+const axiosConfigBlob = {
+  headers: {
+    // "content-Type": "application/json"
+    // "Content-Disposition": "attachment;filename=capsule.zip",
+    Accept: "application/zip"
   },
-  withCredentials: false
+  responseType: "image/jpeg"
 };
 
 const axiosConfigFile = {
-  headers: { "Content-Type": "multipart/form-data" },
-  withCredentials: false
+  headers: { "Content-Type": "multipart/form-data" }
 };
 
 export function calibrate(mosaic_id) {
@@ -33,12 +40,22 @@ export function loading(state) {
   };
 }
 
-export function getMosaic(mosaic_id) {
+// export function getMosaic(mosaic_id, param) {
+//   let vi = param;
+//   return {
+//     type: "GET_MOSAIC",
+//     payload: axios.get(
+//       `${constants.API_URI}/get_mosaic/${mosaic_id}?vi=${param}`
+//     )
+//   };
+// }
+
+export function getMosaicData(mosaic_id) {
   return {
-    type: "GET_MOSAIC",
-    payload: axios.get(
+    type: "GET_MOSAIC_DATA",
+    payload: axios.post(
       `${constants.API_URI}/get_mosaic/${mosaic_id}`,
-      axiosConfigFile
+      axiosConfig
     )
   };
 }

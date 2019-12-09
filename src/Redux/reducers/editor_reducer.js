@@ -3,7 +3,8 @@ let initial_state = {
   is_loading: false,
   raster: [],
   vis: [],
-  names: []
+  names: [],
+  bbox: [[3.4, -76.3], [3.4, -76.3]]
 };
 
 export default function(state = initial_state, action) {
@@ -12,7 +13,8 @@ export default function(state = initial_state, action) {
   if (
     type === "CALIBRATE_MOSAIC_PENDING" ||
     type === "GET_MOSAIC_PENDING" ||
-    type === "GET_FEATURES_PENDING"
+    type === "GET_FEATURES_PENDING" ||
+    type === "GET_MOSAIC_DATA_PENDING"
   ) {
     return {
       ...state,
@@ -26,14 +28,24 @@ export default function(state = initial_state, action) {
     };
   }
 
+  if (type === "GET_MOSAIC_DATA_FULFILLED") {
+    console.log("response get mosaic DATA", payload);
+    return {
+      ...state,
+      is_loading: false,
+      bbox: payload.data.bbox,
+      vis: payload.data.vis
+    };
+  }
+
   if (type === "GET_MOSAIC_FULFILLED") {
     console.log("response get mosaic", payload);
     return {
       ...state,
-      is_loading: false,
-      raster: payload.data.raster,
-      vis: payload.data.vis,
-      names: payload.data.names
+      is_loading: false
+      // raster: payload.data.raster,
+      // vis: payload.data.vis,
+      // names: payload.data.names
     };
   }
 

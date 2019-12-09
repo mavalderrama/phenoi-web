@@ -1,5 +1,5 @@
 let initial_state = {
-  open: true,
+  open: false,
   is_loading: false,
   open_project: false,
   projects: [],
@@ -7,9 +7,9 @@ let initial_state = {
   mosaics: [],
   mosaic_opened: "",
   open_add_project_form: false,
-  open_add_mosaic_form: false,
   submit_add_project: false,
-  open_add_shapefile: false
+  open_add_shapefile: false,
+  bread: []
 };
 
 export default function(state = initial_state, action) {
@@ -26,7 +26,6 @@ export default function(state = initial_state, action) {
       mosaics: [],
       mosaic_opened: "",
       open_add_project_form: false,
-      open_add_mosaic_form: false,
       submit_add_project: false
     };
   }
@@ -98,27 +97,6 @@ export default function(state = initial_state, action) {
     };
   }
 
-  if (type === "OPEN_ADD_MOSAIC_FORM") {
-    return {
-      ...state,
-      open_add_mosaic_form: true
-    };
-  }
-
-  if (type === "CLOSE_ADD_MOSAIC_FORM") {
-    return {
-      ...state,
-      open_add_mosaic_form: false
-    };
-  }
-
-  if (type === "CREATE_MOSAIC_FULFILLED") {
-    return {
-      ...state,
-      open_add_mosaic_form: false
-    };
-  }
-
   if (type === "OPEN_SELECTED_MOSAIC") {
     const { data } = payload;
     console.log(data);
@@ -138,6 +116,24 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       open_add_shapefile: false
+    };
+  }
+
+  if (type === "PUSH_BREAD") {
+    var act_bread = state.bread;
+    // act_bread.push(payload);
+    return {
+      ...state,
+      bread: payload
+    };
+  }
+
+  if (type === "POP_BREAD") {
+    let act_bread = state.bread;
+    act_bread.pop();
+    return {
+      ...state,
+      bread: act_bread
     };
   }
 
