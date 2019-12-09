@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/images/logophenolv3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Forms/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/LoginForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/EditorPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/EditorPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/ProjectsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +155,18 @@
       <workItem from="1568983441621" duration="14973000" />
       <workItem from="1569078860050" duration="645000" />
       <workItem from="1569244354318" duration="15295000" />
-      <workItem from="1569328734871" duration="67562000" />
+      <workItem from="1569328734871" duration="67782000" />
+      <workItem from="1569587328253" duration="2711000" />
+      <workItem from="1569847871478" duration="3432000" />
+      <workItem from="1569876183377" duration="612000" />
+      <workItem from="1569935279176" duration="65000" />
+      <workItem from="1569935459027" duration="609000" />
+      <workItem from="1571925347378" duration="655000" />
+      <workItem from="1572979150901" duration="134000" />
+      <workItem from="1572979348013" duration="629000" />
+      <workItem from="1573150432215" duration="2501000" />
+      <workItem from="1575040634176" duration="153000" />
+      <workItem from="1575294932103" duration="489000" />
     </task>
     <servers />
   </component>

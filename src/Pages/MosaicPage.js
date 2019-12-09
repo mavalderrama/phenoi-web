@@ -63,7 +63,7 @@ class MosaicPage extends Component {
   };
 
   handleSubmitMosaicForm = values => {
-    const { drawer_actions, project_opened } = this.props;
+    const { mosaic_actions, project_opened, drawer_actions } = this.props;
     console.log(values);
     const { combo, stage, image, name } = values;
     let { calibrated, date } = values;
@@ -74,7 +74,7 @@ class MosaicPage extends Component {
       date = new Date(date).toLocaleDateString("en-US");
     }
     if (image != null) {
-      drawer_actions
+      mosaic_actions
         .createMosaic(
           combo,
           stage,
@@ -85,6 +85,7 @@ class MosaicPage extends Component {
           name
         )
         .then(result => {
+          this.handleCloseMosaicDialog();
           if ("success" in result.value.data) {
             drawer_actions.getMosaics(project_opened);
           }
@@ -93,9 +94,9 @@ class MosaicPage extends Component {
   };
 
   handleCloseMosaicDialog = () => {
-    const { open_add_mosaic_form, drawer_actions } = this.props;
+    const { open_add_mosaic_form, mosaic_actions } = this.props;
     if (open_add_mosaic_form) {
-      drawer_actions.closeFormAddMosaic();
+      mosaic_actions.closeFormAddMosaic();
     }
   };
 
@@ -265,7 +266,7 @@ class MosaicPage extends Component {
 
 const mapStateToProps = (store, ownProps) => {
   return {
-    open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
+    open_add_mosaic_form: store.mosaic_reducer.open_add_mosaic_form,
     mosaics: store.drawer_reducer.mosaics,
     project_opened: store.drawer_reducer.project_opened,
     open_upload_shape_form: store.mosaic_reducer.open_upload_shape_form,

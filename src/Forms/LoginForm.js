@@ -15,20 +15,20 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import login from "../images/login.jpg";
 import bigdata from "../images/bigdata.png";
-import ciat from "../images/ciat.png";
+import ciat from "../images/logophenolv3.png";
 
 function Copyright() {
   return (
     <div>
       <Typography variant="body2" color="textSecondary" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="www.ciat.cgiar.org/">
+        <Link color="inherit" href="http://www.ciat.cgiar.org/">
           {"International Center for Tropical Agriculture - "}
         </Link>
         {new Date().getFullYear()}
       </Typography>
       <Typography variant="body2" color="textSecondary" align="center">
-        {". Built with "}
+        {"Built with "}
         <Link color="inherit" href="https://material-ui.com/">
           Material-UI.
         </Link>
@@ -49,7 +49,7 @@ const styles = theme => ({
   },
   logos: {
     margin: theme.spacing(4, 0),
-    marginLeft: "30%",
+    marginLeft: "20%",
     display: "flex",
     "vertical-align": "top" /* remove extra pixels under inline element */
   },
@@ -116,7 +116,7 @@ class LoginForm extends Component {
             <img
               src={ciat}
               id={"ciat"}
-              style={{ width: "70%", height: "70%" }}
+              style={{ width: "75%", height: "75%" }}
             />
             {/*<img*/}
             {/*  src={bigdata}*/}

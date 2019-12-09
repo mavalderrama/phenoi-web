@@ -4,19 +4,12 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as mosaic_actions from "../Redux/actions/mosaic_actions";
 import * as editor_actions from "../Redux/actions/editor_actions";
-import Fab from "@material-ui/core/Fab";
-import EditIcon from "@material-ui/icons/Edit";
-import WidgetsIcon from "@material-ui/icons/Widgets";
-import PhotoSizeSelectSmallIcon from "@material-ui/icons/PhotoSizeSelectSmall";
-import Zoom from "@material-ui/core/Zoom";
-import Tooltip from "@material-ui/core/Tooltip";
-import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import { withStyles, withTheme } from "@material-ui/core";
 import Loading from "../components/Loading";
 import FileSaver from "file-saver";
 import constants from "../Redux/constants";
 import L from "leaflet";
-import * as goo from "leaflet.gridlayer.googlemutant";
+// import * as goo from "leaflet.gridlayer.googlemutant";
 import WorkIcon from "@material-ui/icons/Work";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import TimelineIcon from "@material-ui/icons/Timeline";
@@ -78,9 +71,9 @@ class EditorPage extends Component {
             "pk.eyJ1IjoibWF2YWxkZXJyYW1hIiwiYSI6ImNrMHh2NmduaDA4eTkzbW81MzRucDR3ZWUifQ.cDdDtvBmT048Y83CjWCYmw"
         }
       );
-      var google = L.gridLayer.googleMutant({
-        type: "hybrid" // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-      });
+      // var google = L.gridLayer.googleMutant({
+      //   type: "hybrid" // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      // });
 
       this.map = L.map("map", {
         center: [3.4982633, -76.3603093], //[3.4982633, -76.3603093],
@@ -92,7 +85,7 @@ class EditorPage extends Component {
 
       var baseMaps = {
         Streets: streets,
-        Hybrid: google,
+        // Hybrid: google,
         Satellite: satellite
       };
       vis.forEach(index_name => {

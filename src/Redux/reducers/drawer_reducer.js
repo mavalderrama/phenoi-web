@@ -7,7 +7,6 @@ let initial_state = {
   mosaics: [],
   mosaic_opened: "",
   open_add_project_form: false,
-  open_add_mosaic_form: false,
   submit_add_project: false,
   open_add_shapefile: false,
   bread: []
@@ -27,7 +26,6 @@ export default function(state = initial_state, action) {
       mosaics: [],
       mosaic_opened: "",
       open_add_project_form: false,
-      open_add_mosaic_form: false,
       submit_add_project: false
     };
   }
@@ -96,27 +94,6 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       open_add_project_form: false
-    };
-  }
-
-  if (type === "OPEN_ADD_MOSAIC_FORM") {
-    return {
-      ...state,
-      open_add_mosaic_form: true
-    };
-  }
-
-  if (type === "CLOSE_ADD_MOSAIC_FORM") {
-    return {
-      ...state,
-      open_add_mosaic_form: false
-    };
-  }
-
-  if (type === "CREATE_MOSAIC_FULFILLED") {
-    return {
-      ...state,
-      open_add_mosaic_form: false
     };
   }
 
