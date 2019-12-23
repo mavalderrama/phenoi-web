@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/images/logophenolv3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Forms/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Forms/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/EditorPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/EditorPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/MosaicPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/MosaicPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/drawer_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/mosaic_actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/drawer_reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/reducers/mosaic_reducer.js" afterDir="false" />
-    </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,18 +73,6 @@
       <recent name="D:\repos\CIAT\Platform\ciat.cgiar.org.phenoi.web\src\Redux" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
@@ -110,6 +87,18 @@
       <envs />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -191,5 +180,11 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/ciatlib" />
     </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="452" y="133" width="761" height="628" key="find.popup" timestamp="1577077438233">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="452" y="133" width="761" height="628" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1577077438233" />
   </component>
 </project>

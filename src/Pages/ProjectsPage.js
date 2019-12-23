@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles, withTheme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Loading from "../components/Loading";
-import splash from "../images/splash.jpg";
+import splash from "../images/background.jpg";
 
 const styles = theme => ({
   plusButton: { margin: theme.spacing(1, 0), float: "right" },

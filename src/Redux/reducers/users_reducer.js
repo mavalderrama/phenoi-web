@@ -1,6 +1,6 @@
 var initial_state = {
-    users : []
+  users: []
 };
-export default function (state=initial_state, action) {
-    return state;
+export default function(state = initial_state, action) {
+  return state;
 }
