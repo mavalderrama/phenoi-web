@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="" />
+    <list default="true" id="e301b0e4-eac7-4eff-a56e-868246cf4546" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/actions/auth_actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/constants/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="mavalderrama &lt;mavalderrama@outlook.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
@@ -28,9 +40,15 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/images" />
@@ -54,7 +72,7 @@
     <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Program Files\nodejs\node_modules\prettier" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -156,6 +174,9 @@
       <workItem from="1573150432215" duration="2501000" />
       <workItem from="1575040634176" duration="153000" />
       <workItem from="1575294932103" duration="489000" />
+      <workItem from="1578941071722" duration="1930000" />
+      <workItem from="1578945295990" duration="8017000" />
+      <workItem from="1578968951847" duration="1805000" />
     </task>
     <servers />
   </component>
@@ -182,9 +203,63 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1559" y="71" key="#File_Watchers" timestamp="1578946027758">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1559" y="71" key="#File_Watchers/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578946027758" />
+    <state x="-1697" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578945360937">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1697" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578945360937" />
+    <state x="-1383" y="243" key="#com.intellij.tools.ToolEditorDialog" timestamp="1578941131169">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1383" y="243" key="#com.intellij.tools.ToolEditorDialog/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578941131169" />
+    <state x="585" y="115" key="CommitChangelistDialog2" timestamp="1579016598477">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="115" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1579016598477" />
+    <state x="-1372" y="167" key="FileChooserDialogImpl" timestamp="1578941968056">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1372" y="167" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578941968056" />
+    <state width="1515" height="137" key="GridCell.Tab.0.bottom" timestamp="1578966695487">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="137" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1578966695487" />
+    <state width="1515" height="137" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578948206559" />
+    <state width="1515" height="137" key="GridCell.Tab.0.center" timestamp="1578966695487">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="137" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1578966695487" />
+    <state width="1515" height="137" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578948206558" />
+    <state width="1515" height="137" key="GridCell.Tab.0.left" timestamp="1578966695486">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="137" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1578966695486" />
+    <state width="1515" height="137" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578948206558" />
+    <state width="1515" height="137" key="GridCell.Tab.0.right" timestamp="1578966695487">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="137" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1578966695487" />
+    <state width="1515" height="137" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578948206558" />
+    <state x="-1643" y="55" key="SettingsEditor" timestamp="1578945330328">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1643" y="55" key="SettingsEditor/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578945330328" />
+    <state x="581" y="299" key="com.intellij.ide.util.TipDialog" timestamp="1579016514637">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="465" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578968953379" />
+    <state x="-1455" y="237" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578945296651" />
+    <state x="581" y="299" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1579016514637" />
     <state x="452" y="133" width="761" height="628" key="find.popup" timestamp="1577077438233">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="452" y="133" width="761" height="628" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1577077438233" />
+    <state x="-1489" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1578945943388">
+      <screen x="-1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="-1489" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1536.824@-1920.0.1536.824" timestamp="1578945943388" />
   </component>
 </project>

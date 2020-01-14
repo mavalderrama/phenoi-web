@@ -3,7 +3,7 @@ import constants from "./../../Redux/constants";
 
 const axiosConfig = {
   headers: {
-    "content-Type": "application/json",
+    "Content-Type": "application/json",
     Accept: "*/*"
   },
   withCredentials: false
@@ -12,8 +12,7 @@ const axiosConfig = {
 export function login(username, password) {
   return {
     type: "LOGIN",
-    payload: axios.post(
-      `${constants.API_URI}/login`,
+    payload: axios.post( `${constants.API_URI}/login`,
       {
         email: username,
         password: password
@@ -22,6 +21,7 @@ export function login(username, password) {
     )
   };
 }
+
 
 export function is_sessionActive() {
   let auth = {};
