@@ -4,13 +4,14 @@ import constants from "./../../Redux/constants";
 const axiosConfig = {
   headers: {
     "content-Type": "application/json"
-    // Accept: "*/*"
   },
   withCredentials: false
 };
 
 const axiosConfigFile = {
-  headers: { "Content-Type": "multipart/form-data" },
+  headers: {
+    "Content-Type": "multipart/form-data"
+  },
   withCredentials: false
 };
 

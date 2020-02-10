@@ -4,13 +4,14 @@ import constants from "./../../Redux/constants";
 const axiosConfig = {
   headers: {
     "content-Type": "application/json"
-    // Accept: "*/*"
   },
   withCredentials: false
 };
 
 const axiosConfigFile = {
-  headers: { "Content-Type": "multipart/form-data" },
+  headers: {
+    "Content-Type": "multipart/form-data"
+  },
   withCredentials: false
 };
 
@@ -140,5 +141,24 @@ export function popBread(location) {
   return {
     type: "POP_BREAD",
     payload: location
+  };
+}
+
+export function openAdminConsole() {
+  return {
+    type: "OPEN_ADMIN_CONSOLE"
+  };
+}
+
+export function closeAdminConsole() {
+  return {
+    type: "CLOSE_ADMIN_CONSOLE"
+  };
+}
+
+export function changeAdminTab(tab_value) {
+  return {
+    type: "CHANGE_TAB",
+    payload: tab_value
   };
 }

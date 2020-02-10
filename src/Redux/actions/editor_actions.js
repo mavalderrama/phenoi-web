@@ -4,8 +4,15 @@ import constants from "./../../Redux/constants";
 const axiosConfig = {
   headers: {
     "content-Type": "application/json"
-    // Accept: "/*"
-  }
+  },
+  withCredentials: false
+};
+
+const axiosConfigFile = {
+  headers: {
+    "Content-Type": "multipart/form-data"
+  },
+  withCredentials: false
 };
 
 const axiosConfigBlob = {
@@ -15,10 +22,6 @@ const axiosConfigBlob = {
     Accept: "application/zip"
   },
   responseType: "image/jpeg"
-};
-
-const axiosConfigFile = {
-  headers: { "Content-Type": "multipart/form-data" }
 };
 
 export function calibrate(mosaic_id) {

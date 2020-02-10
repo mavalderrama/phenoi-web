@@ -3,8 +3,14 @@ import constants from "./../../Redux/constants";
 
 const axiosConfig = {
   headers: {
-    "Content-Type": "application/json",
-    Accept: "*/*"
+    "content-Type": "application/json"
+  },
+  withCredentials: false
+};
+
+const axiosConfigFile = {
+  headers: {
+    "Content-Type": "multipart/form-data"
   },
   withCredentials: false
 };
@@ -12,7 +18,8 @@ const axiosConfig = {
 export function login(username, password) {
   return {
     type: "LOGIN",
-    payload: axios.post( `${constants.API_URI}/login`,
+    payload: axios.post(
+      `${constants.API_URI}/login`,
       {
         email: username,
         password: password
@@ -21,7 +28,6 @@ export function login(username, password) {
     )
   };
 }
-
 
 export function is_sessionActive() {
   let auth = {};
@@ -36,7 +42,6 @@ export function is_sessionActive() {
   if (id && user) {
     auth = { id: id, user: user };
   } else auth = false;
-  console.log("auth", auth);
   return {
     type: "IS_ACTIVE",
     payload: auth
@@ -47,5 +52,17 @@ export function logout() {
   return {
     type: "LOGOUT",
     payload: axios.post(`${constants.API_URI}/logout`, {}, axiosConfig)
+  };
+}
+
+export function checkRoles(username) {
+  console.log("checking roles");
+  return {
+    type: "CHECK_ROLE",
+    payload: axios.post(
+      `${constants.API_URI}/check_role`,
+      { email: username },
+      axiosConfig
+    )
   };
 }

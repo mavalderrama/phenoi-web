@@ -17,6 +17,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import ListItemText from "@material-ui/core/ListItemText";
 import WorkIcon from "@material-ui/icons/Work";
 import { deepOrange } from "@material-ui/core/colors";
@@ -25,8 +26,19 @@ import Grid from "@material-ui/core/Grid";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import * as auth_actions from "../Redux/actions/auth_actions";
 import splash from "../images/satreps.jpg";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Paper from "@material-ui/core/Paper";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
+import AdminAddUserForm from "../Forms/AdminAddUserForm";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
@@ -138,6 +150,8 @@ class PageWrapper extends Component {
     test.map(test_val => {
       console.log("todo", test_val.name);
     });
+    const { auth_actions } = this.props;
+    auth_actions.checkRoles(sessionStorage.getItem("user"));
   }
 
   handleDrawerOpen = () => {
@@ -156,10 +170,56 @@ class PageWrapper extends Component {
     auth_actions.logout();
   };
 
+  handleAdminConsole = () => {
+    const { admin, actions } = this.props;
+    if (admin) {
+      console.log("open admin console", admin);
+      actions.openAdminConsole();
+    }
+  };
+
+  handleCloseAdminConsole = () => {
+    const { admin, actions } = this.props;
+    if (admin) {
+      actions.closeAdminConsole();
+    }
+  };
+
+  handleTabChange = (event, state) => {
+    const { actions } = this.props;
+    actions.changeAdminTab(state);
+  };
+
   render() {
     const menuId = "primary-search-account-menu";
-    const { classes, theme, open, bread, drawer_buttons } = this.props;
-    console.log("Actual bread", bread);
+    const {
+      classes,
+      theme,
+      open,
+      bread,
+      drawer_buttons,
+      admin,
+      admin_console,
+      admin_console_tab
+    } = this.props;
+    console.log("admin", admin);
+    function TabPanel(props) {
+      const { children, value, index, ...other } = props;
+
+      return (
+        <Typography
+          component="div"
+          role="tabpanel"
+          hidden={value !== index}
+          id={`scrollable-prevent-tabpanel-${index}`}
+          aria-labelledby={`scrollable-prevent-tab-${index}`}
+          {...other}
+        >
+          {/*Box size can be determined by p*/}
+          {value === index && <Box p={2}>{children}</Box>}
+        </Typography>
+      );
+    }
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -230,14 +290,14 @@ class PageWrapper extends Component {
               </ListItem>
             ))}
             <Divider />
-
-            {/*<ListItem button onClick={this.handleClickOnProjectButton}>*/}
-            {/*  <ListItemIcon>*/}
-            {/*    <WorkIcon />*/}
-            {/*  </ListItemIcon>*/}
-            {/*  <ListItemText primary={"Projects"} />*/}
-            {/*</ListItem>*/}
-
+            {admin && (
+              <ListItem button onClick={this.handleAdminConsole}>
+                <ListItemIcon>
+                  <SupervisorAccountIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Admin Panel"} />
+              </ListItem>
+            )}
             <ListItem button onClick={this.handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />
@@ -251,6 +311,34 @@ class PageWrapper extends Component {
           <div className={classes.toolbar} />
           {this.props.children}
         </main>
+        <Dialog
+          open={admin_console}
+          onClose={this.handleCloseAdminConsole}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Admin Console</DialogTitle>
+          <DialogContent>
+            <Paper variant="outlined">
+              <Tabs
+                value={admin_console_tab}
+                indicatorColor="primary"
+                textColor="primary"
+                onChange={this.handleTabChange}
+              >
+                <Tab label="Add User" />
+                <Tab label="Administration" />
+              </Tabs>
+            </Paper>
+            <TabPanel value={admin_console_tab} index={0}>
+              <AdminAddUserForm />
+            </TabPanel>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseAdminConsole} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
@@ -264,10 +352,13 @@ const mapStateToProps = (store, ownProps) => {
     mosaics: store.drawer_reducer.mosaics,
     expand_projects: store.drawer_reducer.expand_projects,
     is_authenticated: store.auth_reducer.is_authenticated,
+    admin: store.auth_reducer.admin,
     open_add_project_form: store.drawer_reducer.open_add_project_form,
     open_add_mosaic_form: store.drawer_reducer.open_add_mosaic_form,
     project_opened: store.drawer_reducer.project_opened,
-    bread: store.drawer_reducer.bread
+    bread: store.drawer_reducer.bread,
+    admin_console: store.drawer_reducer.admin_console,
+    admin_console_tab: store.drawer_reducer.admin_console_tab
   };
 };
 const mapDispatchToProps = dispatch => {

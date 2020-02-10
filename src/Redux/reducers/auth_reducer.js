@@ -3,7 +3,8 @@ var initial_state = {
   is_loading: false,
   is_session_active: false,
   user: "",
-  id: 0
+  id: 0,
+  admin: false
 };
 export default function(state = initial_state, action) {
   console.log(action);
@@ -58,6 +59,14 @@ export default function(state = initial_state, action) {
       is_loading: false,
       is_authenticated: false,
       is_session_active: false
+    };
+  }
+
+  if (type === "CHECK_ROLE_FULFILLED") {
+    const { role } = payload.data;
+    return {
+      ...state,
+      admin: role === 666
     };
   }
 

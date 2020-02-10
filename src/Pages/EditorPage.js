@@ -47,7 +47,10 @@ class EditorPage extends Component {
     editor_actions.getMosaicData(params.id).then(response => {
       console.log("vis", response);
       const { vis, bbox } = response.value.data;
-      let bbox_inv = [[bbox[1], bbox[0]], [bbox[3], bbox[2]]];
+      let bbox_inv = [
+        [bbox[1], bbox[0]],
+        [bbox[3], bbox[2]]
+      ];
 
       var satellite = L.tileLayer(
         "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",

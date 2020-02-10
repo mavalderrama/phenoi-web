@@ -9,7 +9,9 @@ let initial_state = {
   open_add_project_form: false,
   submit_add_project: false,
   open_add_shapefile: false,
-  bread: []
+  bread: [],
+  admin_console: true,
+  admin_console_tab: 0
 };
 
 export default function(state = initial_state, action) {
@@ -26,7 +28,9 @@ export default function(state = initial_state, action) {
       mosaics: [],
       mosaic_opened: "",
       open_add_project_form: false,
-      submit_add_project: false
+      submit_add_project: false,
+      is_admin: false,
+      admin_console: false
     };
   }
   if (type === "OPEN") {
@@ -134,6 +138,27 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       bread: act_bread
+    };
+  }
+
+  if (type === "OPEN_ADMIN_CONSOLE") {
+    return {
+      ...state,
+      admin_console: true
+    };
+  }
+
+  if (type === "CLOSE_ADMIN_CONSOLE") {
+    return {
+      ...state,
+      admin_console: false
+    };
+  }
+
+  if (type === "CHANGE_TAB") {
+    return {
+      ...state,
+      admin_console_tab: payload
     };
   }
 
