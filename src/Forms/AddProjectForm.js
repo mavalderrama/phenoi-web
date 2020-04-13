@@ -23,6 +23,7 @@ const renderTextField = ({
 class AddProjectForm extends Component {
   render() {
     const { handleSubmit, handleClose } = this.props;
+    console.log("handle submit", handleSubmit);
     return (
       <div>
         <form onSubmit={handleSubmit}>

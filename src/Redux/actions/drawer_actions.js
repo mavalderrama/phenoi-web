@@ -162,3 +162,33 @@ export function changeAdminTab(tab_value) {
     payload: tab_value
   };
 }
+
+export function fetch_roles() {
+  return {
+    type: "FETCH_ROLES",
+    payload: axios.get(`${constants.API_URI}/check_role`)
+  };
+}
+
+export function fetchCompanies() {
+  return {
+    type: "FETCH_COMPANIES",
+    payload: axios.get(`${constants.API_URI}/company`)
+  };
+}
+
+export function submitAddUser(values) {
+  const { name, lastname, email, company, role, phone, password } = values;
+  return {
+    type: "SUBMIT_ADD_USER",
+    payload: axios.post(`${constants.API_URI}/add_user`, {
+      email: email,
+      last_name: lastname,
+      first_name: name,
+      phone_number: phone,
+      company: company,
+      role: role,
+      password: password
+    })
+  };
+}

@@ -39,6 +39,7 @@ import Paper from "@material-ui/core/Paper";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import AdminAddUserForm from "../Forms/AdminAddUserForm";
+import CloseIcon from "@material-ui/icons/Close";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 
@@ -140,18 +141,24 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  adminConsoleDialogCloseButton: {
+    display: "flex",
+    "justify-content": "space-between",
+    "align-items": "center",
+    marginLeft: theme.spacing(2)
   }
 });
 
 class PageWrapper extends Component {
   componentDidMount() {
-    // this.props.actions.pushBread(this.props.actual);
-    var test = [{ name: "test_name1" }, { name: "test_name2" }];
-    test.map(test_val => {
-      console.log("todo", test_val.name);
+    const { auth_actions, actions, admin } = this.props;
+    auth_actions.checkRoles(sessionStorage.getItem("user")).then(response => {
+      if (response.value.data.role) {
+        actions.fetch_roles();
+        actions.fetchCompanies();
+      }
     });
-    const { auth_actions } = this.props;
-    auth_actions.checkRoles(sessionStorage.getItem("user"));
   }
 
   handleDrawerOpen = () => {
@@ -190,6 +197,12 @@ class PageWrapper extends Component {
     actions.changeAdminTab(state);
   };
 
+  handleSubmitAdminConsole = values => {
+    console.log("submitting", values);
+    const { actions } = this.props;
+    actions.submitAddUser(values);
+  };
+
   render() {
     const menuId = "primary-search-account-menu";
     const {
@@ -200,7 +213,9 @@ class PageWrapper extends Component {
       drawer_buttons,
       admin,
       admin_console,
-      admin_console_tab
+      admin_console_tab,
+      roles_available,
+      companies_available
     } = this.props;
     console.log("admin", admin);
     function TabPanel(props) {
@@ -314,9 +329,18 @@ class PageWrapper extends Component {
         <Dialog
           open={admin_console}
           onClose={this.handleCloseAdminConsole}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby="form-dialog"
         >
-          <DialogTitle id="form-dialog-title">Admin Console</DialogTitle>
+          <h2 className={classes.adminConsoleDialogCloseButton}>
+            Admin Console
+            <IconButton
+              onClick={this.handleCloseAdminConsole}
+              style={{ padding: 0, "border-radius": "0%", float: "right" }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </h2>
+
           <DialogContent>
             <Paper variant="outlined">
               <Tabs
@@ -325,19 +349,27 @@ class PageWrapper extends Component {
                 textColor="primary"
                 onChange={this.handleTabChange}
               >
+                <Tab label={"Add Company"} />
                 <Tab label="Add User" />
                 <Tab label="Administration" />
               </Tabs>
             </Paper>
             <TabPanel value={admin_console_tab} index={0}>
-              <AdminAddUserForm />
+              <AdminAddUserForm roles_available={roles_available} />
+            </TabPanel>
+            <TabPanel value={admin_console_tab} index={1}>
+              <AdminAddUserForm
+                onSubmit={this.handleSubmitAdminConsole}
+                companies_available={companies_available}
+                roles_available={roles_available}
+              />
             </TabPanel>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCloseAdminConsole} color="primary">
-              Close
-            </Button>
-          </DialogActions>
+          {/*<DialogActions>*/}
+          {/*  <Button onClick={this.handleCloseAdminConsole} color="primary">*/}
+          {/*    Close*/}
+          {/*  </Button>*/}
+          {/*</DialogActions>*/}
         </Dialog>
       </div>
     );
@@ -358,7 +390,9 @@ const mapStateToProps = (store, ownProps) => {
     project_opened: store.drawer_reducer.project_opened,
     bread: store.drawer_reducer.bread,
     admin_console: store.drawer_reducer.admin_console,
-    admin_console_tab: store.drawer_reducer.admin_console_tab
+    admin_console_tab: store.drawer_reducer.admin_console_tab,
+    roles_available: store.drawer_reducer.roles_available,
+    companies_available: store.drawer_reducer.companies_available
   };
 };
 const mapDispatchToProps = dispatch => {

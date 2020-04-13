@@ -11,7 +11,9 @@ let initial_state = {
   open_add_shapefile: false,
   bread: [],
   admin_console: true,
-  admin_console_tab: 0
+  admin_console_tab: 0,
+  roles_available: [],
+  companies_available: []
 };
 
 export default function(state = initial_state, action) {
@@ -159,6 +161,24 @@ export default function(state = initial_state, action) {
     return {
       ...state,
       admin_console_tab: payload
+    };
+  }
+
+  if (type === "FETCH_ROLES_FULFILLED") {
+    const { data } = payload;
+    console.log("FETCH_ROLES_FULFILLED", data);
+    return {
+      ...state,
+      roles_available: data.roles
+    };
+  }
+
+  if (type === "FETCH_COMPANIES_FULFILLED") {
+    const { data } = payload;
+    console.log("FETCH_ROLES_FULFILLED", data);
+    return {
+      ...state,
+      companies_available: data.company
     };
   }
 
